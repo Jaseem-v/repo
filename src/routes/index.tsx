@@ -72,7 +72,7 @@ export default function Router() {
       ),
       children: [
         { element: <Navigate to={PATH_AFTER_LOGIN} replace />, index: true },
-        { path: 'app', element: <Common name='dashboard/app' /> },
+        { path: 'app', element: <Home /> },
         { path: 'ecommerce', element: <Common name='dashboard/ecommerce' /> },
         { path: 'analytics', element: <Common name='dashboard/analytics' /> },
         { path: 'banking', element: <Common name='dashboard/banking' /> },
@@ -182,6 +182,7 @@ const ResetPassword = Loadable(lazy(() => import('../pages/auth/ResetPassword'))
 const NewPassword = Loadable(lazy(() => import('../pages/auth/NewPassword')));
 const VerifyCode = Loadable(lazy(() => import('../pages/auth/VerifyCode')));
 
+const Home = Loadable(lazy(() => import('../pages/Home')));
 const Page500 = Loadable(lazy(() => import('../pages/Page500')));
 const Page403 = Loadable(lazy(() => import('../pages/Page403')));
 const Page404 = Loadable(lazy(() => import('../pages/Page404')));

@@ -13,7 +13,6 @@ type props = {
 
 export default function PageFive({ name }: props) {
     const { themeStretch } = useSettings();
-
     return (
         <Page title={name}>
             <Container maxWidth={themeStretch ? false : 'xl'}>
