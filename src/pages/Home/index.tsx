@@ -31,8 +31,8 @@ export default function Home() {
                 />
                 {
                     error ? <ServerError /> :
-                        loading ? <h3>Loading...</h3> :
-                            <UserList users={data.users?.data || []} />
+                        loading ? <UserList users={[]}  loading={loading}/> :
+                            <UserList users={data.users?.data || []} loading={loading}/>
                 }
 
 

@@ -4,10 +4,13 @@ import {
     TableHead,
     TableBody,
     TableRow,
-    TableCell
+    TableCell,
+    Skeleton
 } from '@mui/material'
 import Scrollbar from 'src/components/Scrollbar'
+import SkeletonPost from 'src/components/skelton/SkeletonPost';
 import CreateUser from './CreateUser';
+
 type Props = {
     users: {
         name: string;
@@ -15,14 +18,23 @@ type Props = {
         email: string;
         username: string;
         website: string;
-    }[]
+    }[],
+    loading: boolean
 }
 
 
 const TABLE_HEAD = ['Name', 'Phone', 'Email', 'Username', 'Website']
 
 
-export default function ({ users }: Props) {
+export default function ({ users, loading }: Props) {
+
+    // simple array generated to get loading rows
+
+    let loadingArray: number[] = []
+    for (let i = 0; i < 10; i++) {
+        loadingArray.push(i);
+    }
+
 
     return (
 
@@ -38,7 +50,17 @@ export default function ({ users }: Props) {
                             }
                         </TableHead>
                         <TableBody>
-                            {
+                            {loading ?
+                                loadingArray.map((user, index) => (
+                                    <TableRow key={index}>
+                                        <TableCell>{<Skeleton variant="text" height={20} />}</TableCell>
+                                        <TableCell>{<Skeleton variant="text" height={20} />}</TableCell>
+                                        <TableCell>{<Skeleton variant="text" height={20} />}</TableCell>
+                                        <TableCell>{<Skeleton variant="text" height={20} />}</TableCell>
+                                        <TableCell>{<Skeleton variant="text" height={20} />}</TableCell>
+                                    </TableRow>
+                                ))
+                                :
                                 users.map((user, index) => (
                                     <TableRow key={index}>
                                         <TableCell>{user.name}</TableCell>
