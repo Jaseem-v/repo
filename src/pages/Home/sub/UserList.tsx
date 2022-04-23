@@ -7,6 +7,7 @@ import {
     TableCell
 } from '@mui/material'
 import Scrollbar from 'src/components/Scrollbar'
+import RoleBasedGuard from 'src/guards/RoleBasedGuard';
 import CreateUser from './CreateUser';
 type Props = {
     users: {
@@ -27,6 +28,9 @@ export default function ({ users }: Props) {
     return (
 
         <>
+            <RoleBasedGuard roles={['Admin']}>
+                <CreateUser />
+            </RoleBasedGuard>
             <Scrollbar>
                 <TableContainer>
                     <Table>
@@ -53,7 +57,6 @@ export default function ({ users }: Props) {
                     </Table>
                 </TableContainer>
             </Scrollbar>
-            <CreateUser />
         </>
 
     )
