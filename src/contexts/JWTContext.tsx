@@ -32,8 +32,14 @@ const accessToken = 'eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3
 
 const user = {
   name: 'New User',
-  role: 'Admin',
+  role: 'User',
   email: 'user@email.com'
+}
+
+const admin = {
+  name: 'Admin',
+  role: 'Admin',
+  email: 'admin@sams.com'
 }
 
 export type JWTActions = ActionMap<JWTAuthPayload>[keyof ActionMap<JWTAuthPayload>];
@@ -142,7 +148,7 @@ function AuthProvider({ children }: AuthProviderProps) {
     dispatch({
       type: Types.Login,
       payload: {
-        user,
+        user: email === admin.email ? admin : user,
       },
     });
   };

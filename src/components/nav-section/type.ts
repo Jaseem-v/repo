@@ -33,5 +33,6 @@ export interface NavSectionProps extends BoxProps {
   navConfig: {
     subheader: string;
     items: NavListProps[];
+    roles?: string[];
   }[];
 }

@@ -8,6 +8,7 @@ import {
     Skeleton
 } from '@mui/material'
 import Scrollbar from 'src/components/Scrollbar'
+import RoleBasedGuard from 'src/guards/RoleBasedGuard';
 import SkeletonPost from 'src/components/skelton/SkeletonPost';
 import CreateUser from './CreateUser';
 
@@ -39,6 +40,9 @@ export default function ({ users, loading }: Props) {
     return (
 
         <>
+            <RoleBasedGuard roles={['Admin']}>
+                <CreateUser />
+            </RoleBasedGuard>
             <Scrollbar>
                 <TableContainer>
                     <Table>
@@ -75,7 +79,6 @@ export default function ({ users, loading }: Props) {
                     </Table>
                 </TableContainer>
             </Scrollbar>
-            <CreateUser />
         </>
 
     )

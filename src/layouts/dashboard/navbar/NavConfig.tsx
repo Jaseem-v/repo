@@ -46,6 +46,7 @@ const navConfig = [
   // ----------------------------------------------------------------------
   {
     subheader: 'management',
+    roles: ['Admin'],
     items: [
       // USER
       {
@@ -53,7 +54,7 @@ const navConfig = [
         path: PATH_DASHBOARD.user.root,
         icon: ICONS.user,
         children: [
-          { title: 'profile', path: PATH_DASHBOARD.user.profile },
+          { title: 'profile', path: PATH_DASHBOARD.user.profile, },
           { title: 'cards', path: PATH_DASHBOARD.user.cards },
           { title: 'list', path: PATH_DASHBOARD.user.list },
           { title: 'create', path: PATH_DASHBOARD.user.new },
@@ -108,6 +109,7 @@ const navConfig = [
   // ----------------------------------------------------------------------
   {
     subheader: 'app',
+    roles: ['Admin'],
     items: [
       {
         title: 'mail',
@@ -124,6 +126,7 @@ const navConfig = [
   // DEMO MENU STATES
   {
     subheader: 'Other cases',
+    roles: ['Admin'],
     items: [
       {
         // default roles : All roles can see this entry.
@@ -134,8 +137,8 @@ const navConfig = [
         title: 'item_by_roles',
         path: PATH_DASHBOARD.permissionDenied,
         icon: ICONS.menuItem,
-        roles: ['admin'],
         caption: 'only_admin_can_see_this_item',
+        roles: ['Admin'],
       },
       {
         title: 'menu_level_1',
