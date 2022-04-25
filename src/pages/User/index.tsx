@@ -22,6 +22,11 @@ const columns: TableSchemaI[] = [
         label: "firstName",
         type: "Text"
     },
+    {
+        field: "age",
+        label: "age",
+        type: "Text"
+    },
 ];
 
 const rows = [
@@ -40,7 +45,24 @@ export default function Test() {
     return (
         <Page title='TestTable'>
             <Container>
-                <DataGrid columns={columns} rows={rows} />
+                <DataGrid
+                    filters={[{
+                        key: "firstName", matches:[{
+                            label: "Jon", op: "==", with: "Jon"
+                        }]
+                    },
+                    {key: "age",matches:[{
+                        label:"Older Than 50",op:">",with:50
+                    }]
+                
+                }
+                
+                
+                
+                
+                ]}
+
+                    columns={columns} rows={rows} />
             </Container>
 
         </Page>
