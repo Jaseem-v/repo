@@ -16,8 +16,14 @@ let Comptypes: ComptypesI = {
         view: ({ value }: { value: any }) => (
             <div>{value} </div>
         ),
-        control: (props: { label: string, value: any }) => (
-            <TextField  {...props}></TextField>
+        control: (props: { label: string, value: any, onChange: (e: string) => void }) => (
+            <TextField label={props.label}
+
+                value={props.value}
+                onInput={(e)=>{
+                    props.onChange(e.target.value)
+                }}
+            ></TextField>
         )
 
     }
