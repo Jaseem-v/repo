@@ -73,18 +73,18 @@ export default function Router() {
       children: [
         { element: <Navigate to={PATH_AFTER_LOGIN} replace />, index: true },
         { path: 'app', element: <Home /> },
-        { path: 'ecommerce', element: <User/> },
+        { path: 'ecommerce', element: <User /> },
         { path: 'analytics', element: <Common name='dashboard/analytics' /> },
         { path: 'banking', element: <Common name='dashboard/banking' /> },
-        { path: 'booking', element: <NewEmployee/> },
+        { path: 'addnewemployee', element: <NewEmployee /> },
 
         {
-          path: 'e-commerce',
+          path: 'Employee',
           children: [
             { element: <Navigate to="/dashboard/e-commerce/shop" replace />, index: true },
             { path: 'shop', element: <Common name='e-commerce/shop' /> },
             { path: 'product/:name', element: <Common name='e-commerce/product/name' /> },
-            { path: 'list', element: <Common name='e-commerce/list' /> },
+            { path: 'Add New Employee', element: <NewEmployee /> },
             { path: 'product/new', element: <Common name='e-commerce/product/new' /> },
             { path: 'product/:name/edit', element: <Common name='e-commerce/product/name/edit' /> },
             { path: 'checkout', element: <Common name='e-commerce/checkout' /> },
