@@ -8,11 +8,12 @@ import { TextField, TextFieldProps } from '@mui/material';
 type IProps = {
   name: string;
   children: any;
+  edit: boolean;
 };
 
 type Props = IProps & TextFieldProps;
 
-export default function RHFSelect({ name, children, ...other }: Props) {
+export default function RHFSelect({ name, children, edit, ...other }: Props) {
   // const { control } = useFormContext();
 
   return (
@@ -20,18 +21,20 @@ export default function RHFSelect({ name, children, ...other }: Props) {
     //   name={name}
     //   control={control}
     //   render={({ field, fieldState: { error } }) => (
-        <TextField
-          // {...field}
-          select
-          fullWidth
-          SelectProps={{ native: true }}
-          // error={!!error}
-          // helperText={error?.message}
-          {...other}
-        >
-          {children}
-        </TextField>
-      // )}
+    <TextField
+      // {...field}
+      select
+      fullWidth
+      SelectProps={{ native: true }}
+      // error={!!error}
+      // helperText={error?.message}
+      {...other}
+
+      disabled={!edit}
+    >
+      {children}
+    </TextField>
+    // )}
     // />
   );
 }

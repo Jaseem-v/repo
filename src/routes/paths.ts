@@ -40,8 +40,8 @@ export const PATH_DASHBOARD = {
     app: path(ROOTS_DASHBOARD, '/app'),
     ecommerce: path(ROOTS_DASHBOARD, '/ecommerce'),
     analytics: path(ROOTS_DASHBOARD, '/analytics'),
-    banking: path(ROOTS_DASHBOARD, '/banking'),
-    booking: path(ROOTS_DASHBOARD, '/addnewemployee'),
+    employeeDetails: path(ROOTS_DASHBOARD, '/employeeDetails'),
+    addnewemployee: path(ROOTS_DASHBOARD, '/addnewemployee'),
   },
   mail: {
     root: path(ROOTS_DASHBOARD, '/mail'),
