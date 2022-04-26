@@ -2,8 +2,10 @@ import { useState, useRef, ChangeEvent } from 'react';
 import { styled } from '@mui/material/styles';
 import { Link } from "react-router-dom"
 import { Product } from '../../@types/product';
-
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import QrCodeScannerOutlinedIcon from '@mui/icons-material/QrCodeScannerOutlined';
+import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
+import { SaveOutlined } from '@mui/icons-material';
 
 
 
@@ -76,7 +78,7 @@ export default function NewEmployee(props: IAppProps) {
     const classes = useStyle();
 
     const [uploadedFile, setUploadedFile] = useState<null | uploadedFileInterface>(null)
-    const [edit, setEdit] = useState<boolean>(true)
+    const [edit, setEdit] = useState<boolean>(false)
 
 
 
@@ -104,7 +106,7 @@ export default function NewEmployee(props: IAppProps) {
                             ]}
                         />
 
-                        <Button variant='contained' style={{ marginTop: "1rem" }} onClick={() => setEdit(!edit)}>
+                        <Button variant='contained' color="error" startIcon={edit ? <CloseOutlinedIcon /> : <CreateOutlinedIcon />} style={{ marginTop: "1rem" }} onClick={() => setEdit(!edit)}>
                             {edit ? "cancel" : "edit"}
                         </Button>
                     </div>
@@ -207,7 +209,7 @@ export default function NewEmployee(props: IAppProps) {
 
                                 {edit ?
 
-                                    <Button variant="contained" style={{ width: "100%", marginTop: "3rem" }} >Save</Button> : ""
+                                    <Button variant="contained" style={{ width: "100%", marginTop: "3rem" }} endIcon={<SaveOutlined />}>Save</Button> : ""
                                 }
 
 
