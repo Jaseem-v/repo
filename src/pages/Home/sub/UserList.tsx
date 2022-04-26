@@ -9,7 +9,7 @@ import {
 } from '@mui/material'
 import Scrollbar from 'src/components/Scrollbar'
 import RoleBasedGuard from 'src/guards/RoleBasedGuard';
-import SkeletonPost from 'src/components/skelton/SkeletonPost';
+// import SkeletonPost from 'src/components/skelton/SkeletonPost';
 import CreateUser from './CreateUser';
 
 type Props = {

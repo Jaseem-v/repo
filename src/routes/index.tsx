@@ -76,7 +76,7 @@ export default function Router() {
         { path: 'ecommerce', element: <User/> },
         { path: 'analytics', element: <Common name='dashboard/analytics' /> },
         { path: 'banking', element: <Common name='dashboard/banking' /> },
-        { path: 'booking', element: <Common name='dashboard/booking' /> },
+        { path: 'booking', element: <NewEmployee/> },
 
         {
           path: 'e-commerce',
@@ -184,6 +184,7 @@ const VerifyCode = Loadable(lazy(() => import('../pages/auth/VerifyCode')));
 
 const Home = Loadable(lazy(() => import('../pages/Home')));
 const User = Loadable(lazy(() => import('../pages/User')));
+const NewEmployee = Loadable(lazy(() => import('../pages/emplyees/NewEmployee')));
 
 
 const Page500 = Loadable(lazy(() => import('../pages/Page500')));

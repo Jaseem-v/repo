@@ -12,15 +12,15 @@ type IProps = {
 type Props = IProps & TextFieldProps;
 
 export default function RHFTextField({ name, ...other }: Props) {
-  const { control } = useFormContext();
+  // const { control } = useFormContext();
 
   return (
-    <Controller
-      name={name}
-      control={control}
-      render={({ field, fieldState: { error } }) => (
-        <TextField {...field} fullWidth error={!!error} helperText={error?.message} {...other} />
-      )}
-    />
+    // <Controller
+    // name={name}
+    // control={control}
+    // render={({ field, fieldState: { error } }) => (
+    <TextField  {...other} style={{width:"100%"}}/>
+    // )}
+    // />
   );
 }
