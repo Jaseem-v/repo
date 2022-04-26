@@ -16,9 +16,9 @@ export default function DetailsSelect({data}: IAppProps) {
     return (
         <div>
             <RHFSelect name="category"  style={{ marginTop: "2rem" }}>
-                {data.map((el) => (
+                {data.map((el,i) => (
 
-                    <option key={el} value={el}>
+                    <option key={i} value={el}>
                         {el}
                     </option>
 
