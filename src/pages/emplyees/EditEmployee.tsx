@@ -11,7 +11,8 @@ import { styled } from '@mui/material/styles';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import { SaveOutlined } from '@mui/icons-material';
-
+import DeleteIcon from '@mui/icons-material/Delete';
+import DisabledByDefaultIcon from '@mui/icons-material/DisabledByDefault';
 
 
 import {
@@ -42,11 +43,11 @@ interface uploadedFileInterface {
 
 const data = {
 
-    email: ["email", "email", "email", "email", "email"],
-    Designation: ["Designation", "Designation", "Designation", "Designation", "Designation"],
-    Company: ["Company", "Company", "Company", "Company", "Company"],
-    Department: ["Department", "Department", "Department", "Department", "Department"],
-    Nationality: ["Nationality", "Nationality", "Nationality", "Nationality", "Nationality"],
+    email: ["email-1", "email-2", "email-3", "email-4", "email-5"],
+    Designation: ["Designation-1", "Designation-2", "Designation-3", "Designation-4", "Designation-5"],
+    Company: ["Company-1", "Company-2", "Company-3", "Company-4", "Company-5"],
+    Department: ["Department-1", "Department-2", "Department-3", "Department-4", "Department-5"],
+    Nationality: ["Nationality-1", "Nationality-2", "Nationality-3", "Nationality-4", "Nationality-5"],
 
 }
 
@@ -86,7 +87,7 @@ export default function EditEmployee() {
     const defaultValues = useMemo(() => ({
         firstName: currentUser?.firstName,
         firstName_ar: currentUser?.firstName_ar,
-        middleName: currentUser?.middleName ,
+        middleName: currentUser?.middleName,
         middleName_ar: currentUser?.middleName_ar,
         lastName: currentUser?.lastName,
         lastName_ar: currentUser?.lastName_ar,
@@ -147,10 +148,17 @@ export default function EditEmployee() {
                                 ]}
                             />
 
-
-                            <Button variant='contained' color="error" startIcon={<CloseOutlinedIcon />} style={{ marginTop: "1rem" }} onClick={() => setEdit(!edit)}>
-                                cancel
-                            </Button>
+                            <div>
+                                <Button variant='contained' color="warning" startIcon={<DisabledByDefaultIcon />} style={{ marginTop: "1rem", marginRight: "1rem" }} onClick={() => setEdit(!edit)}>
+                                    Disable
+                                </Button>
+                                <Button variant='contained' color="error" startIcon={<DeleteIcon />} style={{ marginTop: "1rem", marginRight: "1rem" }} onClick={() => setEdit(!edit)}>
+                                    Delete
+                                </Button>
+                                <Button variant='contained' color="secondary" startIcon={<CreateOutlinedIcon />} style={{ marginTop: "1rem" }} onClick={() => setEdit(!edit)}>
+                                    Edit
+                                </Button>
+                            </div>
 
                         </div>
                         <Grid container spacing={3}>

@@ -14,6 +14,8 @@ import AuthGuard from '../guards/AuthGuard';
 import { PATH_AFTER_LOGIN } from '../config';
 // components
 import LoadingScreen from '../components/LoadingScreen';
+import AddNewCompany from 'src/pages/company/AddNewCompany';
+import CompanyDetails from 'src/pages/company/companyDetails';
 
 // ----------------------------------------------------------------------
 
@@ -77,7 +79,8 @@ export default function Router() {
         { path: 'analytics', element: <Common name='dashboard/analytics' /> },
         { path: 'editemployeedetails', element: <EditEmployee /> },
         { path: 'addnewemployee', element: <NewEmployee /> },
-
+        { path: 'add-new-company', element: <AddNewCompany /> },
+        { path: 'company-details', element: <CompanyDetails /> },
         {
           path: 'Employee',
           children: [

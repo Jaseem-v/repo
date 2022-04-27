@@ -101,9 +101,7 @@ export const DocumentDetails = () => {
 export const EmployeeFileUpload = ({ uploadedFile, setUploadedFile }: Props) => {
     const uploadInputRef = useRef<HTMLInputElement>(null)
     const fileOnchange = (e: ChangeEvent<HTMLInputElement>) => {
-        // if (e.target.files[0]) {
         setUploadedFile(e.target.files?.[0] || null)
-        // } else {
         console.log("error");
 
         // }

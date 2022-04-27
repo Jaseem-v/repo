@@ -40,13 +40,14 @@ interface uploadedFileInterface {
 
 
 
+
 const data = {
 
-    email: ["email", "email", "email", "email", "email"],
-    Designation: ["Designation", "Designation", "Designation", "Designation", "Designation"],
-    Company: ["Company", "Company", "Company", "Company", "Company"],
-    Department: ["Department", "Department", "Department", "Department", "Department"],
-    Nationality: ["Nationality", "Nationality", "Nationality", "Nationality", "Nationality"],
+    email: ["email-1", "email-2", "email-3", "email-4", "email-5"],
+    Designation: ["Designation-1", "Designation-2", "Designation-3", "Designation-4", "Designation-5"],
+    Company: ["Company-1", "Company-2", "Company-3", "Company-4", "Company-5"],
+    Department: ["Department-1", "Department-2", "Department-3", "Department-4", "Department-5"],
+    Nationality: ["Nationality-1", "Nationality-2", "Nationality-3", "Nationality-4", "Nationality-5"],
 
 }
 
