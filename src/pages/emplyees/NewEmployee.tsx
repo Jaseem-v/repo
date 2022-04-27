@@ -124,10 +124,6 @@ export default function NewEmployee() {
 
     const [uploadedFile, setUploadedFile] = useState<null | uploadedFileInterface>({})
 
-    const [edit, setEdit] = useState<boolean>(false)
-
-
-    const uploadInputRef = useRef(null)
 
     return (
         <div>
@@ -150,8 +146,8 @@ export default function NewEmployee() {
                         <Grid container spacing={3}>
                             <Grid item md={8}>
 
-                                <CommonDetails />
-                                <DocumentDetails />
+                                <CommonDetails isEdit={false} />
+                                <DocumentDetails isEdit={false} />
                                 <EmployeeFileUpload uploadedFile={uploadedFile} setUploadedFile={setUploadedFile} />
 
 

@@ -126,7 +126,7 @@ export default function EditEmployee() {
 
     const [uploadedFile, setUploadedFile] = useState<null | uploadedFileInterface>({})
 
-    const [edit, setEdit] = useState<boolean>(false)
+    const [isEdit, setIsEdit] = useState<boolean>(true)
 
 
     const uploadInputRef = useRef(null)
@@ -140,23 +140,23 @@ export default function EditEmployee() {
                         <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between" }}>
 
                             <HeaderBreadcrumbs
-                                heading="Add New Employee"
+                                heading="Employee Details"
                                 links={[
                                     { name: 'Employees', href: "/dashboard/app" },
 
-                                    { name: "Addnew", href: "/dashboard/addnew", }
+                                    { name: "EmployeeDetails", href: "/dashboard/EmployeeDetails", }
                                 ]}
                             />
 
                             <div>
-                                <Button variant='contained' color="warning" startIcon={<DisabledByDefaultIcon />} style={{ marginTop: "1rem", marginRight: "1rem" }} onClick={() => setEdit(!edit)}>
+                                <Button variant='contained' color="warning" startIcon={<DisabledByDefaultIcon />} style={{ marginTop: "1rem", marginRight: "1rem" }} >
                                     Disable
                                 </Button>
-                                <Button variant='contained' color="error" startIcon={<DeleteIcon />} style={{ marginTop: "1rem", marginRight: "1rem" }} onClick={() => setEdit(!edit)}>
+                                <Button variant='contained' color="error" startIcon={<DeleteIcon />} style={{ marginTop: "1rem", marginRight: "1rem" }} >
                                     Delete
                                 </Button>
-                                <Button variant='contained' color="secondary" startIcon={<CreateOutlinedIcon />} style={{ marginTop: "1rem" }} onClick={() => setEdit(!edit)}>
-                                    Edit
+                                <Button variant='contained' color={isEdit ? "info" : "success"} startIcon={isEdit ? <CreateOutlinedIcon /> : <CloseOutlinedIcon />} style={{ marginTop: "1rem" }} onClick={() => setIsEdit(!isEdit)}>
+                                    {isEdit ? "Edit" : "Cancel"}
                                 </Button>
                             </div>
 
@@ -164,9 +164,9 @@ export default function EditEmployee() {
                         <Grid container spacing={3}>
                             <Grid item md={8}>
 
-                                <CommonDetails />
-                                <DocumentDetails />
-                                <EmployeeFileUpload uploadedFile={uploadedFile} setUploadedFile={setUploadedFile} />
+                                <CommonDetails isEdit={isEdit} />
+                                <DocumentDetails isEdit={isEdit} />
+                                <EmployeeFileUpload uploadedFile={uploadedFile} setUploadedFile={setUploadedFile} currentFile="details.doc" isEdit={isEdit} />
 
 
 
@@ -182,8 +182,10 @@ export default function EditEmployee() {
                                     <DetailsSelect data={data["Nationality"]} />
                                 </Card>
 
+                                {!isEdit &&
 
-                                <Button variant="contained" style={{ width: "100%", marginTop: "3rem" }} endIcon={<SaveOutlined />} type="submit">Save</Button> : ""
+                                    <Button variant="contained" style={{ width: "100%", marginTop: "3rem" }} endIcon={<SaveOutlined />} type="submit">Save</Button>
+                                }
 
                             </Grid>
 
