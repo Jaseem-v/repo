@@ -57,9 +57,11 @@ const LabelStyle = styled(Typography)(({ theme }) => ({
     marginBottom: theme.spacing(1),
 }));
 
+type props = {
+    isEdit?: boolean;
+}
 
-
-export default function NewEmployee() {
+export default function EditEmployee() {
 
     const currentUser = {
         firstName: 'Lionel',
@@ -82,19 +84,19 @@ export default function NewEmployee() {
     const { enqueueSnackbar } = useSnackbar();
 
     const defaultValues = useMemo(() => ({
-        firstName: '',
-        firstName_ar: '',
-        middleName: '',
-        middleName_ar: '',
-        lastName: '',
-        lastName_ar: '',
-        passportNumber: '',
-        emiratesID: '',
-        EIDExpirydate: '',
-        occupation_en: '',
-        visaExpiryDate: '',
-        passportExpiryDate: '',
-        occupation_ar: '',
+        firstName: currentUser?.firstName,
+        firstName_ar: currentUser?.firstName_ar,
+        middleName: currentUser?.middleName ,
+        middleName_ar: currentUser?.middleName_ar,
+        lastName: currentUser?.lastName,
+        lastName_ar: currentUser?.lastName_ar,
+        passportNumber: currentUser?.passportNumber,
+        emiratesID: currentUser?.emiratesID,
+        EIDExpirydate: currentUser?.EIDExpirydate,
+        occupation_en: currentUser?.occupation_en,
+        visaExpiryDate: currentUser?.visaExpiryDate,
+        passportExpiryDate: currentUser?.passportExpiryDate,
+        occupation_ar: currentUser?.occupation_ar,
     }), [currentUser])
 
 
@@ -145,6 +147,11 @@ export default function NewEmployee() {
                                 ]}
                             />
 
+
+                            <Button variant='contained' color="error" startIcon={<CloseOutlinedIcon />} style={{ marginTop: "1rem" }} onClick={() => setEdit(!edit)}>
+                                cancel
+                            </Button>
+
                         </div>
                         <Grid container spacing={3}>
                             <Grid item md={8}>
@@ -153,11 +160,6 @@ export default function NewEmployee() {
                                 <DocumentDetails />
                                 <EmployeeFileUpload uploadedFile={uploadedFile} setUploadedFile={setUploadedFile} />
 
-
-
-
-
-                                <Button variant="contained" style={{ width: "100%", marginTop: "3rem" }} type="submit">Submit</Button>
 
 
                             </Grid>
@@ -172,6 +174,8 @@ export default function NewEmployee() {
                                     <DetailsSelect data={data["Nationality"]} />
                                 </Card>
 
+
+                                <Button variant="contained" style={{ width: "100%", marginTop: "3rem" }} endIcon={<SaveOutlined />} type="submit">Save</Button> : ""
 
                             </Grid>
 
