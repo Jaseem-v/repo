@@ -1,11 +1,17 @@
-import { useState, useRef, ChangeEvent } from 'react';
-import { useForm, Controller } from 'react-hook-form';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMemo } from 'react';
 import { useSnackbar } from 'notistack';
 import { EmployeeSchema } from './common/EmployeeSchema';
 import { styled } from '@mui/material/styles';
-
+import { useStyles } from './common/EmployeeStyle';
+import { Card, Grid, Typography, Button, Container } from '@mui/material';
+import { FormProvider } from '../../components/hook-form';
+import DetailsSelect from './DetailsSelect';
+import Page from 'src/components/Page';
+import HeaderBreadcrumbs from 'src/components/HeaderBreadcrumbs';
+import { CommonDetails, DocumentDetails, EmployeeFileUpload, OfficialDetails } from './common/EmployeeFormComponents';
 // icons
 
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
@@ -15,24 +21,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import DisabledByDefaultIcon from '@mui/icons-material/DisabledByDefault';
 
 
-import {
-    Card,
-    Grid,
-    Typography,
-    Button,
-    Container
-} from '@mui/material';
 
-import {
-    FormProvider,
-} from '../../components/hook-form';
-import DetailsSelect from './DetailsSelect';
-import Page from 'src/components/Page';
-import HeaderBreadcrumbs from 'src/components/HeaderBreadcrumbs';
-import { CommonDetails, DocumentDetails, EmployeeFileUpload } from './common/EmployeeFormComponents';
-
-export interface IAppProps {
-}
 
 interface uploadedFileInterface {
     name?: string
@@ -42,13 +31,9 @@ interface uploadedFileInterface {
 
 
 const data = {
-
-    email: ["email-1", "email-2", "email-3", "email-4", "email-5"],
     Designation: ["Designation-1", "Designation-2", "Designation-3", "Designation-4", "Designation-5"],
     Company: ["Company-1", "Company-2", "Company-3", "Company-4", "Company-5"],
     Department: ["Department-1", "Department-2", "Department-3", "Department-4", "Department-5"],
-    Nationality: ["Nationality-1", "Nationality-2", "Nationality-3", "Nationality-4", "Nationality-5"],
-
 }
 
 
@@ -63,7 +48,7 @@ type props = {
 }
 
 export default function EditEmployee() {
-
+    const classes = useStyles();
     const currentUser = {
         firstName: 'Lionel',
         firstName_ar: 'Lionel',
@@ -78,6 +63,9 @@ export default function EditEmployee() {
         visaExpiryDate: '24/5/2024',
         passportExpiryDate: '30/5/2023',
         occupation_ar: 'Business',
+        phonenumber:"+91 97845 61230",
+        email:"abc@gmail.com",
+        nationality:"India"
 
     }
 
@@ -98,6 +86,9 @@ export default function EditEmployee() {
         visaExpiryDate: currentUser?.visaExpiryDate,
         passportExpiryDate: currentUser?.passportExpiryDate,
         occupation_ar: currentUser?.occupation_ar,
+        phonenumber: currentUser?.phonenumber,
+        email: currentUser?.email,
+        nationality:currentUser?.nationality
     }), [currentUser])
 
 
@@ -141,7 +132,7 @@ export default function EditEmployee() {
 
                 <Page title="Ecommerce: Create a new product">
                     <Container maxWidth={"lg"}>
-                        <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between" }}>
+                        <div className={classes.flexBox}>
 
                             <HeaderBreadcrumbs
                                 heading="Employee Details"
@@ -153,15 +144,20 @@ export default function EditEmployee() {
                             />
 
                             <div>
-                                <Button variant='contained' color="warning" startIcon={<DisabledByDefaultIcon />} style={{ marginTop: "1rem", marginRight: "1rem" }} >
-                                    Disable
-                                </Button>
-                                <Button variant='contained' color="error" startIcon={<DeleteIcon />} style={{ marginTop: "1rem", marginRight: "1rem" }} >
-                                    Delete
-                                </Button>
-                                <Button variant='contained' color={isEdit ? "info" : "success"} startIcon={isEdit ? <CreateOutlinedIcon /> : <CloseOutlinedIcon />} style={{ marginTop: "1rem" }} onClick={() => setIsEdit(!isEdit)}>
-                                    {isEdit ? "Edit" : "Cancel"}
-                                </Button>
+                                {isEdit && <>
+                                    <Button variant='contained' color="warning" startIcon={<DisabledByDefaultIcon />} className={classes.funcButtons} >
+                                        Disable
+                                    </Button>
+                                    <Button variant='contained' color="error" startIcon={<DeleteIcon />} className={classes.funcButtons}>
+                                        Delete
+                                    </Button>
+                                </>
+                                }
+                                {isEdit &&
+                                    <Button variant='contained' color={"info"} startIcon={<CreateOutlinedIcon />} style={{ marginTop: "1rem" }} onClick={() => setIsEdit(!isEdit)}>
+                                        Edit
+                                    </Button>
+                                }
                             </div>
 
                         </div>
@@ -172,24 +168,20 @@ export default function EditEmployee() {
                                 <DocumentDetails isEdit={isEdit} />
                                 <EmployeeFileUpload uploadedFile={uploadedFile} setUploadedFile={setUploadedFile} currentFile="details.doc" isEdit={isEdit} />
 
-
+                                {!isEdit &&
+                                    <div style={{ display: "flex", justifyContent: "start" }}>
+                                        <Button variant="contained" style={{ width: "auto", height: "3rem", marginTop: "3rem", padding: "1rem 3rem", marginRight: "1rem" }} endIcon={<SaveOutlined />} type="submit">Save</Button>
+                                        <Button variant='contained' color={"success"} startIcon={<CloseOutlinedIcon />} style={{ width: "auto", height: "3rem", marginTop: "3rem", padding: "1rem 3rem" }} onClick={() => setIsEdit(!isEdit)}>
+                                            {"Cancel"}
+                                        </Button>
+                                    </div>
+                                }
 
                             </Grid>
                             <Grid item md={4} xs={12} >
-                                <Card sx={{ p: 3 }}>
-                                    <LabelStyle>Official Details</LabelStyle>
+                                <OfficialDetails data={data} isEdit={isEdit} />
 
-                                    <DetailsSelect data={data["email"]} />
-                                    <DetailsSelect data={data["Designation"]} />
-                                    <DetailsSelect data={data["Company"]} />
-                                    <DetailsSelect data={data["Department"]} />
-                                    <DetailsSelect data={data["Nationality"]} />
-                                </Card>
 
-                                {!isEdit &&
-
-                                    <Button variant="contained" style={{ width: "100%", marginTop: "3rem" }} endIcon={<SaveOutlined />} type="submit">Save</Button>
-                                }
 
                             </Grid>
 
