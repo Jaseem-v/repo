@@ -1,22 +1,15 @@
 import * as React from 'react';
 import {
-    FormProvider,
-    RHFSwitch,
     RHFSelect,
-    RHFEditor,
-    RHFTextField,
-    RHFRadioGroup,
-    // RHFUploadMultiFile,
 } from '../../components/hook-form';
 export interface IAppProps {
     data: string[],
-    edit?: boolean
 }
 
-export default function DetailsSelect({ edit, data }: IAppProps) {
+export default function DetailsSelect({  data }: IAppProps) {
     return (
         <div>
-            <RHFSelect name="category" style={{ marginTop: "2rem" }}>
+            <RHFSelect name="category" style={{ marginTop: "2rem" }} fullWidth>
                 {data.map((el, i) => (
 
                     <option key={i} value={el}>

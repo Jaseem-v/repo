@@ -1,16 +1,12 @@
-import { useState, useRef, ChangeEvent } from 'react';
-import { useForm, Controller } from 'react-hook-form';
+import { useState} from 'react';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMemo } from 'react';
 import { useSnackbar } from 'notistack';
-import { companySchema } from './common/EmployeeSchema';
+import { EmployeeSchema } from './common/EmployeeSchema';
 import { styled } from '@mui/material/styles';
 
-// icons
 
-import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
-import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
-import { SaveOutlined } from '@mui/icons-material';
 
 
 
@@ -30,8 +26,7 @@ import Page from 'src/components/Page';
 import HeaderBreadcrumbs from 'src/components/HeaderBreadcrumbs';
 import { CommonDetails, DocumentDetails, EmployeeFileUpload } from './common/EmployeeFormComponents';
 
-export interface IAppProps {
-}
+
 
 interface uploadedFileInterface {
     name?: string
@@ -101,7 +96,7 @@ export default function NewEmployee() {
 
 
     const methods = useForm({
-        resolver: yupResolver(companySchema),
+        resolver: yupResolver(EmployeeSchema),
         defaultValues,
     })
 
@@ -144,7 +139,7 @@ export default function NewEmployee() {
 
                         </div>
                         <Grid container spacing={3}>
-                            <Grid item md={8}>
+                            <Grid item md={8} xs={12}>
 
                                 <CommonDetails isEdit={false} />
                                 <DocumentDetails isEdit={false} />
@@ -154,11 +149,14 @@ export default function NewEmployee() {
 
 
 
-                                <Button variant="contained" style={{ width: "100%", marginTop: "3rem" }} type="submit">Submit</Button>
+                                <Button variant="contained" style={{ width: "100%", marginTop: "3rem" }}
+                                    type="submit">
+                                    Submit
+                                </Button>
 
 
                             </Grid>
-                            <Grid item md={4} >
+                            <Grid item md={4} xs={12}>
                                 <Card sx={{ p: 3 }}>
                                     <LabelStyle>Official Details</LabelStyle>
 

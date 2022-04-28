@@ -3,7 +3,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMemo } from 'react';
 import { useSnackbar } from 'notistack';
-import { companySchema } from './common/EmployeeSchema';
+import { EmployeeSchema } from './common/EmployeeSchema';
 import { styled } from '@mui/material/styles';
 
 // icons
@@ -103,9 +103,11 @@ export default function EditEmployee() {
 
 
     const methods = useForm({
-        resolver: yupResolver(companySchema),
+        resolver: yupResolver(EmployeeSchema),
         defaultValues,
     })
+
+    const { formState: { errors } } = useForm()
 
     const {
         reset,
@@ -128,8 +130,10 @@ export default function EditEmployee() {
 
     const [isEdit, setIsEdit] = useState<boolean>(true)
 
+    console.log("error", errors);
 
-    const uploadInputRef = useRef(null)
+
+
 
     return (
         <div>
@@ -162,16 +166,16 @@ export default function EditEmployee() {
 
                         </div>
                         <Grid container spacing={3}>
-                            <Grid item md={8}>
+                            <Grid item md={8} xs={12}>
 
-                                <CommonDetails isEdit={isEdit} />
+                                <CommonDetails isEdit={isEdit} errors={errors} />
                                 <DocumentDetails isEdit={isEdit} />
                                 <EmployeeFileUpload uploadedFile={uploadedFile} setUploadedFile={setUploadedFile} currentFile="details.doc" isEdit={isEdit} />
 
 
 
                             </Grid>
-                            <Grid item md={4} >
+                            <Grid item md={4} xs={12} >
                                 <Card sx={{ p: 3 }}>
                                     <LabelStyle>Official Details</LabelStyle>
 

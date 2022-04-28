@@ -29,6 +29,7 @@ type Props = {
 }
 
 
+
 const LabelStyle = styled(Typography)(({ theme }) => ({
     ...theme.typography.subtitle2,
     color: theme.palette.text.secondary,
@@ -36,29 +37,32 @@ const LabelStyle = styled(Typography)(({ theme }) => ({
 }));
 
 interface editInterface {
+    errors?: {
+        [x: string]: any;
+    }
     isEdit: boolean
 }
-export const CommonDetails = ({ isEdit }: editInterface) => {
+export const CommonDetails = ({ errors, isEdit }: editInterface) => {
     return (
         <Card sx={{ p: 3 }}>
             <LabelStyle>Employee Name</LabelStyle>
             <Grid container spacing={3} rowSpacing={2}>
-                <Grid item md={6}>
-                    <RHFTextField name="firstName" label="First Name" disabled={isEdit} />
+                <Grid item md={6} xs={12}>
+                    <RHFTextField name="firstName" color={errors ? "error" : "primary"} label="First Name" disabled={isEdit} fullWidth />
                 </Grid>
-                <Grid item md={6}>
+                <Grid item md={6} xs={12}>
                     <RHFTextField name="firstName_ar" label="First Name  (AR)" disabled={isEdit} />
                 </Grid>
-                <Grid item md={6}>
+                <Grid item md={6} xs={12}>
                     <RHFTextField name="middleName" label="Middle Name" disabled={isEdit} />
                 </Grid>
-                <Grid item md={6}>
+                <Grid item md={6} xs={12}>
                     <RHFTextField name="middleName_ar" label="Middle Name (AR)" disabled={isEdit} />
                 </Grid>
-                <Grid item md={6}>
+                <Grid item md={6} xs={12}>
                     <RHFTextField name="lastName" label="Last Name" disabled={isEdit} />
                 </Grid>
-                <Grid item md={6}>
+                <Grid item md={6} xs={12}>
                     <RHFTextField name="lastName_ar" label="Last Name (AR)" disabled={isEdit} />
                 </Grid>
             </Grid>
@@ -71,31 +75,31 @@ export const DocumentDetails = ({ isEdit }: editInterface) => {
         <Card sx={{ p: 3 }} style={{ marginTop: "2rem" }}>
             <LabelStyle>Document Details</LabelStyle>
             <Grid container spacing={3} rowSpacing={2}>
-                <Grid item md={3}>
+                <Grid item md={3} xs={12}>
                     <Button variant="outlined" disableElevation size="medium"
                         style={{ width: "100%", height: "100%", fontSize: "1rem" }}
                         endIcon={<QrCodeScannerOutlinedIcon />} disabled={isEdit}>
                         Scan EID</Button>
                 </Grid>
-                <Grid item md={9}>
+                <Grid item md={9} xs={12}>
                     <RHFTextField name="emiratesID" label="Emirates ID" disabled={isEdit} />
                 </Grid>
-                <Grid item md={6}>
+                <Grid item md={6} xs={12}>
                     <RHFTextField name="passportNumber" label="Passport Number" disabled={isEdit} />
                 </Grid>
-                <Grid item md={6}>
+                <Grid item md={6} xs={12}>
                     <RHFTextField name="EIDExpirydate" label="EID Expiry date" disabled={isEdit} />
                 </Grid>
-                <Grid item md={6}>
+                <Grid item md={6} xs={12}>
                     <RHFTextField name="occupation_en" label="Occupation (E.N)" disabled={isEdit} />
                 </Grid>
-                <Grid item md={6}>
+                <Grid item md={6} xs={12}>
                     <RHFTextField name="visaExpiryDate" label="Visa Expiry Date" disabled={isEdit} />
                 </Grid>
-                <Grid item md={6}>
+                <Grid item md={6} xs={12}>
                     <RHFTextField name="passportExpiryDate" label="Passport Expiry Date" disabled={isEdit} />
                 </Grid>
-                <Grid item md={6}>
+                <Grid item md={6} xs={12}>
                     <RHFTextField name="occupation_ar" label="Occupation (AR)" disabled={isEdit} />
                 </Grid>
             </Grid>
@@ -115,7 +119,6 @@ export const EmployeeFileUpload = ({ uploadedFile, setUploadedFile, currentFile,
         return uploadInputRef.current && uploadInputRef.current!.click()
     }
 
-    console.log(uploadedFile);
 
 
     return (
