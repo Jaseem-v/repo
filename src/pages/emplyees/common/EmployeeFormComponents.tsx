@@ -228,7 +228,6 @@ interface dropDownData {
 
 export const OfficialDetails = ({ data, isEdit }: dropDownData) => {
     const keys = Object.keys(data)
-    console.log("data ", data);
 
     return (
         <Card sx={{ p: 3 }}>
@@ -248,8 +247,8 @@ export const OfficialDetails = ({ data, isEdit }: dropDownData) => {
 
             <div style={{ marginTop: "1.5rem" }}>
 
-                <RHFSelect name="nationality" label="Choose Nationality" placeholder="India" disabled={isEdit}>
-                    <option value="" selected ></option>
+                <RHFSelect name="nationality"  label="Choose Nationality" placeholder="India" disabled={isEdit}>
+                    <option value="" selected={true} ></option>
                     {countries.map((option) => (
                         <option key={option.code} value={option.label}>
                             {option.label}

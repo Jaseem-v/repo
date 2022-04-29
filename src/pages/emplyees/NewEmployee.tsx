@@ -1,13 +1,12 @@
 import { useState, Fragment } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useMemo } from 'react';
+import { useMemo, useEffect } from 'react';
 import { useSnackbar } from 'notistack';
 import { EmployeeSchema } from './common/EmployeeSchema';
 import { styled } from '@mui/material/styles';
 import { RHFTextField, RHFSelect } from '../../components/hook-form';
-import BasicDetails from "./NewEmployessComponents/BasicDetails"
-
+import { useNavigate } from 'react-router-dom'
 
 
 
@@ -62,7 +61,11 @@ const LabelStyle = styled(Typography)(({ theme }) => ({
 
 
 export default function NewEmployee() {
-
+    let navigate = useNavigate();
+    const [activeStep, setActiveStep] = useState<number>(0);
+    const [completed, setCompleted] = useState<{
+        [k: number]: boolean;
+    }>({});
 
     const { enqueueSnackbar } = useSnackbar();
 
@@ -99,15 +102,22 @@ export default function NewEmployee() {
         setValue,
         getValues,
         handleSubmit,
-        formState: { isSubmitting },
+        formState: { isSubmitting, errors },
+        clearErrors
     } = methods;
 
     const values = watch();
 
+
     const onSubmit = (data: any) => {
-        console.log(data)
-        enqueueSnackbar('Successfully Added', { variant: 'success' })
+        if (Object.keys(errors).length === 0 && activeStep === 2) {
+            enqueueSnackbar('Successfully Added', { variant: 'success' })
+            navigate("/dashboard/app")
+        }
     }
+
+    // console.log(errors);
+
 
     const [uploadedFile, setUploadedFile] = useState<null | uploadedFileInterface>({})
 
@@ -117,10 +127,6 @@ export default function NewEmployee() {
         'Official Details',
     ];
 
-    const [activeStep, setActiveStep] = useState(0);
-    const [completed, setCompleted] = useState<{
-        [k: number]: boolean;
-    }>({});
 
     const totalSteps = () => {
         return steps.length;
@@ -137,16 +143,83 @@ export default function NewEmployee() {
     const allStepsCompleted = () => {
         return completedSteps() === totalSteps();
     };
+    // clean function
+
+    let CleanErrorOneTime = (function () {
+        let executed = false;
+        return function () {
+            if (!executed) {
+                executed = true;
+                console.log("cleared");
+
+                clearErrors(["passportExpiryDate", "passportNumber",
+                    "emiratesID",
+                    "EIDExpirydate",
+                    "occupation_en",
+                    "visaExpiryDate",
+                    "passportExpiryDate",
+                    "occupation_ar"])
+            }
+        };
+    })();
+    let CleanErrorSecondTime = (function () {
+        let executed = false;
+        return function () {
+            if (!executed) {
+                executed = true;
+                console.log("cleared-2");
+
+                // clearErrors(["passportExpiryDate", "passportNumber",
+                //     "emiratesID",
+                //     "EIDExpirydate",
+                //     "occupation_en",
+                //     "visaExpiryDate",
+                //     "passportExpiryDate",
+                //     "occupation_ar"])
+            }
+        };
+    })();
+    useEffect(() => {
+
+        ["firstName", "firstName_ar", "lastName", "lastName_ar", "middleName_ar", "middleName"].map((el1) => {
+            if (errors && errors.hasOwnProperty(el1)
+            ) {
+                setActiveStep(0)
+            }
+            if (errors && !(errors.hasOwnProperty(el1))) {
+                ["passportExpiryDate", "passportNumber", "emiratesID", "EIDExpirydate", "visaExpiryDate", "passportExpiryDate"].map((el2) => {
+                    if (errors.hasOwnProperty(el2)) {
+                        setActiveStep(1)
+                    }
+
+                    if (errors && activeStep == 2 && !errors.hasOwnProperty(el1) && !errors.hasOwnProperty(el2)
+                    ) {
+                        CleanErrorOneTime();
+                    }
+                })
+
+            }
+
+            if (errors && activeStep == 1 && !errors.hasOwnProperty(el1)
+            ) {
+                CleanErrorOneTime();
+            }
+        })
+
+
+    }, [errors])
+
+
 
     const handleNext = () => {
         const newActiveStep =
-            isLastStep() && !allStepsCompleted()
-                ? // It's the last step, but not all steps have been completed,
-                // find the first step that has been completed
-                steps.findIndex((step, i) => !(i in completed))
+            isLastStep() ? activeStep
                 : activeStep + 1;
         setActiveStep(newActiveStep);
+
     };
+
+
 
     const handleBack = () => {
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
@@ -194,45 +267,37 @@ export default function NewEmployee() {
                     <Box sx={{ width: '100%' }} >
                         <Stepper activeStep={activeStep} alternativeLabel>
                             {steps.map((label, index) => (
-                                <Step key={label} completed={completed[index]} onClick={handleStep(index)}>
+                                <Step key={label} completed={completed[index]} >
                                     <StepLabel>{label}</StepLabel>
                                 </Step>
                             ))}
                         </Stepper>
                         <div style={{ margin: "3rem auto" }}>
-                            {allStepsCompleted() ? (
-                                <Fragment>
-                                    <Typography sx={{ mt: 2, mb: 1 }}>
-                                        All steps completed - you&apos;re finished
-                                    </Typography>
-                                    <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-                                        <Box sx={{ flex: '1 1 auto' }} />
-                                        <Button onClick={handleReset}>Reset</Button>
-                                    </Box>
-                                </Fragment>
-                            ) : (
-                                <Fragment>
 
-                                    <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-                                        {
-                                            activeStep === 0 &&
-                                            <CommonDetails isEdit={false} />
-                                        }
-                                        {
-                                            activeStep === 1 &&
-                                            <>
-                                                <DocumentDetails isEdit={false} />
-                                                <EmployeeFileUpload uploadedFile={uploadedFile} setUploadedFile={setUploadedFile} />
-                                            </>
+                            <Fragment>
+
+                                <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
+                                    {
+                                        activeStep === 0 &&
+                                        <CommonDetails isEdit={false} />
+                                    }
+                                    {
+                                        activeStep === 1 &&
+                                        <>
+                                            <DocumentDetails isEdit={false} />
+                                            <EmployeeFileUpload uploadedFile={uploadedFile} setUploadedFile={setUploadedFile} />
+                                        </>
 
 
-                                        }
-                                        {
-                                            activeStep === 2 &&
-                                            <OfficialDetails data={data} isEdit={false} />
+                                    }
+                                    {
+                                        activeStep === 2 &&
+                                        <OfficialDetails data={data} isEdit={false} />
 
-                                        }
-                                    </FormProvider>
+                                    }
+                                    {/* <pre>
+                                            {JSON.stringify(watch(), null, 2)}
+                                        </pre> */}
 
                                     <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2, mt: 3 }} >
                                         <Button
@@ -244,12 +309,14 @@ export default function NewEmployee() {
                                             Back
                                         </Button>
                                         <Box sx={{ flex: '1 1 auto' }} />
-                                        <Button onClick={handleNext} sx={{ mr: 1 }}>
-                                            {activeStep !== steps.length - 1 ? "Next" : "finish"}
+                                        <Button onClick={handleNext} sx={{ mr: 1 }} type="submit">
+                                            {!isLastStep() ? "Next" : "finish"}
                                         </Button>
                                     </Box>
-                                </Fragment>
-                            )}
+                                </FormProvider>
+
+                            </Fragment>
+
                         </div>
                     </Box>
                     <Grid container spacing={3} mt={2}>

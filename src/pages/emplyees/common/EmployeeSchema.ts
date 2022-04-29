@@ -15,24 +15,7 @@ export const EmployeeSchema = Yup.object().shape({
     visaExpiryDate: Yup.string().required('Visa Expiry Date is required'),
     passportExpiryDate: Yup.string().required('Passport Expiry Date is required'),
     occupation_ar: Yup.string().required('Occupation (AR) is required'),
-});
-
-
-export const BasicDetilsSchema = Yup.object().shape({
-    passportNumber: Yup.string().required('PassportNumber is required'),
-    emiratesID: Yup.string().required('EmiratesID is required'),
-    EIDExpirydate: Yup.string().required('EIDExpirydate is required'),
-    occupation_en: Yup.string().required('Occupation is required'),
-    visaExpiryDate: Yup.string().required('Visa Expiry Date is required'),
-    passportExpiryDate: Yup.string().required('Passport Expiry Date is required'),
-    occupation_ar: Yup.string().required('Occupation (AR) is required'),
-});
-export const DocumentDetilsSchema = Yup.object().shape({
-    passportNumber: Yup.string().required('PassportNumber is required'),
-    emiratesID: Yup.string().required('EmiratesID is required'),
-    EIDExpirydate: Yup.string().required('EIDExpirydate is required'),
-    occupation_en: Yup.string().required('Occupation is required'),
-    visaExpiryDate: Yup.string().required('Visa Expiry Date is required'),
-    passportExpiryDate: Yup.string().required('Passport Expiry Date is required'),
-    occupation_ar: Yup.string().required('Occupation (AR) is required'),
+    phonenumber: Yup.string().required('phonenumber is required'),
+    email: Yup.string().required('email is required'),
+    nationality: Yup.string().required('nationality is required'),
 });
