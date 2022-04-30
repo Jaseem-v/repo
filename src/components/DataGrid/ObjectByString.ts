@@ -1,4 +1,4 @@
-function OBJ(o:{}, s:string) {
+function OBJ(o:any, s:string) {
     s = s.replace(/\[(\w+)\]/g, '.$1'); // convert indexes to properties
     s = s.replace(/^\./, '');           // strip a leading dot
     var a = s.split('.');
@@ -14,9 +14,9 @@ function OBJ(o:{}, s:string) {
     return o;
 }
 
-export  default  function OBJFROMOBJ(o:{}, s:string|{}):string|{}|undefined {
+export  default  function OBJFROMOBJ(o:{}, s:any):string|{}|undefined {
     if(typeof s=="object"){
-        let _={}
+        let _:any={}
         for(let key in s){
             let val=s[key]
             _[key]=OBJ(o,val)
