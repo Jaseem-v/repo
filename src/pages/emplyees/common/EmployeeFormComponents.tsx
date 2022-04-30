@@ -85,7 +85,7 @@ export const DocumentDetails = ({ isEdit }: editInterface) => {
             <Grid container spacing={3} rowSpacing={2}>
                 <Grid item md={3} xs={12}>
                     <Button variant="outlined" disableElevation size="medium"
-                        style={{ width: "100%", height: "100%", fontSize: "1rem" }}
+                        style={{ width: "100%", height: "3.5rem", fontSize: "1rem" }}
                         endIcon={<QrCodeScannerOutlinedIcon />} disabled={isEdit}>
                         Scan EID</Button>
                 </Grid>

@@ -19,6 +19,7 @@ import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import { SaveOutlined } from '@mui/icons-material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import DisabledByDefaultIcon from '@mui/icons-material/DisabledByDefault';
+import { SubmitBtn } from 'src/components/ButtonSet';
 
 
 
@@ -170,10 +171,10 @@ export default function EditEmployee() {
 
                                 {!isEdit &&
                                     <div style={{ display: "flex", justifyContent: "start" }}>
-                                        <Button variant="contained" style={{ width: "auto", height: "3rem", marginTop: "3rem", padding: "1rem 3rem", marginRight: "1rem" }} endIcon={<SaveOutlined />} type="submit">Save</Button>
-                                        <Button variant='contained' color={"success"} startIcon={<CloseOutlinedIcon />} style={{ width: "auto", height: "3rem", marginTop: "3rem", padding: "1rem 3rem" }} onClick={() => setIsEdit(!isEdit)}>
+                                        <SubmitBtn variant="contained" endIcon={<SaveOutlined />} type="submit"> Save </SubmitBtn>
+                                        <SubmitBtn variant='contained' color={"success"} startIcon={<CloseOutlinedIcon />}  onClick={() => setIsEdit(!isEdit)}>
                                             {"Cancel"}
-                                        </Button>
+                                        </SubmitBtn>
                                     </div>
                                 }
 

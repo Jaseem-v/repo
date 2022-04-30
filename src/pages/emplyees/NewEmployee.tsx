@@ -23,6 +23,7 @@ import {
 import Page from 'src/components/Page';
 import HeaderBreadcrumbs from 'src/components/HeaderBreadcrumbs';
 import { CommonDetails, DocumentDetails, EmployeeFileUpload, OfficialDetails } from './common/EmployeeFormComponents';
+import { SubmitBtn } from 'src/components/ButtonSet';
 
 
 
@@ -168,7 +169,6 @@ export default function NewEmployee() {
                         setActiveStep(1)
                     }
 
-
                 })
 
             }
@@ -269,18 +269,20 @@ export default function NewEmployee() {
                                     }
 
                                     <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2, mt: 3 }} >
-                                        <Button
+                                        <SubmitBtn
                                             color="inherit"
                                             disabled={activeStep === 0}
                                             onClick={handleBack}
                                             sx={{ mr: 1 }}
+                                            variant="outlined"
+                                            size='small'
                                         >
                                             Back
-                                        </Button>
+                                        </SubmitBtn>
                                         <Box sx={{ flex: '1 1 auto' }} />
-                                        <Button onClick={handleNext} sx={{ mr: 1 }} type="submit">
+                                        <SubmitBtn variant='contained' onClick={handleNext} sx={{ mr: 1 }} type="submit" size='small'>
                                             {!isLastStep() ? "Next" : "finish"}
-                                        </Button>
+                                        </SubmitBtn>
                                     </Box>
                                 </FormProvider>
 
