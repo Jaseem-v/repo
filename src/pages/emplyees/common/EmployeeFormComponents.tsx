@@ -209,6 +209,7 @@ export const EmployeeFileUpload = ({ uploadedFile, setUploadedFile, currentFile,
                     style={{ display: "none" }}
                     onChange={fileOnchange}
                     disabled={isEdit}
+                    name={"docImage"}
                 />
             </div>
 

@@ -18,4 +18,5 @@ export const EmployeeSchema = Yup.object().shape({
     phonenumber: Yup.string().required('phonenumber is required'),
     email: Yup.string().required('email is required'),
     nationality: Yup.string().required('nationality is required'),
+    docImage: Yup.mixed().required('File is required'),
 });

@@ -6,7 +6,7 @@ import { useSnackbar } from 'notistack';
 import { EmployeeSchema } from './common/EmployeeSchema';
 import { styled } from '@mui/material/styles';
 import { useStyles } from './common/EmployeeStyle';
-import { Card, Grid, Typography, Button, Container } from '@mui/material';
+import { Card, Grid, Typography, Button, Container, Stack } from '@mui/material';
 import { FormProvider } from '../../components/hook-form';
 import DetailsSelect from './DetailsSelect';
 import Page from 'src/components/Page';
@@ -20,7 +20,6 @@ import { SaveOutlined } from '@mui/icons-material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import DisabledByDefaultIcon from '@mui/icons-material/DisabledByDefault';
 import { SubmitBtn } from 'src/components/ButtonSet';
-
 
 
 
@@ -64,9 +63,9 @@ export default function EditEmployee() {
         visaExpiryDate: '2022-04-30T00:17:55.000Z',
         passportExpiryDate: '2022-04-30T00:17:55.000Z',
         occupation_ar: 'Business',
-        phonenumber:"+91 97845 61230",
-        email:"abc@gmail.com",
-        nationality:"India"
+        phonenumber: "+91 97845 61230",
+        email: "abc@gmail.com",
+        nationality: "India"
 
     }
 
@@ -89,7 +88,7 @@ export default function EditEmployee() {
         occupation_ar: currentUser?.occupation_ar,
         phonenumber: currentUser?.phonenumber,
         email: currentUser?.email,
-        nationality:currentUser?.nationality
+        nationality: currentUser?.nationality
     }), [currentUser])
 
 
@@ -133,7 +132,12 @@ export default function EditEmployee() {
 
                 <Page title="Ecommerce: Create a new product">
                     <Container maxWidth={"lg"}>
-                        <div className={classes.flexBox}>
+                        <Stack
+                            direction="row"
+                            justifyContent="space-between"
+                            alignItems="center"
+                            mb={5}
+                        >
 
                             <HeaderBreadcrumbs
                                 heading="Employee Details"
@@ -142,26 +146,30 @@ export default function EditEmployee() {
 
                                     { name: "EmployeeDetails", href: "/dashboard/EmployeeDetails", }
                                 ]}
+                                style={{marginBottom:0}}
                             />
 
-                            <div>
+                            <Stack direction="row"
+                                justifyContent="space-between"
+                                alignItems="center"
+                                spacing={4}>
                                 {isEdit && <>
-                                    <Button variant='contained' color="warning" startIcon={<DisabledByDefaultIcon />} className={classes.funcButtons} >
+                                    <Button variant='contained' color="warning" startIcon={<DisabledByDefaultIcon />}  >
                                         Disable
                                     </Button>
-                                    <Button variant='contained' color="error" startIcon={<DeleteIcon />} className={classes.funcButtons}>
+                                    <Button variant='contained' color="error" startIcon={<DeleteIcon />} >
                                         Delete
                                     </Button>
                                 </>
                                 }
                                 {isEdit &&
-                                    <Button variant='contained' color={"info"} startIcon={<CreateOutlinedIcon />} style={{ marginTop: "1rem" }} onClick={() => setIsEdit(!isEdit)}>
+                                    <Button variant='contained' color={"info"} startIcon={<CreateOutlinedIcon />} onClick={() => setIsEdit(!isEdit)}>
                                         Edit
                                     </Button>
                                 }
-                            </div>
+                            </Stack>
 
-                        </div>
+                        </Stack>
                         <Grid container spacing={3}>
                             <Grid item md={8} xs={12}>
 
@@ -172,7 +180,7 @@ export default function EditEmployee() {
                                 {!isEdit &&
                                     <div style={{ display: "flex", justifyContent: "start" }}>
                                         <SubmitBtn variant="contained" endIcon={<SaveOutlined />} type="submit"> Save </SubmitBtn>
-                                        <SubmitBtn variant='contained' color={"success"} startIcon={<CloseOutlinedIcon />}  onClick={() => setIsEdit(!isEdit)}>
+                                        <SubmitBtn style={{ color: "white" }} variant='contained' color={"success"} startIcon={<CloseOutlinedIcon />} onClick={() => setIsEdit(!isEdit)}>
                                             {"Cancel"}
                                         </SubmitBtn>
                                     </div>

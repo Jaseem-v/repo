@@ -6,6 +6,7 @@ import { useSnackbar } from 'notistack';
 import { EmployeeSchema } from './common/EmployeeSchema';
 import { styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom'
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 import {
     Typography,
@@ -15,6 +16,7 @@ import {
     Step,
     StepLabel,
     Box,
+    Stack,
 } from '@mui/material';
 
 import {
@@ -70,7 +72,8 @@ export default function NewEmployee() {
         occupation_ar: '',
         phonenumber: '',
         email: '',
-        nationality: ""
+        nationality: "",
+        docImage: ""
     }), []);
 
 
@@ -223,7 +226,7 @@ export default function NewEmployee() {
 
             <Page title="Ecommerce: Create a new product">
                 <Container maxWidth={"lg"}>
-                    <div>
+                    <Stack mb={5}>
 
                         <HeaderBreadcrumbs
                             heading="Add New Employee"
@@ -234,7 +237,7 @@ export default function NewEmployee() {
                             ]}
                         />
 
-                    </div>
+                    </Stack>
 
                     <Box sx={{ width: '100%' }} >
                         <Stepper activeStep={activeStep} alternativeLabel>
@@ -280,8 +283,14 @@ export default function NewEmployee() {
                                             Back
                                         </SubmitBtn>
                                         <Box sx={{ flex: '1 1 auto' }} />
-                                        <SubmitBtn variant='contained' onClick={handleNext} sx={{ mr: 1 }} type="submit" size='small'>
-                                            {!isLastStep() ? "Next" : "finish"}
+                                        <SubmitBtn
+                                            variant='contained'
+                                            endIcon={<ArrowForwardIcon />}
+                                            onClick={handleNext} sx={{ mr: 1 }}
+                                            type="submit" size='small'
+                                            color={!isLastStep() ? "primary" : "success"}
+                                            style={{ color: "white" }}>
+                                            {!isLastStep() ? "Next" : "submit"}
                                         </SubmitBtn>
                                     </Box>
                                 </FormProvider>
