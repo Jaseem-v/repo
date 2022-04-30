@@ -247,8 +247,8 @@ export const OfficialDetails = ({ data, isEdit }: dropDownData) => {
 
             <div style={{ marginTop: "1.5rem" }}>
 
-                <RHFSelect name="nationality"  label="Choose Nationality" placeholder="India" disabled={isEdit}>
-                    <option value="" selected={true} ></option>
+                <RHFSelect name="nationality" label="Choose Nationality" defaultValue={'DEFAULT'} placeholder="India" disabled={isEdit}>
+                    <option value="DEFAULT" selected>choose Nationality</option>
                     {countries.map((option) => (
                         <option key={option.code} value={option.label}>
                             {option.label}

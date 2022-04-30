@@ -5,17 +5,9 @@ import { useMemo, useEffect } from 'react';
 import { useSnackbar } from 'notistack';
 import { EmployeeSchema } from './common/EmployeeSchema';
 import { styled } from '@mui/material/styles';
-import { RHFTextField, RHFSelect } from '../../components/hook-form';
 import { useNavigate } from 'react-router-dom'
 
-
-
-
-
-
 import {
-    Card,
-    Grid,
     Typography,
     Button,
     Container,
@@ -23,13 +15,11 @@ import {
     Step,
     StepLabel,
     Box,
-    StepButton
 } from '@mui/material';
 
 import {
     FormProvider,
 } from '../../components/hook-form';
-import DetailsSelect from './DetailsSelect';
 import Page from 'src/components/Page';
 import HeaderBreadcrumbs from 'src/components/HeaderBreadcrumbs';
 import { CommonDetails, DocumentDetails, EmployeeFileUpload, OfficialDetails } from './common/EmployeeFormComponents';
@@ -51,12 +41,6 @@ const data = {
 
 }
 
-
-const LabelStyle = styled(Typography)(({ theme }) => ({
-    ...theme.typography.subtitle2,
-    color: theme.palette.text.secondary,
-    marginBottom: theme.spacing(1),
-}));
 
 
 
@@ -96,17 +80,11 @@ export default function NewEmployee() {
     })
 
     const {
-        reset,
         watch,
-        control,
-        setValue,
-        getValues,
         handleSubmit,
         formState: { isSubmitting, errors },
         clearErrors
     } = methods;
-
-    const values = watch();
 
 
     const onSubmit = (data: any) => {
@@ -145,6 +123,8 @@ export default function NewEmployee() {
     };
     // clean function
 
+    const [test, setTest] = useState(true)
+
     let CleanErrorOneTime = (function () {
         let executed = false;
         return function () {
@@ -162,40 +142,33 @@ export default function NewEmployee() {
             }
         };
     })();
-    let CleanErrorSecondTime = (function () {
-        let executed = false;
-        return function () {
-            if (!executed) {
-                executed = true;
-                console.log("cleared-2");
+    let CleanErrorSecondTime = function () {
 
-                // clearErrors(["passportExpiryDate", "passportNumber",
-                //     "emiratesID",
-                //     "EIDExpirydate",
-                //     "occupation_en",
-                //     "visaExpiryDate",
-                //     "passportExpiryDate",
-                //     "occupation_ar"])
-            }
-        };
-    })();
+        if (test) {
+            console.log("cleared-2", test);
+            setTest(false)
+
+            clearErrors(["email", "phonenumber",
+                "nationality"
+            ])
+        }
+    };
     useEffect(() => {
-
-        ["firstName", "firstName_ar", "lastName", "lastName_ar", "middleName_ar", "middleName"].map((el1) => {
+        let form1 = ["firstName", "firstName_ar", "lastName", "lastName_ar", "middleName_ar", "middleName"]
+        let form2 = ["passportExpiryDate", "passportNumber", "emiratesID", "EIDExpirydate", "visaExpiryDate", "passportExpiryDate"]
+        let form3 = ["email", "phonenumber", "nationality"]
+        form1.map((el1) => {
             if (errors && errors.hasOwnProperty(el1)
             ) {
                 setActiveStep(0)
             }
             if (errors && !(errors.hasOwnProperty(el1))) {
-                ["passportExpiryDate", "passportNumber", "emiratesID", "EIDExpirydate", "visaExpiryDate", "passportExpiryDate"].map((el2) => {
+                form2.map((el2) => {
                     if (errors.hasOwnProperty(el2)) {
                         setActiveStep(1)
                     }
 
-                    if (errors && activeStep == 2 && !errors.hasOwnProperty(el1) && !errors.hasOwnProperty(el2)
-                    ) {
-                        CleanErrorOneTime();
-                    }
+
                 })
 
             }
@@ -203,7 +176,23 @@ export default function NewEmployee() {
             if (errors && activeStep == 1 && !errors.hasOwnProperty(el1)
             ) {
                 CleanErrorOneTime();
+
+
             }
+
+            if (errors && activeStep == 2 && !errors.hasOwnProperty(el1)
+            ) {
+                form2.map((el) => {
+                    if (!errors.hasOwnProperty(el)) {
+                        CleanErrorSecondTime()
+                    }
+                })
+
+            }
+
+
+
+
         })
 
 
@@ -225,29 +214,12 @@ export default function NewEmployee() {
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
 
-    const handleStep = (step: number) => () => {
-        setActiveStep(step);
-    };
-
-    const handleComplete = () => {
-        const newCompleted = completed;
-        newCompleted[activeStep] = true;
-        setCompleted(newCompleted);
-        handleNext();
-    };
-
-    const handleReset = () => {
-        setActiveStep(0);
-        setCompleted({});
-    };
-
 
 
 
 
     return (
         <div>
-            {/* <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}> */}
 
             <Page title="Ecommerce: Create a new product">
                 <Container maxWidth={"lg"}>
@@ -295,9 +267,6 @@ export default function NewEmployee() {
                                         <OfficialDetails data={data} isEdit={false} />
 
                                     }
-                                    {/* <pre>
-                                            {JSON.stringify(watch(), null, 2)}
-                                        </pre> */}
 
                                     <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2, mt: 3 }} >
                                         <Button
@@ -319,40 +288,11 @@ export default function NewEmployee() {
 
                         </div>
                     </Box>
-                    <Grid container spacing={3} mt={2}>
-                        <Grid item md={12} xs={12}>
 
-                            {/* <CommonDetails isEdit={false} /> */}
-                            {/* <BasicDetails /> */}
-                            {/* <DocumentDetails isEdit={false} /> */}
-                            {/* <EmployeeFileUpload uploadedFile={uploadedFile} setUploadedFile={setUploadedFile} /> */}
-
-
-
-
-                            {/* <div style={{ display: "flex", justifyContent: "center" }}>
-
-                                    <Button variant="contained" size="medium" style={{ width: "auto", height: "3rem", marginTop: "3rem", padding: "1rem 3rem" }}
-                                        type="submit">
-                                        Submit
-                                    </Button>
-                                </div> */}
-
-
-                        </Grid>
-                        {/* <Grid item md={12} xs={12}>
-
-                                <OfficialDetails data={data} isEdit={false} />
-
-                            </Grid> */}
-
-                    </Grid>
 
                 </Container>
             </Page>
 
-
-            {/* </FormProvider> */}
         </div >
     );
 }
