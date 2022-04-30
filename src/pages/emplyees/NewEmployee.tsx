@@ -57,21 +57,21 @@ export default function NewEmployee() {
     const { enqueueSnackbar } = useSnackbar();
 
     const defaultValues = useMemo(() => ({
-        firstName: '',
-        firstName_ar: '',
-        middleName: '',
-        middleName_ar: '',
-        lastName: '',
-        lastName_ar: '',
-        passportNumber: '',
-        emiratesID: '',
-        EIDExpirydate: '',
-        occupation_en: '',
-        visaExpiryDate: '',
-        passportExpiryDate: '',
-        occupation_ar: '',
-        phonenumber: '',
-        email: '',
+        firstName: 'Lionel',
+        firstName_ar: 'Lionel',
+        middleName: 'Andress',
+        middleName_ar: 'Andress',
+        lastName: 'Messi',
+        lastName_ar: 'Messi',
+        passportNumber: '2a4568752',
+        emiratesID: '2a4568752',
+        EIDExpirydate: '2022-04-30T00:17:55.000Z',
+        occupation_en: 'Business',
+        visaExpiryDate: '2022-04-30T00:17:55.000Z',
+        passportExpiryDate: '2022-04-30T00:17:55.000Z',
+        occupation_ar: 'Business',
+        phonenumber: "+91 97845 61230",
+        email: "abc@gmail.com",
         nationality: "",
         docImage: ""
     }), []);
@@ -285,7 +285,7 @@ export default function NewEmployee() {
                                         <Box sx={{ flex: '1 1 auto' }} />
                                         <SubmitBtn
                                             variant='contained'
-                                            endIcon={<ArrowForwardIcon />}
+                                            endIcon={!isLastStep() && <ArrowForwardIcon />}
                                             onClick={handleNext} sx={{ mr: 1 }}
                                             type="submit" size='small'
                                             color={!isLastStep() ? "primary" : "success"}
@@ -293,6 +293,7 @@ export default function NewEmployee() {
                                             {!isLastStep() ? "Next" : "submit"}
                                         </SubmitBtn>
                                     </Box>
+                                 
                                 </FormProvider>
 
                             </Fragment>

@@ -4,7 +4,9 @@ import {
     Grid,
     Typography,
     Button,
-    TextField
+    TextField,
+    Autocomplete,
+    Box
 } from '@mui/material';
 
 import { styled } from '@mui/material/styles';
@@ -17,6 +19,7 @@ import {
 import DetailsSelect from '../DetailsSelect';
 import { useFormContext, Controller } from 'react-hook-form';
 import DatePicker from '@mui/lab/DatePicker';
+import RHFDatePicker from 'src/components/hook-form/RHFDatePicker';
 
 
 type Props = {
@@ -46,7 +49,6 @@ interface editInterface {
     isEdit: boolean
 }
 
-const today = new Date();
 export const CommonDetails = ({ errors, isEdit }: editInterface) => {
 
     return (
@@ -54,19 +56,19 @@ export const CommonDetails = ({ errors, isEdit }: editInterface) => {
             <LabelStyle>Employee Name</LabelStyle>
             <Grid container spacing={3} rowSpacing={2}>
                 <Grid item md={6} xs={12}>
-                    <RHFTextField name="firstName" label="First Name" disabled={isEdit} fullWidth />
+                    <RHFTextField name="firstName" label="First Name (EN)" disabled={isEdit} fullWidth />
                 </Grid>
                 <Grid item md={6} xs={12}>
                     <RHFTextField name="firstName_ar" label="First Name  (AR)" disabled={isEdit} />
                 </Grid>
                 <Grid item md={6} xs={12}>
-                    <RHFTextField name="middleName" label="Middle Name" disabled={isEdit} />
+                    <RHFTextField name="middleName" label="Middle Name (EN)" disabled={isEdit} />
                 </Grid>
                 <Grid item md={6} xs={12}>
                     <RHFTextField name="middleName_ar" label="Middle Name (AR)" disabled={isEdit} />
                 </Grid>
                 <Grid item md={6} xs={12}>
-                    <RHFTextField name="lastName" label="Last Name" disabled={isEdit} />
+                    <RHFTextField name="lastName" label="Last Name (EN)" disabled={isEdit} />
                 </Grid>
                 <Grid item md={6} xs={12}>
                     <RHFTextField name="lastName_ar" label="Last Name (AR)" disabled={isEdit} />
@@ -98,72 +100,20 @@ export const DocumentDetails = ({ isEdit }: editInterface) => {
                 <Grid item md={6} xs={12}>
                     {/* <RHFTextField name="EIDExpirydate" label="EID Expiry date" disabled={isEdit} /> */}
 
-
-                    <Controller
-                        name="EIDExpirydate"
-                        control={control}
-                        render={({ field, fieldState: { error } }) => (
-                            <DatePicker
-                                label="EID Expiry date"
-                                value={field.value}
-                                onChange={(newValue) => {
-                                    field.onChange(newValue);
-                                }}
-                                minDate={today}
-                                disabled={isEdit}
-                                renderInput={(params) => (
-                                    <TextField {...params} fullWidth error={!!error} helperText={error?.message} disabled={isEdit} />
-                                )}
-                            />
-                        )}
-                    />
-                </Grid>
-                <Grid item md={6} xs={12}>
-                    <RHFTextField name="occupation_en" label="Occupation (E.N)" disabled={isEdit} />
-                </Grid>
-                <Grid item md={6} xs={12}>
-                    {/* <RHFTextField name="visaExpiryDate" label="Visa Expiry Date" disabled={isEdit} /> */}
-
-                    <Controller
-                        name="visaExpiryDate"
-                        control={control}
-                        render={({ field, fieldState: { error } }) => (
-                            <DatePicker
-                                label="visa Expiry Date"
-                                value={field.value}
-                                onChange={(newValue) => {
-                                    field.onChange(newValue);
-                                }}
-                                minDate={today}
-                                disabled={isEdit}
-                                renderInput={(params) => (
-                                    <TextField {...params} fullWidth error={!!error} helperText={error?.message} disabled={isEdit} />
-                                )}
-                            />
-                        )}
-                    />
+                    <RHFDatePicker name="EIDExpirydate" label="EID Expiry date" disabled={isEdit} />
                 </Grid>
                 <Grid item md={6} xs={12}>
                     {/* <RHFTextField name="passportExpiryDate" label="Passport Expiry Date" disabled={isEdit} /> */}
+                    <RHFDatePicker name="passportExpiryDate" label="passport Expiry Date" disabled={isEdit} />
 
-                    <Controller
-                        name="passportExpiryDate"
-                        control={control}
-                        render={({ field, fieldState: { error } }) => (
-                            <DatePicker
-                                label="passport Expiry Date"
-                                value={field.value}
-                                onChange={(newValue) => {
-                                    field.onChange(newValue);
-                                }}
-                                minDate={today}
-                                disabled={isEdit}
-                                renderInput={(params) => (
-                                    <TextField {...params} fullWidth error={!!error} helperText={error?.message} disabled={isEdit} />
-                                )}
-                            />
-                        )}
-                    />
+                </Grid>
+                <Grid item md={6} xs={12}>
+                    {/* <RHFTextField name="visaExpiryDate" label="Visa Expiry Date" disabled={isEdit} /> */}
+                    <RHFDatePicker name="visaExpiryDate" label="Visa Expiry Date" disabled={isEdit} />
+                </Grid>
+
+                <Grid item md={6} xs={12}>
+                    <RHFTextField name="occupation_en" label="Occupation (EN)" disabled={isEdit} />
                 </Grid>
                 <Grid item md={6} xs={12}>
                     <RHFTextField name="occupation_ar" label="Occupation (AR)" disabled={isEdit} />
@@ -247,15 +197,38 @@ export const OfficialDetails = ({ data, isEdit }: dropDownData) => {
             <DetailsSelect data={data["Department"]} isEdit={isEdit} />
 
             <div style={{ marginTop: "1.5rem" }}>
+                <Autocomplete
+                    id="nationality"
+                    // sx={{ width: 300 }}
 
-                <RHFSelect name="nationality" label="Choose Nationality" defaultValue={'DEFAULT'} placeholder="India" disabled={isEdit}>
-                    <option value="DEFAULT" selected>choose Nationality</option>
-                    {countries.map((option) => (
-                        <option key={option.code} value={option.label}>
-                            {option.label}
-                        </option>
-                    ))}
-                </RHFSelect>
+                    fullWidth
+                    options={countries}
+                    autoHighlight
+                    getOptionLabel={(option) => option.label}
+                    renderOption={(props, option) => (
+                        <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
+                            <img
+                                loading="lazy"
+                                width="20"
+                                src={`https://flagcdn.com/w20/${option.code.toLowerCase()}.png`}
+                                srcSet={`https://flagcdn.com/w40/${option.code.toLowerCase()}.png 2x`}
+                                alt=""
+                            />
+                            {option.label} ({option.code})
+                        </Box>
+                    )}
+                    renderInput={(params) => (
+
+                        <RHFTextField name="nationality" {...params}
+                            label="Choose Nationality"
+                            // value={option.label}
+                            inputProps={{
+                                ...params.inputProps,
+                                autoComplete: 'new-password', // disable autocomplete and autofill
+                            }} />
+
+                    )}
+                />
             </div>
 
         </Card>

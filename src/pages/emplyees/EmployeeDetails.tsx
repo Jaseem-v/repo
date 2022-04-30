@@ -4,7 +4,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useMemo } from 'react';
 import { useSnackbar } from 'notistack';
 import { EmployeeSchema } from './common/EmployeeSchema';
-import { styled } from '@mui/material/styles';
+import { styled, useTheme } from '@mui/material/styles';
 import { useStyles } from './common/EmployeeStyle';
 import { Card, Grid, Typography, Button, Container, Stack } from '@mui/material';
 import { FormProvider } from '../../components/hook-form';
@@ -20,7 +20,7 @@ import { SaveOutlined } from '@mui/icons-material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import DisabledByDefaultIcon from '@mui/icons-material/DisabledByDefault';
 import { SubmitBtn } from 'src/components/ButtonSet';
-
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 
 interface uploadedFileInterface {
@@ -37,18 +37,9 @@ const data = {
 }
 
 
-const LabelStyle = styled(Typography)(({ theme }) => ({
-    ...theme.typography.subtitle2,
-    color: theme.palette.text.secondary,
-    marginBottom: theme.spacing(1),
-}));
-
-type props = {
-    isEdit?: boolean;
-}
 
 export default function EditEmployee() {
-    const classes = useStyles();
+    const theme = useTheme()
     const currentUser = {
         firstName: 'Lionel',
         firstName_ar: 'Lionel',
@@ -65,7 +56,7 @@ export default function EditEmployee() {
         occupation_ar: 'Business',
         phonenumber: "+91 97845 61230",
         email: "abc@gmail.com",
-        nationality: "India"
+        nationality: "india"
 
     }
 
@@ -121,10 +112,7 @@ export default function EditEmployee() {
 
     const [isEdit, setIsEdit] = useState<boolean>(true)
 
-    console.log("error", errors);
-
-
-
+    const largeScreen = useMediaQuery(theme.breakpoints.up('md'))
 
     return (
         <div>
@@ -133,9 +121,9 @@ export default function EditEmployee() {
                 <Page title="Ecommerce: Create a new product">
                     <Container maxWidth={"lg"}>
                         <Stack
-                            direction="row"
+                            direction={largeScreen ? "row" : "column"}
                             justifyContent="space-between"
-                            alignItems="center"
+                            alignItems="space-between"
                             mb={5}
                         >
 
@@ -146,10 +134,10 @@ export default function EditEmployee() {
 
                                     { name: "EmployeeDetails", href: "/dashboard/EmployeeDetails", }
                                 ]}
-                                style={{marginBottom:0}}
+                                style={{ marginBottom: 0 }}
                             />
 
-                            <Stack direction="row"
+                            <Stack direction={"row"}
                                 justifyContent="space-between"
                                 alignItems="center"
                                 spacing={4}>
@@ -178,12 +166,17 @@ export default function EditEmployee() {
                                 <EmployeeFileUpload uploadedFile={uploadedFile} setUploadedFile={setUploadedFile} currentFile="details.doc" isEdit={isEdit} />
 
                                 {!isEdit &&
-                                    <div style={{ display: "flex", justifyContent: "start" }}>
+                                    <Stack
+                                        direction={largeScreen ? "row" : "column"}
+                                        justifyContent="flex-start"
+                                        alignItems="center"
+                                        mt={5}
+                                    >
                                         <SubmitBtn variant="contained" endIcon={<SaveOutlined />} type="submit"> Save </SubmitBtn>
                                         <SubmitBtn style={{ color: "white" }} variant='contained' color={"success"} startIcon={<CloseOutlinedIcon />} onClick={() => setIsEdit(!isEdit)}>
                                             {"Cancel"}
                                         </SubmitBtn>
-                                    </div>
+                                    </Stack>
                                 }
 
                             </Grid>
