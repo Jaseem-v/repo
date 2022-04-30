@@ -21,6 +21,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import DisabledByDefaultIcon from '@mui/icons-material/DisabledByDefault';
 import { SubmitBtn } from 'src/components/ButtonSet';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import { FormValidInputs } from './NewEmployee';
 
 
 interface uploadedFileInterface {
@@ -63,7 +64,7 @@ export default function EditEmployee() {
 
     const { enqueueSnackbar } = useSnackbar();
 
-    const defaultValues = useMemo(() => ({
+    const defaultValues = useMemo((): FormValidInputs => ({
         firstName: currentUser?.firstName,
         firstName_ar: currentUser?.firstName_ar,
         middleName: currentUser?.middleName,
@@ -79,7 +80,9 @@ export default function EditEmployee() {
         occupation_ar: currentUser?.occupation_ar,
         phonenumber: currentUser?.phonenumber,
         email: currentUser?.email,
-        nationality: currentUser?.nationality
+        nationality: currentUser?.nationality,
+        docImage: ""
+
     }), [currentUser])
 
 
@@ -181,7 +184,7 @@ export default function EditEmployee() {
 
                             </Grid>
                             <Grid item md={4} xs={12} >
-                                <OfficialDetails data={data} isEdit={isEdit} />
+                                <OfficialDetails data={data} isEdit={isEdit} setValue={setValue} />
 
 
 

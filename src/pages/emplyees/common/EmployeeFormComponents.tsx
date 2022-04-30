@@ -1,4 +1,4 @@
-import React, { useRef, ChangeEvent } from 'react'
+import React, { useRef, ChangeEvent, useState } from 'react'
 import {
     Card,
     Grid,
@@ -20,8 +20,13 @@ import DetailsSelect from '../DetailsSelect';
 import { useFormContext, Controller } from 'react-hook-form';
 import DatePicker from '@mui/lab/DatePicker';
 import RHFDatePicker from 'src/components/hook-form/RHFDatePicker';
+import {
+    UseFormReturn,
+    UseFormSetValue
+} from "react-hook-form";
+import { FormValidInputs } from '../NewEmployee';
 
-
+// Types
 type Props = {
     uploadedFile: {
         name?: string
@@ -29,18 +34,26 @@ type Props = {
     setUploadedFile: React.Dispatch<React.SetStateAction<Props["uploadedFile"]>>
     currentFile?: string
     isEdit?: boolean
-
 }
 
+interface dropDownData {
+    data: {
+        Designation: string[],
+        Company: string[],
+        Department: string[],
+    },
+    isEdit?: boolean
+    setValue: UseFormSetValue<FormValidInputs>
+}
+
+interface inputValueProps {
+
+    code?: string;
+    label?: string;
+    phone?: string;
 
 
-
-
-const LabelStyle = styled(Typography)(({ theme }) => ({
-    ...theme.typography.subtitle2,
-    color: theme.palette.text.secondary,
-    marginBottom: theme.spacing(1),
-}));
+}
 
 interface editInterface {
     errors?: {
@@ -48,6 +61,16 @@ interface editInterface {
     }
     isEdit: boolean
 }
+
+// LabelStyle
+
+const LabelStyle = styled(Typography)(({ theme }) => ({
+    ...theme.typography.subtitle2,
+    color: theme.palette.text.secondary,
+    marginBottom: theme.spacing(1),
+}));
+
+
 
 export const CommonDetails = ({ errors, isEdit }: editInterface) => {
 
@@ -98,17 +121,13 @@ export const DocumentDetails = ({ isEdit }: editInterface) => {
                     <RHFTextField name="passportNumber" label="Passport Number" disabled={isEdit} />
                 </Grid>
                 <Grid item md={6} xs={12}>
-                    {/* <RHFTextField name="EIDExpirydate" label="EID Expiry date" disabled={isEdit} /> */}
-
                     <RHFDatePicker name="EIDExpirydate" label="EID Expiry date" disabled={isEdit} />
                 </Grid>
                 <Grid item md={6} xs={12}>
-                    {/* <RHFTextField name="passportExpiryDate" label="Passport Expiry Date" disabled={isEdit} /> */}
                     <RHFDatePicker name="passportExpiryDate" label="passport Expiry Date" disabled={isEdit} />
 
                 </Grid>
                 <Grid item md={6} xs={12}>
-                    {/* <RHFTextField name="visaExpiryDate" label="Visa Expiry Date" disabled={isEdit} /> */}
                     <RHFDatePicker name="visaExpiryDate" label="Visa Expiry Date" disabled={isEdit} />
                 </Grid>
 
@@ -168,17 +187,7 @@ export const EmployeeFileUpload = ({ uploadedFile, setUploadedFile, currentFile,
     )
 }
 
-interface dropDownData {
-    data: {
-        Designation: string[],
-        Company: string[],
-        Department: string[],
-    },
-    isEdit?: boolean
-}
-
-export const OfficialDetails = ({ data, isEdit }: dropDownData) => {
-    const keys = Object.keys(data)
+export const OfficialDetails = ({ data, isEdit, setValue }: dropDownData) => {
 
     return (
         <Card sx={{ p: 3 }}>
@@ -188,9 +197,7 @@ export const OfficialDetails = ({ data, isEdit }: dropDownData) => {
             </div>
             <div style={{ marginTop: "1.5rem" }}>
                 <RHFTextField name="email" label="Email" disabled={isEdit} />
-
             </div>
-
 
             <DetailsSelect data={data["Designation"]} isEdit={isEdit} />
             <DetailsSelect data={data["Company"]} isEdit={isEdit} />
@@ -199,12 +206,15 @@ export const OfficialDetails = ({ data, isEdit }: dropDownData) => {
             <div style={{ marginTop: "1.5rem" }}>
                 <Autocomplete
                     id="nationality"
-                    // sx={{ width: 300 }}
-
                     fullWidth
                     options={countries}
                     autoHighlight
+                    autoSelect
                     getOptionLabel={(option) => option.label}
+                    onChange={(_, newValue: inputValueProps | null) => {
+                        setValue("nationality", newValue?.label)
+
+                    }}
                     renderOption={(props, option) => (
                         <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
                             <img
@@ -217,16 +227,12 @@ export const OfficialDetails = ({ data, isEdit }: dropDownData) => {
                             {option.label} ({option.code})
                         </Box>
                     )}
+                    disabled={isEdit}
                     renderInput={(params) => (
-
                         <RHFTextField name="nationality" {...params}
                             label="Choose Nationality"
-                            // value={option.label}
-                            inputProps={{
-                                ...params.inputProps,
-                                autoComplete: 'new-password', // disable autocomplete and autofill
-                            }} />
-
+                            disabled={isEdit}
+                        />
                     )}
                 />
             </div>

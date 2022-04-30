@@ -4,13 +4,10 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useMemo, useEffect } from 'react';
 import { useSnackbar } from 'notistack';
 import { EmployeeSchema } from './common/EmployeeSchema';
-import { styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 import {
-    Typography,
-    Button,
     Container,
     Stepper,
     Step,
@@ -19,23 +16,38 @@ import {
     Stack,
 } from '@mui/material';
 
-import {
-    FormProvider,
-} from '../../components/hook-form';
+import { FormProvider } from '../../components/hook-form';
 import Page from 'src/components/Page';
 import HeaderBreadcrumbs from 'src/components/HeaderBreadcrumbs';
 import { CommonDetails, DocumentDetails, EmployeeFileUpload, OfficialDetails } from './common/EmployeeFormComponents';
 import { SubmitBtn } from 'src/components/ButtonSet';
 
 
-
+// types
 interface uploadedFileInterface {
     name?: string
-
 }
 
 
-
+export interface FormValidInputs {
+    firstName: string;
+    firstName_ar: string;
+    middleName: string;
+    middleName_ar: string;
+    lastName: string;
+    lastName_ar: string;
+    passportNumber: string;
+    emiratesID: string;
+    EIDExpirydate: string;
+    docImage: string;
+    occupation_en: string,
+    visaExpiryDate: string,
+    passportExpiryDate: string,
+    occupation_ar: string,
+    phonenumber: string,
+    email: string,
+    nationality?: string
+}
 
 const data = {
     Designation: ["Designation-1", "Designation-2", "Designation-3", "Designation-4", "Designation-5"],
@@ -43,6 +55,8 @@ const data = {
     Department: ["Department-1", "Department-2", "Department-3", "Department-4", "Department-5"],
 
 }
+
+
 
 
 
@@ -56,22 +70,22 @@ export default function NewEmployee() {
 
     const { enqueueSnackbar } = useSnackbar();
 
-    const defaultValues = useMemo(() => ({
-        firstName: 'Lionel',
-        firstName_ar: 'Lionel',
-        middleName: 'Andress',
-        middleName_ar: 'Andress',
-        lastName: 'Messi',
-        lastName_ar: 'Messi',
-        passportNumber: '2a4568752',
-        emiratesID: '2a4568752',
-        EIDExpirydate: '2022-04-30T00:17:55.000Z',
-        occupation_en: 'Business',
-        visaExpiryDate: '2022-04-30T00:17:55.000Z',
-        passportExpiryDate: '2022-04-30T00:17:55.000Z',
-        occupation_ar: 'Business',
-        phonenumber: "+91 97845 61230",
-        email: "abc@gmail.com",
+    const defaultValues = useMemo((): FormValidInputs => ({
+        firstName: "",
+        firstName_ar: "",
+        middleName: "",
+        middleName_ar: "",
+        lastName: "",
+        lastName_ar: "",
+        passportNumber: "",
+        emiratesID: "",
+        EIDExpirydate: "",
+        occupation_en: "",
+        visaExpiryDate: "",
+        passportExpiryDate: "",
+        occupation_ar: "",
+        phonenumber: "",
+        email: "",
         nationality: "",
         docImage: ""
     }), []);
@@ -86,8 +100,9 @@ export default function NewEmployee() {
     const {
         watch,
         handleSubmit,
-        formState: { isSubmitting, errors },
-        clearErrors
+        formState: { errors },
+        clearErrors,
+        setValue
     } = methods;
 
 
@@ -97,9 +112,6 @@ export default function NewEmployee() {
             navigate("/dashboard/app")
         }
     }
-
-    // console.log(errors);
-
 
     const [uploadedFile, setUploadedFile] = useState<null | uploadedFileInterface>({})
 
@@ -122,12 +134,10 @@ export default function NewEmployee() {
         return activeStep === totalSteps() - 1;
     };
 
-    const allStepsCompleted = () => {
-        return completedSteps() === totalSteps();
-    };
+
     // clean function
 
-    const [test, setTest] = useState(true)
+    const [clear1, setClear] = useState(true)
 
     let CleanErrorOneTime = (function () {
         let executed = false;
@@ -148,9 +158,8 @@ export default function NewEmployee() {
     })();
     let CleanErrorSecondTime = function () {
 
-        if (test) {
-            console.log("cleared-2", test);
-            setTest(false)
+        if (clear1) {
+            setClear(false)
 
             clearErrors(["email", "phonenumber",
                 "nationality"
@@ -260,14 +269,16 @@ export default function NewEmployee() {
                                         activeStep === 1 &&
                                         <>
                                             <DocumentDetails isEdit={false} />
-                                            <EmployeeFileUpload uploadedFile={uploadedFile} setUploadedFile={setUploadedFile} />
+                                            <EmployeeFileUpload
+                                                uploadedFile={uploadedFile}
+                                                setUploadedFile={setUploadedFile} />
                                         </>
 
 
                                     }
                                     {
                                         activeStep === 2 &&
-                                        <OfficialDetails data={data} isEdit={false} />
+                                        <OfficialDetails data={data} isEdit={false} setValue={setValue} />
 
                                     }
 
@@ -293,7 +304,6 @@ export default function NewEmployee() {
                                             {!isLastStep() ? "Next" : "submit"}
                                         </SubmitBtn>
                                     </Box>
-                                 
                                 </FormProvider>
 
                             </Fragment>
