@@ -1,61 +1,42 @@
-import { TextField } from '@mui/material';
-import React from 'react'
+import { Chip, TextField } from "@mui/material";
+import { EmailOutlined } from "@mui/icons-material";
+import React from "react";
 
 let Comptypes: ComptypesI = {
-    ID: {
-        view: ({ value }: { value: any }) => (
-            <div>{value} </div>
-        ),
-        control: (props: { label: string, value: any }) => (
-            <div>
-                id: <b>{props.value}</b>
-            </div>
-        )
-    },
-    Text: {
-        view: ({ value }: { value: any }) => (
-            <div>{value} </div>
-        ),
-        control: (props: { label: string, value: any, onChange: (e: string) => void }) => (
-            <TextField label={props.label}
-
-                value={props.value}
-                onInput={(e)=>{
-                    props.onChange(e.target.value)
-                }}
-            ></TextField>
-        )
-
-    }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  Text: ({ field }: { field: any }) => <div>{field} </div>,
+  Status: ({ field }: { field: boolean }) => (
+    <div
+      style={{
+        background: field ? "green" : "gray",
+      }}
+    >
+      {field ? "Active" : "Not Active"}{" "}
+    </div>
+  ),
+  FullName: ({ field }: { field: { first: string; last: string } }) => (
+    <div>
+      {" "}
+      {field.first} {field.last}{" "}
+    </div>
+  ),
+  Email: ({ field }: { field: string }) => (
+    <div>
+      <EmailOutlined />
+      <a href={`emailto:${field}`}> {field} </a>
+    </div>
+  ),
+  List: ({ field }: { field: string[] }) => (
+    <div>
+      {field.map((e) => (
+        <Chip
+        label={e}
+        />
+      ))}
+    </div>
+  ),
+};
 
 type ComptypesI = {
-    [key: string]: {
-        view: React.ElementType,
-        control: React.ElementType
-    }
-}
+  [key: string]: React.ElementType;
+};
 export default Comptypes;

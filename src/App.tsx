@@ -10,8 +10,11 @@ import { ProgressBarStyle } from './components/ProgressBar';
 import NotistackProvider from './components/NotistackProvider';
 import MotionLazyContainer from './components/animate/MotionLazyContainer';
 import { ApolloProvider } from '@apollo/client';
-import { client } from './service/client';
+import { client } from './service/testClient';
 // ----------------------------------------------------------------------
+
+
+
 
 export default function App() {
   return (
