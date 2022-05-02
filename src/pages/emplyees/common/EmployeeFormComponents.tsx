@@ -17,13 +17,9 @@ import {
     countries
 } from "../../../data/_countries"
 import DetailsSelect from '../DetailsSelect';
-import { useFormContext, Controller } from 'react-hook-form';
+import { useFormContext, Controller, UseFormGetValues, UseFormSetValue } from 'react-hook-form';
 import DatePicker from '@mui/lab/DatePicker';
 import RHFDatePicker from 'src/components/hook-form/RHFDatePicker';
-import {
-    UseFormReturn,
-    UseFormSetValue
-} from "react-hook-form";
 import { FormValidInputs } from '../NewEmployee';
 
 // Types
@@ -44,13 +40,14 @@ interface dropDownData {
     },
     isEdit?: boolean
     setValue: UseFormSetValue<FormValidInputs>
+    getValue: UseFormGetValues<FormValidInputs>
 }
 
 interface inputValueProps {
 
-    code?: string;
-    label?: string;
-    phone?: string;
+    code: string;
+    label: string;
+    phone: string;
 
 
 }
@@ -82,19 +79,19 @@ export const CommonDetails = ({ errors, isEdit }: editInterface) => {
                     <RHFTextField name="firstName" label="First Name (EN)" disabled={isEdit} fullWidth />
                 </Grid>
                 <Grid item md={6} xs={12}>
-                    <RHFTextField name="firstName_ar" label="First Name  (AR)" disabled={isEdit} />
+                    <RHFTextField name="firstName_ar" label="First Name  (AR)" disabled={isEdit} dir="rtl" />
                 </Grid>
                 <Grid item md={6} xs={12}>
                     <RHFTextField name="middleName" label="Middle Name (EN)" disabled={isEdit} />
                 </Grid>
                 <Grid item md={6} xs={12}>
-                    <RHFTextField name="middleName_ar" label="Middle Name (AR)" disabled={isEdit} />
+                    <RHFTextField name="middleName_ar" label="Middle Name (AR)" disabled={isEdit} dir="rtl"/>
                 </Grid>
                 <Grid item md={6} xs={12}>
                     <RHFTextField name="lastName" label="Last Name (EN)" disabled={isEdit} />
                 </Grid>
                 <Grid item md={6} xs={12}>
-                    <RHFTextField name="lastName_ar" label="Last Name (AR)" disabled={isEdit} />
+                    <RHFTextField name="lastName_ar" label="Last Name (AR)" disabled={isEdit} dir="rtl"/>
                 </Grid>
             </Grid>
         </Card>
@@ -135,7 +132,7 @@ export const DocumentDetails = ({ isEdit }: editInterface) => {
                     <RHFTextField name="occupation_en" label="Occupation (EN)" disabled={isEdit} />
                 </Grid>
                 <Grid item md={6} xs={12}>
-                    <RHFTextField name="occupation_ar" label="Occupation (AR)" disabled={isEdit} />
+                    <RHFTextField name="occupation_ar" label="Occupation (AR)" disabled={isEdit} dir="rtl"/>
                 </Grid>
             </Grid>
 
@@ -187,7 +184,7 @@ export const EmployeeFileUpload = ({ uploadedFile, setUploadedFile, currentFile,
     )
 }
 
-export const OfficialDetails = ({ data, isEdit, setValue }: dropDownData) => {
+export const OfficialDetails = ({ data, isEdit, setValue, getValue }: dropDownData) => {
 
     return (
         <Card sx={{ p: 3 }}>
@@ -212,9 +209,12 @@ export const OfficialDetails = ({ data, isEdit, setValue }: dropDownData) => {
                     autoSelect
                     getOptionLabel={(option) => option.label}
                     onChange={(_, newValue: inputValueProps | null) => {
-                        setValue("nationality", newValue?.label)
+                        if (newValue) {
+                            setValue("nationality", newValue)
+                        }
 
                     }}
+                    disableClearable={true}
                     renderOption={(props, option) => (
                         <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
                             <img
@@ -232,8 +232,11 @@ export const OfficialDetails = ({ data, isEdit, setValue }: dropDownData) => {
                         <RHFTextField name="nationality" {...params}
                             label="Choose Nationality"
                             disabled={isEdit}
+                            value={getValue("nationality.label") ? getValue("nationality.label") : ""}
                         />
                     )}
+                    defaultValue={getValue("nationality.label") ? getValue("nationality") : undefined}
+
                 />
             </div>
 

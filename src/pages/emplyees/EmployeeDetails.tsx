@@ -57,7 +57,7 @@ export default function EditEmployee() {
         occupation_ar: 'Business',
         phonenumber: "+91 97845 61230",
         email: "abc@gmail.com",
-        nationality: "india"
+        nationality: { code: "in", label: "India",phone:"91" }
 
     }
 
@@ -184,7 +184,7 @@ export default function EditEmployee() {
 
                             </Grid>
                             <Grid item md={4} xs={12} >
-                                <OfficialDetails data={data} isEdit={isEdit} setValue={setValue} />
+                                <OfficialDetails data={data} isEdit={isEdit} setValue={setValue} getValue={getValues}/>
 
 
 

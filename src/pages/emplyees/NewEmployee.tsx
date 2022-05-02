@@ -46,7 +46,7 @@ export interface FormValidInputs {
     occupation_ar: string,
     phonenumber: string,
     email: string,
-    nationality?: string
+    nationality?: { code: string, label: string, phone: string }
 }
 
 const data = {
@@ -86,7 +86,7 @@ export default function NewEmployee() {
         occupation_ar: "",
         phonenumber: "",
         email: "",
-        nationality: "",
+        nationality: { code: "", label: "", phone: "" },
         docImage: ""
     }), []);
 
@@ -102,18 +102,20 @@ export default function NewEmployee() {
         handleSubmit,
         formState: { errors },
         clearErrors,
-        setValue
+        setValue,
+        getValues
     } = methods;
 
 
     const onSubmit = (data: any) => {
-        if (Object.keys(errors).length === 0 && activeStep === 2) {
+        if (formSubmit) {
             enqueueSnackbar('Successfully Added', { variant: 'success' })
             navigate("/dashboard/app")
         }
     }
 
     const [uploadedFile, setUploadedFile] = useState<null | uploadedFileInterface>({})
+    const [formSubmit, setFormSubmit] = useState<boolean>(false)
 
     const steps = [
         'Basic Details',
@@ -144,8 +146,6 @@ export default function NewEmployee() {
         return function () {
             if (!executed) {
                 executed = true;
-                console.log("cleared");
-
                 clearErrors(["passportExpiryDate", "passportNumber",
                     "emiratesID",
                     "EIDExpirydate",
@@ -200,6 +200,10 @@ export default function NewEmployee() {
                     }
                 })
 
+            }
+
+            if (Object.keys(errors).length === 0 && activeStep === 2) {
+                setFormSubmit(true)
             }
 
 
@@ -278,7 +282,7 @@ export default function NewEmployee() {
                                     }
                                     {
                                         activeStep === 2 &&
-                                        <OfficialDetails data={data} isEdit={false} setValue={setValue} />
+                                        <OfficialDetails data={data} isEdit={false} setValue={setValue} getValue={getValues} />
 
                                     }
 
@@ -304,6 +308,10 @@ export default function NewEmployee() {
                                             {!isLastStep() ? "Next" : "submit"}
                                         </SubmitBtn>
                                     </Box>
+
+                                    <pre>
+                                        {JSON.stringify(watch(), null, 2)}
+                                    </pre>
                                 </FormProvider>
 
                             </Fragment>
