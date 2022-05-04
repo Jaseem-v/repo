@@ -96,6 +96,8 @@ export default function Index(props: {
   const [Limit, setLimit] = useState(5);
   const [Searchq, setSearchq] = useState("");
   const [Filtered, setFiltered] = useState<{ [key: string]: any }>({})
+  const [Selected, setSelected] = useState<any[]>([])
+
   const [Sort, setSort] = useState<{
     field: string | null;
     order: "Asc" | "Desc";
@@ -109,19 +111,15 @@ export default function Index(props: {
 
   /////Filter 
 
-
-
   let where: { [key: string]: any } = {}
 
   filters.forEach((e: TableSchemaI) => {
     let _key = e["field"]
-
-    //let keyInWhere=where[_key]
     if (Filtered[_key]) {
       where[_key] = Filtered[_key].q
     }
 
-  
+
   })
 
   if (Searchq) {
@@ -160,15 +158,17 @@ export default function Index(props: {
 
 
   const [_rows, set_rows] = useState(rows);
- 
 
 
 
 
 
+  function GetTableData() {
+    return data?.[Object.keys(data)[1]]
+  }
   let TotalCount = data?.[Object.keys(data)[0]]?.count;
 
-  
+
   let TotalPage = Math.ceil(TotalCount / Limit);
 
   function FilterGenerateLabel(obj: { [key: string]: string }) {
@@ -207,7 +207,7 @@ export default function Index(props: {
 
             {
               matches.map((each, i) => (
-                <MenuItem value={i}>{FilterGenerateLabel(each)}</MenuItem>
+                <MenuItem key={i} value={i}>{FilterGenerateLabel(each)}</MenuItem>
 
               ))
             }
@@ -236,7 +236,10 @@ export default function Index(props: {
 
             {
               matches.map((each, i) => (
-                <MenuItem value={i}>{each[Object.keys(each)[0]]}</MenuItem>
+                <MenuItem key={i} value={i}>
+                  {typeof each=="string"&&each}
+                  {typeof each=="object"&&each[Object.keys(each)[0]]}
+                </MenuItem>
 
               ))
             }
@@ -248,11 +251,11 @@ export default function Index(props: {
     }
 
     return (
-      <>
+      <Paper>
         <Stack direction="row" padding={2} spacing={2}>
           <Paper
             component="form"
-            sx={{ p: '0px 0px',pl:"20px", display: 'flex',border:"1px solid lightgray", alignItems: 'center', }}
+            sx={{ p: '0px 0px', pl: "20px", display: 'flex', border: "1px solid lightgray", alignItems: 'center', }}
           >
 
             <InputBase
@@ -283,16 +286,31 @@ export default function Index(props: {
             //             {filters.length > 0 && <FilterMenu OpenFil={OpenFil} FilterRef={FilterRef} setOpenFil={setOpenFil} Filter={Filter} setFilter={setFilter} />}
           }
           {
-            filters.map((e, i) => <FilterMenu {...e} />)
+            filters.map((e, i) => <FilterMenu key={i} {...e} />)
           }
 
         </Stack>
         <Table>
           <TableHead>
-            <TableCell></TableCell>
-            <TableCell></TableCell>
-            {columns?.map((e: TableSchemaI) => (
+            <TableCell>
+              <Checkbox
+                checked={GetTableData()?.length == Selected.length}
+                indeterminate={!(GetTableData()?.length == Selected.length) && Selected.length > 0}
+                onChange={() => {
+                  let _data = GetTableData() || []
+
+                  if (Selected.length == _data.length) {
+                    setSelected([])
+                  } else {
+                    setSelected(_data.map((e: any) => e.id))
+                  }
+
+
+                }} />
+            </TableCell>
+            {columns?.map((e: TableSchemaI,i:number) => (
               <TableCell
+                key={i}
                 onClick={() => {
                   setSort((_e: any) => {
                     if (_e.field == e.field) {
@@ -343,10 +361,10 @@ export default function Index(props: {
 
           <TableBody>
             {loading &&
-              Array.from({ length: Limit }).map((e) => (
-                <TableRow>
-                  {[...columns, "", ""].map((clm: any) => (
-                    <TableCell>
+              Array.from({ length: Limit }).map((e,i) => (
+                <TableRow key={i}>
+                  {[...columns, "", ""].map((clm: any,i) => (
+                    <TableCell key={i}>
                       <Skeleton
                         variant="rectangular"
                         width="100%"
@@ -358,36 +376,32 @@ export default function Index(props: {
               ))}
 
             {!error &&
-              data?.[Object.keys(data)[1]]?.map((row: any, i: number) => (
-                <TableRow key={"row" + i}>
-                  <TableCell width={25}>
-                    <IconButton
-                      size="small"
-                      onClick={() => {
-                        // setOpenDrawer(true)
-                        // setID(row._id)
-                        navigate(`/edit/${row.id}`);
-                      }}
-                    >
-                      <EditOutlined fontSize="small" />
-                    </IconButton>
-                  </TableCell>
-                  <TableCell width={25}>
-                    <IconButton size="small">
-                      <DeleteOutline fontSize="small" />
-                    </IconButton>
+              GetTableData()?.map((row: {[key:string]:any}, i: number) => (
+                <TableRow selected={Selected.indexOf(row.id) > (-1)} key={"row" + i}>
+
+                  <TableCell  width={25}>
+                    <Checkbox 
+                    checked={Selected.indexOf(row.id) > (-1)}
+                    onChange={() => {
+                      if (Selected.indexOf(row.id) > (-1)) {
+                        setSelected(Selected.filter(_e => _e !== row.id))
+                      } else {
+                        setSelected((e) => ([...e, row.id]))
+
+                      }
+                    }} />
                   </TableCell>
 
                   {columns.map((clm: any) => (
                     <TableCell key={clm.field}>
-                      {clm.type
+                      {clm && clm.type
                         ? Components[clm.type] &&
                         React.createElement(
                           Components[clm.type],
                           { field: ObjByString(row, clm.field) },
                           null
                         )
-                        : ObjByString(row, clm.field)}{" "}
+                        : ObjByString(row, clm.field)}
                     </TableCell>
                   ))}
                 </TableRow>
@@ -431,7 +445,7 @@ export default function Index(props: {
             </IconButton>
           </Stack>
         </div>
-      </>
+      </Paper>
     );
   }
 
@@ -472,24 +486,24 @@ type FilterArrayTypes =
   | { "every": [string] };
 
 
- type SimpleFilter = {
+type SimpleFilter = {
   field: string;
-  type:"simple";
-  matches:FiltersSingle[];
+  type: "simple";
+  matches: FiltersSingle[];
 };
- type ArrayManyFilter = {
+type ArrayManyFilter = {
   field: string;
-  type:"many";
-  matches:FilterArrayTypes;
-};
-
- type ArrayOneFilter = {
-  field: string;
-  type:"one";
-  matches:{[key:string]:any}[];
+  type: "many";
+  matches: FilterArrayTypes;
 };
 
-export type FilterI=SimpleFilter|ArrayManyFilter|ArrayOneFilter;
+type ArrayOneFilter = {
+  field: string;
+  type: "one";
+  matches: any[];
+};
+
+export type FilterI = SimpleFilter | ArrayManyFilter | ArrayOneFilter;
 
 export type TableSchemaI = {
   field: string;
