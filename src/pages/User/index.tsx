@@ -32,36 +32,43 @@ export default function Test() {
               ]
             },
             {
-              field: "company", type: "one", matches: [
-
-                {
-                  id: "cl2j3ltab009001s61qy0q7t4"
-                },
-                {
-                  id: "cl2kaidh4148901s6j6ciq21z"
-                }
-
-
-              ]
+              field:"company",
+              type:"one",
+              matches:[{id:"cl2rh6bpr114801s6slmwv4s5"},{id:"cl2rh6l2d126701s64wgowqe1"}]
             },
+            {
+              field:"jobRole",
+              type:"one",
+              matches:["Backend","Hr"]
+            }
+
+            
             
           ]}
           columns={[
             {
-              field: "id",
-              label: "ID.no",
+              field: {name:"firstName",img:"avatar"},
+              label: "Name",
+              type:"Avatar"
             },
             {
-              field: "firstName",
-              label: "FirstName",
+              field: "company.name",
+              label: "Company",
+            },
+
+            {
+              field: "jobRole",
+              label: "Role",
             },
             {
-              field: "lastName",
-              label: "LastName",
+              field: "status",
+              label: "Status",
+              type:"Status"
             },
             {
-              field: "username",
-              label: "UserName",
+              field:"varified",
+              label:"Varified",
+              type:"Verified"
             },
             {
               field: "roles",

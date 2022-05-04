@@ -7,10 +7,14 @@ query User($orderBy: [UserOrderByInput!],$skip: Float,$take: Float,$where: UserW
   }
   users(orderBy:$orderBy,skip:$skip,take:$take,where:$where){
     id
+    avatar
     firstName
     lastName
     roles
     username
+    jobRole
+    status
+    varified
     company{
       name
     }
