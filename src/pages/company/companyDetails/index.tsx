@@ -18,8 +18,8 @@ export default function CompanyDetails() {
                     links={[]}
                     action={<>
                         <Box sx={{ display: 'flex' }}>
-                            <Button variant='contained' color='warning'>Disable</Button>
-                            <Button sx={{ mx: 1 }} variant='contained' color='error' >Delete</Button>
+                            <Button color='warning'>Disable</Button>
+                            <Button sx={{ mx: 1 }} variant='contained' color='error'>Delete</Button>
                             <Button variant='contained' >Edit</Button>
                         </Box>
                     </>}
