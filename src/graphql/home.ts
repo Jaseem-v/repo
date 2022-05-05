@@ -3,14 +3,21 @@ import { gql } from "@apollo/client";
 
 
 export const ALL_USERS = gql`
-query{
-  users {
+query User($options: PageQueryOptions!){
+  users(options:$options) {
+    meta{
+      totalCount
+    }
     data {
+      id
       name
       phone
       email
       username
       website
+      company{
+        name
+      }
     }
   }
 }
