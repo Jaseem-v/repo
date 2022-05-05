@@ -1,24 +1,19 @@
 import * as React from 'react';
 import {
-    FormProvider,
-    RHFSwitch,
     RHFSelect,
-    RHFEditor,
-    RHFTextField,
-    RHFRadioGroup,
-    // RHFUploadMultiFile,
 } from '../../components/hook-form';
 export interface IAppProps {
-    data : string[]
+    data: string[],
+    isEdit ?: boolean
 }
 
-export default function DetailsSelect({data}: IAppProps) {
+export default function DetailsSelect({  data , isEdit }: IAppProps) {
     return (
         <div>
-            <RHFSelect name="category"  style={{ marginTop: "2rem" }}>
-                {data.map((el) => (
+            <RHFSelect name="category" label={`Choose ${data[0].replace("-1"," ")}`} style={{ marginTop: "2rem" }} fullWidth disabled={isEdit}>
+                {data.map((el, i) => (
 
-                    <option key={el} value={el}>
+                    <option key={i} value={el}>
                         {el}
                     </option>
 

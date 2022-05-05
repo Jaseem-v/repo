@@ -37,8 +37,8 @@ const navConfig = [
       { title: 'app', path: PATH_DASHBOARD.general.app, icon: ICONS.dashboard },
       { title: 'ecommerce', path: PATH_DASHBOARD.general.ecommerce, icon: ICONS.ecommerce },
       { title: 'analytics', path: PATH_DASHBOARD.general.analytics, icon: ICONS.analytics },
-      { title: 'banking', path: PATH_DASHBOARD.general.banking, icon: ICONS.banking },
-      { title: 'Add New Employee', path: PATH_DASHBOARD.general.booking, icon: ICONS.booking },
+      { title: 'Employee Details', path: PATH_DASHBOARD.general.employeedetails, icon: ICONS.banking },
+      { title: 'Add New Employee', path: PATH_DASHBOARD.general.addnewemployee, icon: ICONS.booking },
     ],
   },
 
