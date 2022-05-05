@@ -285,7 +285,7 @@ export default function NewEmployee() {
                                             disabled={activeStep === 0}
                                             onClick={handleBack}
                                             sx={{ mr: 1 }}
-                                            variant="outlined"
+                                            variant="outlined" 
                                             size='small'
                                         >
                                             Back
