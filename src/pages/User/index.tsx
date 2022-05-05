@@ -55,7 +55,7 @@ export default function Test() {
             {
               sortId:"companyId",
               field: "company.name",
-              label: "Company",
+              label: "CompanyName",
             },
 
             {
