@@ -231,6 +231,27 @@ export default function Index(props: {
             }
           >
 
+              ))
+            }
+
+          </Select>
+        </FormControl>)
+      }
+      if (type == "one") {
+        return (<FormControl size="small" sx={{ m: 1, minWidth: 120 }}>
+          <InputLabel id="">{field}</InputLabel>
+          <Select
+            fullWidth
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={Filtered[field]?.["ind"]}
+            label={field}
+            onChange={
+              ({ target: { value } }) => {
+                setFiltered((_e) => ({ ..._e, [field]: { ind: value, q: matches[value] } }))
+              }
+            }
+          >
 
             <MenuItem value="">All</MenuItem>
 
@@ -239,10 +260,24 @@ export default function Index(props: {
                 <MenuItem key={i} value={i}>
                   {typeof each=="string"&&each}
                   {typeof each=="object"&&each[Object.keys(each)[0]]}
+
+            <MenuItem value="">All</MenuItem>
+
+            {
+              matches.map((each, i) => (
+                <MenuItem key={i} value={i}>
+                  {typeof each == "string" && each}
+                  {typeof each == "object" && each[Object.keys(each)[0]]}
                 </MenuItem>
 
               ))
             }
+
+          </Select>
+        </FormControl>)
+      }
+      return (<></>)
+    }
 
           </Select>
         </FormControl>)
@@ -308,6 +343,7 @@ export default function Index(props: {
 
                 }} />
             </TableCell>
+
             {columns?.map((e: TableSchemaI,i:number) => (
               <TableCell
                 key={i}
@@ -343,11 +379,44 @@ export default function Index(props: {
                       ) : (
                         Sort.order == "Desc" && (
                           <ArrowDownward
+
+            {columns?.map((e: TableSchemaI, i: number) => {
+              let _field = e.sortId || e.field
+              return (
+                <TableCell
+                  key={i}
+                  onClick={() => {
+                    setSort((_e: any) => {
+
+                      if (_e.field == _field) {
+                        if (_e.order == "Asc") {
+                          return { ..._e, order: "Desc" };
+                        } else {
+                          return { field: null, order: "Asc" };
+                        }
+                      } else {
+                        return { field: _field, order: "Asc" };
+                      }
+                    });
+                  }}
+                >
+                  <Stack direction="row">
+                    {Sort.field == _field && (
+                      <IconButton
+                        sx={{
+                          height: "20px",
+                          width: "20px",
+                        }}
+                      >
+                        {Sort.order == "Asc" ? (
+                          <ArrowUpward
+
                             sx={{
                               height: "15px",
                               width: "15px",
                             }}
                           />
+
                         )
                       )}
                     </IconButton>
@@ -357,13 +426,41 @@ export default function Index(props: {
                 </Stack>
               </TableCell>
             ))}
+
+                        ) : (
+                          Sort.order == "Desc" && (
+                            <ArrowDownward
+                              sx={{
+                                height: "15px",
+                                width: "15px",
+                              }}
+                            />
+                          )
+                        )}
+                      </IconButton>
+                    )}
+
+                    {e.label}
+                  </Stack>
+                </TableCell>
+              )
+            }
+
+            )}
+
           </TableHead>
 
           <TableBody>
             {loading &&
+
               Array.from({ length: Limit }).map((e,i) => (
                 <TableRow key={i}>
                   {[...columns, "", ""].map((clm: any,i) => (
+
+              Array.from({ length: Limit }).map((e, i) => (
+                <TableRow key={i}>
+                  {[...columns, "", ""].map((clm: any, i) => (
+
                     <TableCell key={i}>
                       <Skeleton
                         variant="rectangular"
@@ -376,6 +473,7 @@ export default function Index(props: {
               ))}
 
             {!error &&
+
               GetTableData()?.map((row: {[key:string]:any}, i: number) => (
                 <TableRow selected={Selected.indexOf(row.id) > (-1)} key={"row" + i}>
 
@@ -390,6 +488,22 @@ export default function Index(props: {
 
                       }
                     }} />
+
+              GetTableData()?.map((row: { [key: string]: any }, i: number) => (
+                <TableRow selected={Selected.indexOf(row.id) > (-1)} key={"row" + i}>
+
+                  <TableCell width={25}>
+                    <Checkbox
+                      checked={Selected.indexOf(row.id) > (-1)}
+                      onChange={() => {
+                        if (Selected.indexOf(row.id) > (-1)) {
+                          setSelected(Selected.filter(_e => _e !== row.id))
+                        } else {
+                          setSelected((e) => ([...e, row.id]))
+
+                        }
+                      }} />
+
                   </TableCell>
 
                   {columns.map((clm: any) => (
@@ -506,6 +620,7 @@ type ArrayOneFilter = {
 export type FilterI = SimpleFilter | ArrayManyFilter | ArrayOneFilter;
 
 export type TableSchemaI = {
+  sortId?: string;
   field: string;
   type?: string;
   label?: string;

@@ -47,6 +47,7 @@ export default function Test() {
           ]}
           columns={[
             {
+              sortId:"firstName",
               field: {name:"firstName",img:"avatar"},
               label: "Name",
               type:"Avatar"
@@ -54,6 +55,9 @@ export default function Test() {
             {
               field: "company.name",
               label: "Company",
+              sortId:"companyId",
+              field: "company.name",
+              label: "CompanyName",
             },
 
             {
