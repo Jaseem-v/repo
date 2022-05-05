@@ -14,6 +14,8 @@ import AuthGuard from '../guards/AuthGuard';
 import { PATH_AFTER_LOGIN } from '../config';
 // components
 import LoadingScreen from '../components/LoadingScreen';
+import AddNewCompany from 'src/pages/company/AddNewCompany';
+import CompanyDetails from 'src/pages/company/companyDetails';
 
 // ----------------------------------------------------------------------
 
@@ -75,9 +77,10 @@ export default function Router() {
         { path: 'app', element: <Home /> },
         { path: 'ecommerce', element: <User /> },
         { path: 'analytics', element: <Common name='dashboard/analytics' /> },
-        { path: 'banking', element: <Common name='dashboard/banking' /> },
-        { path: 'addnewemployee', element: <NewEmployee /> },
-
+        { path: 'employee-details', element: <EmployeeDetails /> },
+        { path: 'add-new-employee', element: <NewEmployee /> },
+        { path: 'add-new-company', element: <AddNewCompany /> },
+        { path: 'company-details', element: <CompanyDetails /> },
         {
           path: 'Employee',
           children: [
@@ -183,8 +186,9 @@ const NewPassword = Loadable(lazy(() => import('../pages/auth/NewPassword')));
 const VerifyCode = Loadable(lazy(() => import('../pages/auth/VerifyCode')));
 
 const Home = Loadable(lazy(() => import('../pages/Home')));
-const User = Loadable(lazy(() => import('../pages/User')));
 const NewEmployee = Loadable(lazy(() => import('../pages/emplyees/NewEmployee')));
+const EmployeeDetails = Loadable(lazy(() => import('../pages/emplyees/EmployeeDetails')));
+const User = Loadable(lazy(() => import('../pages/User')));
 
 
 const Page500 = Loadable(lazy(() => import('../pages/Page500')));

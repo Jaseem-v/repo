@@ -53,6 +53,8 @@ export default function Test() {
               type:"Avatar"
             },
             {
+              field: "company.name",
+              label: "Company",
               sortId:"companyId",
               field: "company.name",
               label: "CompanyName",
