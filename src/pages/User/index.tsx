@@ -47,13 +47,15 @@ export default function Test() {
           ]}
           columns={[
             {
+              sortId:"firstName",
               field: {name:"firstName",img:"avatar"},
               label: "Name",
               type:"Avatar"
             },
             {
+              sortId:"companyId",
               field: "company.name",
-              label: "Company",
+              label: "CompanyName",
             },
 
             {
