@@ -57,7 +57,8 @@ export default function EditEmployee() {
         occupation_ar: 'Business',
         phonenumber: "+91 97845 61230",
         email: "abc@gmail.com",
-        nationality: { code: "in", label: "India",phone:"91" }
+        nationality: { code: "in", label: "India", phone: "91" },
+        docImage: "document-1.pdf"
 
     }
 
@@ -81,7 +82,7 @@ export default function EditEmployee() {
         phonenumber: currentUser?.phonenumber,
         email: currentUser?.email,
         nationality: currentUser?.nationality,
-        docImage: ""
+        docImage: currentUser?.docImage
 
     }), [currentUser])
 
@@ -166,7 +167,7 @@ export default function EditEmployee() {
 
                                 <CommonDetails isEdit={isEdit} errors={errors} />
                                 <DocumentDetails isEdit={isEdit} />
-                                <EmployeeFileUpload uploadedFile={uploadedFile} setUploadedFile={setUploadedFile} currentFile="details.doc" isEdit={isEdit} />
+                                <EmployeeFileUpload detailsPage={true} setValue={setValue} getValue={getValues} isEdit={isEdit} />
 
                                 {!isEdit &&
                                     <Stack
@@ -184,8 +185,7 @@ export default function EditEmployee() {
 
                             </Grid>
                             <Grid item md={4} xs={12} >
-                                <OfficialDetails data={data} isEdit={isEdit} setValue={setValue} getValue={getValues}/>
-
+                                <OfficialDetails data={data} isEdit={isEdit} setValue={setValue} getValue={getValues} />
 
 
                             </Grid>

@@ -22,5 +22,5 @@ export const EmployeeSchema = Yup.object().shape({
         label: Yup.string().required('nationality is required'),
         phone: Yup.string().required('nationality is required')
     }),
-    docImage: Yup.mixed().required('File is required'),
+    docImage: Yup.string().required('File is required')
 });

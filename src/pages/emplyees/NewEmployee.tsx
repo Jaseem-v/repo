@@ -114,7 +114,6 @@ export default function NewEmployee() {
         }
     }
 
-    const [uploadedFile, setUploadedFile] = useState<null | uploadedFileInterface>({})
     const [formSubmit, setFormSubmit] = useState<boolean>(false)
 
     const steps = [
@@ -274,8 +273,7 @@ export default function NewEmployee() {
                                         <>
                                             <DocumentDetails isEdit={false} />
                                             <EmployeeFileUpload
-                                                uploadedFile={uploadedFile}
-                                                setUploadedFile={setUploadedFile} />
+                                                detailsPage={false} setValue={setValue} getValue={getValues} />
                                         </>
 
 
@@ -308,18 +306,12 @@ export default function NewEmployee() {
                                             {!isLastStep() ? "Next" : "submit"}
                                         </SubmitBtn>
                                     </Box>
-
-                                    <pre>
-                                        {JSON.stringify(watch(), null, 2)}
-                                    </pre>
                                 </FormProvider>
 
                             </Fragment>
 
                         </div>
                     </Box>
-
-
                 </Container>
             </Page>
 

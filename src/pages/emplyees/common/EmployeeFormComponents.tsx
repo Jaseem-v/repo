@@ -24,12 +24,10 @@ import { FormValidInputs } from '../NewEmployee';
 
 // Types
 type Props = {
-    uploadedFile: {
-        name?: string
-    } | null;
-    setUploadedFile: React.Dispatch<React.SetStateAction<Props["uploadedFile"]>>
-    currentFile?: string
+    detailsPage?: boolean
     isEdit?: boolean
+    setValue: UseFormSetValue<FormValidInputs>
+    getValue: UseFormGetValues<FormValidInputs>
 }
 
 interface dropDownData {
@@ -85,13 +83,13 @@ export const CommonDetails = ({ errors, isEdit }: editInterface) => {
                     <RHFTextField name="middleName" label="Middle Name (EN)" disabled={isEdit} />
                 </Grid>
                 <Grid item md={6} xs={12}>
-                    <RHFTextField name="middleName_ar" label="Middle Name (AR)" disabled={isEdit} dir="rtl"/>
+                    <RHFTextField name="middleName_ar" label="Middle Name (AR)" disabled={isEdit} dir="rtl" />
                 </Grid>
                 <Grid item md={6} xs={12}>
                     <RHFTextField name="lastName" label="Last Name (EN)" disabled={isEdit} />
                 </Grid>
                 <Grid item md={6} xs={12}>
-                    <RHFTextField name="lastName_ar" label="Last Name (AR)" disabled={isEdit} dir="rtl"/>
+                    <RHFTextField name="lastName_ar" label="Last Name (AR)" disabled={isEdit} dir="rtl" />
                 </Grid>
             </Grid>
         </Card>
@@ -121,7 +119,7 @@ export const DocumentDetails = ({ isEdit }: editInterface) => {
                     <RHFDatePicker name="EIDExpirydate" label="EID Expiry date" disabled={isEdit} />
                 </Grid>
                 <Grid item md={6} xs={12}>
-                    <RHFDatePicker name="passportExpiryDate" label="passport Expiry Date" disabled={isEdit} />
+                    <RHFDatePicker name="passportExpiryDate" label="Passport Expiry Date" disabled={isEdit} />
 
                 </Grid>
                 <Grid item md={6} xs={12}>
@@ -132,7 +130,7 @@ export const DocumentDetails = ({ isEdit }: editInterface) => {
                     <RHFTextField name="occupation_en" label="Occupation (EN)" disabled={isEdit} />
                 </Grid>
                 <Grid item md={6} xs={12}>
-                    <RHFTextField name="occupation_ar" label="Occupation (AR)" disabled={isEdit} dir="rtl"/>
+                    <RHFTextField name="occupation_ar" label="Occupation (AR)" disabled={isEdit} dir="rtl" />
                 </Grid>
             </Grid>
 
@@ -140,16 +138,24 @@ export const DocumentDetails = ({ isEdit }: editInterface) => {
     )
 }
 
-export const EmployeeFileUpload = ({ uploadedFile, setUploadedFile, currentFile, isEdit }: Props) => {
+export const EmployeeFileUpload = ({ detailsPage, isEdit, setValue, getValue }: Props) => {
     const uploadInputRef = useRef<HTMLInputElement>(null)
 
     const fileOnchange = (e: ChangeEvent<HTMLInputElement>) => {
-        setUploadedFile(e.target.files?.[0] || null)
+        if (e.target.files?.[0]) {
+            setValue("docImage", e.target.files[0].name)
+        }
+
     }
 
     const uploadDocumentHandle = () => {
         return uploadInputRef.current && uploadInputRef.current!.click()
     }
+
+    const currentFile = getValue("docImage")
+    console.log(currentFile);
+
+
 
 
 
@@ -159,9 +165,9 @@ export const EmployeeFileUpload = ({ uploadedFile, setUploadedFile, currentFile,
             <LabelStyle>Employee Documents</LabelStyle>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                 <Typography variant="body1" mt={2} >
-                    {!currentFile && "Upload employee one page document (PDF)"} {!currentFile && uploadedFile && <br />}
-                    <span style={{ textDecoration: "underline", cursor: uploadedFile ? "pointer" : "" }}>
-                        {uploadedFile?.name ? uploadedFile.name : currentFile}
+                    {currentFile ? "" : "Upload employee one page document (PDF)"} {currentFile ? null : <br />}
+                    <span style={{ textDecoration: "underline", cursor: currentFile ? "pointer" : "" }}>
+                        {currentFile}
                     </span>
                 </Typography>
 
