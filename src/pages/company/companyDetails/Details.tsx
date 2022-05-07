@@ -4,13 +4,16 @@ import {
 import {
     Card,
     Grid,
-    Button
+    Button,
+    Stack,
+    useTheme,
+    useMediaQuery
 } from '@mui/material';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 
-import { useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { useSnackbar } from 'notistack';
 import {
     AssignDirectors,
@@ -20,15 +23,26 @@ import {
     Status
 } from '../common/FormComponents';
 import { companySchema } from '../companySchema';
+import { SubmitBtn } from 'src/components/ButtonSet';
+
+// icons 
+
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
+import { SaveOutlined } from '@mui/icons-material';
 
 
 const extendedCompanySchema = companySchema.concat(Yup.object({
     status: Yup.string().required('Required Field'),
 }))
 
+type editProps = {
+    isEdit: boolean
+    setIsEdit: React.Dispatch<React.SetStateAction<boolean>>
+}
 
-export default function CompanyDetailsWithEditForm() {
-
+export default function CompanyDetailsWithEditForm({ isEdit, setIsEdit }: editProps) {
+    const theme = useTheme()
+    const largeScreen = useMediaQuery(theme.breakpoints.up('md'))
     const { enqueueSnackbar } = useSnackbar();
 
     const defaultValues = useMemo(() => ({
@@ -40,8 +54,8 @@ export default function CompanyDetailsWithEditForm() {
         remarks: 'hello world',
         director: 'Shahul',
         director_role: 'Admin',
-        contract_purpose: 'New Purpose',
-        contract_no: '123456',
+        contact_purpose: 'New Purpose',
+        contact_no: '123456',
         employee_required: '230',
         reliever_count: '32',
         first_name: 'Mohammed',
@@ -77,16 +91,29 @@ export default function CompanyDetailsWithEditForm() {
         <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
             <Grid container spacing={2}>
                 <Grid item xs={12} md={8} >
-                    <BasicDetails />
-                    <AssignDirectors />
-                    <ContractDetails />
+                    <BasicDetails isEdit={isEdit} />
+                    <AssignDirectors isEdit={isEdit} />
+                    <ContractDetails isEdit={isEdit} />
+                    {!isEdit &&
+                        <Stack
+                            direction={largeScreen ? "row" : "column"}
+                            justifyContent="flex-start"
+                            alignItems="center"
+                            mt={5}
+                        >
+                            <SubmitBtn variant="contained" endIcon={<SaveOutlined />} type="submit"> Save </SubmitBtn>
+                            <SubmitBtn style={{ color: "white" }} variant='contained' color={"success"} startIcon={<CloseOutlinedIcon />} onClick={() => setIsEdit(!isEdit)}>
+                                {"Cancel"}
+                            </SubmitBtn>
+                        </Stack>
+                    }
                 </Grid>
                 <Grid item xs={12} md={4} >
                     <Status />
-                    <ContactPersonDetails />
-                    <Card sx={{ p: 3, m: 2 }}>
+                    <ContactPersonDetails isEdit={isEdit} />
+                    {/* <Card sx={{ p: 3, m: 2 }}>
                         <Button variant='contained' type='submit'>Submit</Button>
-                    </Card>
+                    </Card> */}
                 </Grid>
             </Grid>
         </FormProvider>

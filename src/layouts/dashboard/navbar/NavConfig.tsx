@@ -26,6 +26,9 @@ const ICONS = {
   analytics: getIcon('ic_analytics'),
   dashboard: getIcon('ic_dashboard'),
   menuItem: getIcon('ic_menu_item'),
+  addEmployee: getIcon('ic_add_employee'),
+  employee: getIcon('ic_employee'),
+  company: getIcon('ic_company'),
 };
 
 const navConfig = [
@@ -35,10 +38,11 @@ const navConfig = [
     subheader: 'general',
     items: [
       { title: 'app', path: PATH_DASHBOARD.general.app, icon: ICONS.dashboard },
-      { title: 'ecommerce', path: PATH_DASHBOARD.general.ecommerce, icon: ICONS.ecommerce },
-      { title: 'analytics', path: PATH_DASHBOARD.general.analytics, icon: ICONS.analytics },
-      { title: 'Employee Details', path: PATH_DASHBOARD.general.employeedetails, icon: ICONS.banking },
-      { title: 'Add New Employee', path: PATH_DASHBOARD.general.addnewemployee, icon: ICONS.booking },
+      { title: 'Users', path: PATH_DASHBOARD.general.ecommerce, icon: ICONS.user },
+      { title: 'Add new company', path: PATH_DASHBOARD.general.addnewcompany, icon: ICONS.kanban },
+      { title: 'Company Details', path: PATH_DASHBOARD.general.companydetails, icon: ICONS.company },
+      { title: 'Employee Details', path: PATH_DASHBOARD.general.employeedetails, icon: ICONS.employee },
+      { title: 'Add New Employee', path: PATH_DASHBOARD.general.addnewemployee, icon: ICONS.addEmployee },
     ],
   },
 

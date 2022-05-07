@@ -1,4 +1,4 @@
-import { Container } from '@mui/material';
+import { Container, Stack } from '@mui/material';
 import HeaderBreadcrumbs from 'src/components/HeaderBreadcrumbs';
 import Page from 'src/components/Page';
 import useSettings from 'src/hooks/useSettings';
@@ -13,10 +13,18 @@ export default function AddNewCompany() {
     return (
         <Page title='Add New Company'>
             <Container maxWidth={themeStretch ? false : 'xl'}>
-                <HeaderBreadcrumbs
-                    heading={'Add New Company'}
-                    links={[]}
-                />
+                <Stack mb={5}>
+
+                    <HeaderBreadcrumbs
+                        heading="Add New Company"
+                        links={[
+                            { name: 'Company', href: "/dashboard/app" },
+
+                            { name: "Addnew", href: "/dashboard/addnew", }
+                        ]}
+                    />
+
+                </Stack>
                 <CreateNewCompanyForm />
             </Container>
         </Page>
