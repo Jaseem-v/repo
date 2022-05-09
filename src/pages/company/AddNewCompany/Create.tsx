@@ -74,6 +74,8 @@ export default function CreateNewCompanyForm() {
         'Contact Details',
         'Contact Person Details',
     ];
+    console.log("test");
+    
 
 
     const totalSteps = () => {
