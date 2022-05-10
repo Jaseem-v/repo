@@ -4,7 +4,7 @@ import Page from "src/components/Page";
 import DataGrid, { TableSchemaI } from "src/components/DataGrid";
 
 import { useQuery } from "@apollo/client";
-import { ALL_USERS } from "src/graphql/User";
+import { ALL_USERS } from "../../graphql/User";
 
 export default function Test() {
   // const { data, loading, error } = useQuery(ALL_USERS)
