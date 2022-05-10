@@ -56,11 +56,6 @@ const data = {
 
 }
 
-
-
-
-
-
 export default function NewEmployee() {
     let navigate = useNavigate();
     const [activeStep, setActiveStep] = useState<number>(0);
@@ -236,7 +231,7 @@ export default function NewEmployee() {
     return (
         <div>
 
-            <Page title="Ecommerce: Create a new product">
+            <Page title="Add New Employee">
                 <Container maxWidth={"lg"}>
                     <Stack mb={5}>
 
@@ -245,7 +240,7 @@ export default function NewEmployee() {
                             links={[
                                 { name: 'Employees', href: "/dashboard/app" },
 
-                                { name: "Addnew", href: "/dashboard/addnew", }
+                                { name: "Add New", href: "/dashboard/addnew", }
                             ]}
                         />
 
@@ -290,7 +285,7 @@ export default function NewEmployee() {
                                             disabled={activeStep === 0}
                                             onClick={handleBack}
                                             sx={{ mr: 1 }}
-                                            variant="outlined"
+                                            variant="outlined" 
                                             size='small'
                                         >
                                             Back

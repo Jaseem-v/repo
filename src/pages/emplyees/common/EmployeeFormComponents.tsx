@@ -71,7 +71,7 @@ export const CommonDetails = ({ errors, isEdit }: editInterface) => {
 
     return (
         <Card sx={{ p: 3 }}>
-            <LabelStyle>Employee Name</LabelStyle>
+            <LabelStyle sx={{ marginBottom: 3 }}>Employee Name</LabelStyle>
             <Grid container spacing={3} rowSpacing={2}>
                 <Grid item md={6} xs={12}>
                     <RHFTextField name="firstName" label="First Name (EN)" disabled={isEdit} fullWidth />
@@ -194,7 +194,8 @@ export const OfficialDetails = ({ data, isEdit, setValue, getValue }: dropDownDa
 
     return (
         <Card sx={{ p: 3 }}>
-            <LabelStyle>Official Details</LabelStyle>
+            <LabelStyle style={{ marginBottom: "1.5rem" }}>Official Details</LabelStyle>
+            
             <div>
                 <RHFTextField name="phonenumber" label="Phone Number" disabled={isEdit} />
             </div>

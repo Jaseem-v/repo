@@ -122,7 +122,7 @@ export default function EditEmployee() {
         <div>
             <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
 
-                <Page title="Ecommerce: Create a new product">
+                <Page title="Employee Details">
                     <Container maxWidth={"lg"}>
                         <Stack
                             direction={largeScreen ? "row" : "column"}
@@ -136,7 +136,7 @@ export default function EditEmployee() {
                                 links={[
                                     { name: 'Employees', href: "/dashboard/app" },
 
-                                    { name: "EmployeeDetails", href: "/dashboard/EmployeeDetails", }
+                                    { name: "Employee Details", href: "/dashboard/EmployeeDetails", }
                                 ]}
                                 style={{ marginBottom: 0 }}
                             />
@@ -144,19 +144,19 @@ export default function EditEmployee() {
                             <Stack direction={"row"}
                                 justifyContent="space-between"
                                 alignItems="center"
-                                spacing={4}>
+                                spacing={1}>
                                 {isEdit && <>
-                                    <Button variant='contained' color="warning" startIcon={<DisabledByDefaultIcon />}  >
-                                        Disable
+                                    <Button variant='outlined' color="warning" startIcon={<DisabledByDefaultIcon />}  >
+                                        Block
                                     </Button>
-                                    <Button variant='contained' color="error" startIcon={<DeleteIcon />} >
+                                    <Button variant='outlined' color="error" startIcon={<DeleteIcon />} >
                                         Delete
                                     </Button>
                                 </>
                                 }
                                 {isEdit &&
-                                    <Button variant='contained' color={"info"} startIcon={<CreateOutlinedIcon />} onClick={() => setIsEdit(!isEdit)}>
-                                        Edit
+                                    <Button variant='contained' color="primary" startIcon={<CreateOutlinedIcon />} onClick={() => setIsEdit(!isEdit)}>
+                                        Edit Details
                                     </Button>
                                 }
                             </Stack>
@@ -176,10 +176,11 @@ export default function EditEmployee() {
                                         alignItems="center"
                                         mt={5}
                                     >
-                                        <SubmitBtn variant="contained" endIcon={<SaveOutlined />} type="submit"> Save </SubmitBtn>
-                                        <SubmitBtn style={{ color: "white" }} variant='contained' color={"success"} startIcon={<CloseOutlinedIcon />} onClick={() => setIsEdit(!isEdit)}>
+                                       <SubmitBtn variant='outlined' startIcon={<CloseOutlinedIcon />} onClick={() => setIsEdit(!isEdit)}>
                                             {"Cancel"}
                                         </SubmitBtn>
+                                        <SubmitBtn variant="contained" startIcon={<SaveOutlined />} type="submit"> Save Changes</SubmitBtn>
+                                        
                                     </Stack>
                                 }
 
