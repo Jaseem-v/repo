@@ -1,6 +1,6 @@
 import {
     FormProvider,
-} from 'src/components/hook-form';
+} from '../../../components/hook-form';
 import {
     Card,
     Grid,
@@ -15,9 +15,9 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 import { useMemo, useState, useEffect } from 'react';
 import { useSnackbar } from 'notistack';
-import { AssignDirectors, BasicDetails, ContactPersonDetails, ContractDetails } from '../common/FormComponents';
+import { AssignDirectors, BasicDetails, ContactPersonDetails, ContractDetails } from '../common/FormComponents'
 import { companySchema } from '../companySchema';
-import { SubmitBtn } from 'src/components/ButtonSet';
+import { SubmitBtn } from '../../../components/ButtonSet';
 import { useNavigate } from 'react-router-dom';
 
 

@@ -20,7 +20,7 @@ import { FormProvider } from '../../components/hook-form';
 import Page from 'src/components/Page';
 import HeaderBreadcrumbs from 'src/components/HeaderBreadcrumbs';
 import { CommonDetails, DocumentDetails, EmployeeFileUpload, OfficialDetails } from './common/EmployeeFormComponents';
-import { SubmitBtn } from 'src/components/ButtonSet';
+import { SubmitBtn } from '../../components/ButtonSet';
 
 
 // types

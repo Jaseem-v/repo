@@ -1,7 +1,7 @@
 import { Box, Button, Container, Stack, useMediaQuery } from '@mui/material';
-import HeaderBreadcrumbs from 'src/components/HeaderBreadcrumbs';
-import Page from 'src/components/Page';
-import useSettings from 'src/hooks/useSettings';
+import HeaderBreadcrumbs from '../../../components/HeaderBreadcrumbs';
+import Page from '../../../components/Page';
+import useSettings from '../../../hooks/useSettings';
 import CompanyDetailsWithEditForm from './Details';
 
 // icons
@@ -40,25 +40,25 @@ export default function CompanyDetails() {
                         style={{ marginBottom: 0 }}
                     />
 
-                    <Stack direction={"row"}
-                        justifyContent="space-between"
-                        alignItems="center"
-                        spacing={4}>
-                        {isEdit && <>
-                            <Button variant='contained' color="warning" startIcon={<DisabledByDefaultIcon />}  >
-                                Disable
-                            </Button>
-                            <Button variant='contained' color="error" startIcon={<DeleteIcon />} >
-                                Delete
-                            </Button>
-                        </>
-                        }
-                        {isEdit &&
-                            <Button variant='contained' color={"info"} startIcon={<CreateOutlinedIcon />} onClick={() => setIsEdit(!isEdit)}>
-                                Edit
-                            </Button>
-                        }
-                    </Stack>
+<Stack direction={"row"}
+                                justifyContent="space-between"
+                                alignItems="center"
+                                spacing={3}>
+                                {isEdit && <>
+                                    <Button variant='outlined' color="warning" startIcon={<DisabledByDefaultIcon />}  >
+                                        Block
+                                    </Button>
+                                    <Button variant='outlined' color="error" startIcon={<DeleteIcon />} >
+                                        Delete
+                                    </Button>
+                                </>
+                                }
+                                {isEdit &&
+                                    <Button variant='contained' color="primary" startIcon={<CreateOutlinedIcon />} onClick={() => setIsEdit(!isEdit)}>
+                                        Edit Details
+                                    </Button>
+                                }
+                            </Stack>
 
                 </Stack>
 

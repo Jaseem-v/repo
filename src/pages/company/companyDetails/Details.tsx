@@ -1,6 +1,6 @@
 import {
     FormProvider,
-} from 'src/components/hook-form';
+} from '../../../components/hook-form';
 import {
     Card,
     Grid,
@@ -23,7 +23,7 @@ import {
     Status
 } from '../common/FormComponents';
 import { companySchema } from '../companySchema';
-import { SubmitBtn } from 'src/components/ButtonSet';
+import { SubmitBtn } from '../../../components/ButtonSet';
 
 // icons 
 
@@ -101,10 +101,11 @@ export default function CompanyDetailsWithEditForm({ isEdit, setIsEdit }: editPr
                             alignItems="center"
                             mt={5}
                         >
-                            <SubmitBtn variant="contained" endIcon={<SaveOutlined />} type="submit"> Save </SubmitBtn>
-                            <SubmitBtn style={{ color: "white" }} variant='contained' color={"success"} startIcon={<CloseOutlinedIcon />} onClick={() => setIsEdit(!isEdit)}>
+                            <SubmitBtn variant='outlined' startIcon={<CloseOutlinedIcon />} onClick={() => setIsEdit(!isEdit)}>
                                 {"Cancel"}
                             </SubmitBtn>
+                            <SubmitBtn variant="contained" startIcon={<SaveOutlined />} type="submit"> Save Changes</SubmitBtn>
+
                         </Stack>
                     }
                 </Grid>

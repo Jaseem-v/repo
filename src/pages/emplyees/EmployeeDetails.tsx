@@ -4,13 +4,11 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useMemo } from 'react';
 import { useSnackbar } from 'notistack';
 import { EmployeeSchema } from './common/EmployeeSchema';
-import { styled, useTheme } from '@mui/material/styles';
-import { useStyles } from './common/EmployeeStyle';
+import { useTheme } from '@mui/material/styles';
 import { Card, Grid, Typography, Button, Container, Stack } from '@mui/material';
 import { FormProvider } from '../../components/hook-form';
-import DetailsSelect from './DetailsSelect';
-import Page from 'src/components/Page';
-import HeaderBreadcrumbs from 'src/components/HeaderBreadcrumbs';
+import Page from '../../components/Page';
+import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 import { CommonDetails, DocumentDetails, EmployeeFileUpload, OfficialDetails } from './common/EmployeeFormComponents';
 // icons
 
@@ -19,7 +17,7 @@ import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import { SaveOutlined } from '@mui/icons-material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import DisabledByDefaultIcon from '@mui/icons-material/DisabledByDefault';
-import { SubmitBtn } from 'src/components/ButtonSet';
+import { SubmitBtn } from '../../components/ButtonSet';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { FormValidInputs } from './NewEmployee';
 
@@ -123,7 +121,7 @@ export default function EditEmployee() {
             <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
 
                 <Page title="Employee Details">
-                    <Container maxWidth={"lg"}>
+                    <Container maxWidth={"xl"}>
                         <Stack
                             direction={largeScreen ? "row" : "column"}
                             justifyContent="space-between"
@@ -144,7 +142,7 @@ export default function EditEmployee() {
                             <Stack direction={"row"}
                                 justifyContent="space-between"
                                 alignItems="center"
-                                spacing={1}>
+                                spacing={3}>
                                 {isEdit && <>
                                     <Button variant='outlined' color="warning" startIcon={<DisabledByDefaultIcon />}  >
                                         Block

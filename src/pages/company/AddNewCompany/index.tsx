@@ -1,7 +1,7 @@
 import { Container, Stack } from '@mui/material';
-import HeaderBreadcrumbs from 'src/components/HeaderBreadcrumbs';
-import Page from 'src/components/Page';
-import useSettings from 'src/hooks/useSettings';
+import HeaderBreadcrumbs from '../../../components/HeaderBreadcrumbs';
+import Page from '../../../components/Page';
+import useSettings from '../../../hooks/useSettings';
 import CreateNewCompanyForm from './Create';
 
 
