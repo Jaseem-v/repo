@@ -4,11 +4,6 @@ import { Container, Typography } from '@mui/material';
 import useSettings from 'src/hooks/useSettings';
 // components
 import Page from 'src/components/Page';
-import { useQuery } from '@apollo/client';
-import { ALL_USERS } from 'src/graphql/home';
-import { ServerError } from '../Page500';
-import LoadingScreen from 'src/components/LoadingScreen';
-
 
 import UserList from './sub/UserList';
 import HeaderBreadcrumbs from 'src/components/HeaderBreadcrumbs';
@@ -20,8 +15,6 @@ export default function Home() {
 
     const { themeStretch } = useSettings();
 
-    const { data, loading, error } = useQuery(ALL_USERS)
-
     return (
         <Page title={'Home | Dashboard'}>
             <Container maxWidth={themeStretch ? false : 'xl'}>
@@ -29,13 +22,7 @@ export default function Home() {
                     heading='All users'
                     links={[]}
                 />
-                {
-                    error ? <ServerError /> :
-                        loading ? <UserList users={[]}  loading={loading}/> :
-                            <UserList users={data.users?.data || []} loading={loading}/>
-                }
-
-
+                <UserList />
             </Container>
         </Page>
     );

@@ -1,41 +1,23 @@
-import {
-    TableContainer,
-    Table,
-    TableHead,
-    TableBody,
-    TableRow,
-    TableCell,
-    Skeleton
-} from '@mui/material'
-import Scrollbar from 'src/components/Scrollbar'
 import RoleBasedGuard from 'src/guards/RoleBasedGuard';
-// import SkeletonPost from 'src/components/skelton/SkeletonPost';
 import CreateUser from './CreateUser';
+import DataTable from 'src/components/DataTable';
+import { getAllUsers } from 'src/service/get';
+import Label from 'src/components/Label'
 
-type Props = {
-    users: {
-        name: string;
-        phone: string;
-        email: string;
-        username: string;
-        website: string;
-    }[],
-    loading: boolean
+
+const customLabel = ({ data }: any) => {
+    return <Label color="primary">{data.website} </Label>
 }
 
+export default function () {
 
-const TABLE_HEAD = ['Name', 'Phone', 'Email', 'Username', 'Website']
-
-
-export default function ({ users, loading }: Props) {
-
-    // simple array generated to get loading rows
-
-    let loadingArray: number[] = []
-    for (let i = 0; i < 10; i++) {
-        loadingArray.push(i);
-    }
-
+    const TableHead = [
+        { _key: 'name', label: 'Name', },
+        { _key: 'email', label: 'Email', },
+        { _key: 'phone', label: 'Phone', },
+        { _key: 'username', label: 'Username', },
+        { _key: 'website', label: 'Website', component: customLabel },
+    ]
 
     return (
 
@@ -43,43 +25,58 @@ export default function ({ users, loading }: Props) {
             <RoleBasedGuard roles={['Admin']}>
                 <CreateUser />
             </RoleBasedGuard>
-            <Scrollbar>
-                <TableContainer>
-                    <Table>
-                        <TableHead>
-                            {
-                                TABLE_HEAD.map((head, index) => (
-                                    <TableCell key={index}>{head}</TableCell>
-                                ))
-                            }
-                        </TableHead>
-                        <TableBody>
-                            {loading ?
-                                loadingArray.map((user, index) => (
-                                    <TableRow key={index}>
-                                        <TableCell>{<Skeleton variant="text" height={20} />}</TableCell>
-                                        <TableCell>{<Skeleton variant="text" height={20} />}</TableCell>
-                                        <TableCell>{<Skeleton variant="text" height={20} />}</TableCell>
-                                        <TableCell>{<Skeleton variant="text" height={20} />}</TableCell>
-                                        <TableCell>{<Skeleton variant="text" height={20} />}</TableCell>
-                                    </TableRow>
-                                ))
-                                :
-                                users.map((user, index) => (
-                                    <TableRow key={index}>
-                                        <TableCell>{user.name}</TableCell>
-                                        <TableCell>{user.phone}</TableCell>
-                                        <TableCell>{user.email}</TableCell>
-                                        <TableCell>{user.username}</TableCell>
-                                        <TableCell>{user.website}</TableCell>
-                                    </TableRow>
-                                ))
-                            }
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-            </Scrollbar>
+            <DataTable
+                tableHead={TableHead}
+                dataSource={getAllUsers}
+            // demoData={demoData}
+            />
         </>
 
     )
 }
+
+
+
+
+const demoData = [
+    {
+        "name": "Leanne Graham",
+        "email": "Sincere@april.biz",
+        "phone": "1-770-736-8031 x56442",
+        "username": "Bret",
+        "website": "hildegard.org",
+        "__typename": "User"
+    },
+    {
+        "name": "Ervin Howell",
+        "email": "Shanna@melissa.tv",
+        "phone": "010-692-6593 x09125",
+        "username": "Antonette",
+        "website": "anastasia.net",
+        "__typename": "User"
+    },
+    {
+        "name": "Clementine Bauch",
+        "email": "Nathan@yesenia.net",
+        "phone": "1-463-123-4447",
+        "username": "Samantha",
+        "website": "ramiro.info",
+        "__typename": "User"
+    },
+    {
+        "name": "Patricia Lebsack",
+        "email": "Julianne.OConner@kory.org",
+        "phone": "493-170-9623 x156",
+        "username": "Karianne",
+        "website": "kale.biz",
+        "__typename": "User"
+    },
+    {
+        "name": "Chelsey Dietrich",
+        "email": "Lucio_Hettinger@annie.ca",
+        "phone": "(254)954-1289",
+        "username": "Kamren",
+        "website": "demarco.info",
+        "__typename": "User"
+    }
+]
