@@ -19,3 +19,9 @@ export const companySchema = Yup.object().shape({
     email: Yup.string().required('Email is required'),
     phone_2: Yup.string().required('Phone Number is required'),
 })
+export const contractSchema = Yup.object().shape({
+    contract_purpose: Yup.string().required('Contact Purpose English is required'),
+    contract_no: Yup.string().required('Contact number is required'),
+    employee_required: Yup.string().required('Employee Required is required'),
+    reliever_count: Yup.string().required('Reliever Count is required'),
+})

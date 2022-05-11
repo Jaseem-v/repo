@@ -1,9 +1,8 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { sentenceCase } from 'change-case';
 // @mui
 import { useTheme } from '@mui/material/styles';
 import {
-  Box,
   Card,
   Table,
   Button,
@@ -23,14 +22,20 @@ import {
   DialogActions,
 } from '@mui/material';
 // utils
-import { fCurrency } from '../utils/formatNumber';
+import { fCurrency } from '../../utils/formatNumber';
 // components
-import Label from './Label';
-import Iconify from './Iconify';
-import Scrollbar from './Scrollbar';
-import { TableMoreMenu, TableHeadCustom } from './table';
+import Label from '../../components/Label';
+import Iconify from '../../components/Iconify';
+import Scrollbar from '../../components/Scrollbar';
+import { TableMoreMenu, TableHeadCustom } from '../../components/table';
 import { ContractDetails } from 'src/pages/company/common/FormComponents';
 
+
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useSnackbar } from 'notistack';
+import { FormProvider } from 'src/components/hook-form';
+import { contractSchema } from './companySchema';
 // ----------------------------------------------------------------------
 
 type RowProps = {
@@ -66,59 +71,92 @@ export default function TableComponent({
   const handleClose = () => {
     setOpen(false);
   };
+  const onSubmit = (data: any) => {
+    console.log(data)
+    // enqueueSnackbar('Successfully Added', { variant: 'success' })
+  }
+
+  const defaultValues = useMemo(() => ({
+    contract_purpose: '',
+    contract_no: '',
+    employee_required: '',
+    reliever_count: '',
+  }), [])
+
+  const methods = useForm({
+    resolver: yupResolver(contractSchema),
+    defaultValues,
+  })
+
+  const {
+    reset,
+    watch,
+    control,
+    setValue,
+    getValues,
+    handleSubmit,
+    clearErrors,
+    formState: { isSubmitting, errors },
+  } = methods;
+
+  const values = watch();
+
   return (
     <Card {...other}>
-      <Stack
-        direction={"row"}
-        justifyContent="space-between"
-        alignItems="center"
-      >
-        <CardHeader title={title} subheader={subheader} sx={{ mb: 3 }} />
-        <Button variant='outlined' color="error" onClick={handleClickOpen}>
-          add
-        </Button>
-      </Stack>
-      {/* ---- */}
+      <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
 
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">
-          {"Add new Contract"}
-        </DialogTitle>
-        <Divider />
-        <DialogContent>
-          <ContractDetails isEdit={false} />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>cancel</Button>
-          <Button onClick={handleClose} autoFocus>
-            Save
+        <Stack
+          direction={"row"}
+          justifyContent="space-between"
+          alignItems="center"
+        >
+          <CardHeader title={title} subheader={subheader} sx={{ mb: 3 }} />
+          <Button variant='outlined' color="error" onClick={handleClickOpen}>
+            add
           </Button>
-        </DialogActions>
-      </Dialog>
-      {/* ---- */}
-      <Scrollbar>
-        <TableContainer sx={{ minWidth: 720 }}>
-          <Table>
+        </Stack>
+        {/* ---- */}
 
-            <TableHeadCustom headLabel={tableLabels} />
-            <TableBody>
-              {tableData.map((row) => (
-                <AppNewInvoiceRow key={row.Contract_Purpose} row={row} />
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </Scrollbar>
+        <Dialog
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          {/* <DialogTitle id="alert-dialog-title">
+            {"Add new Contract"}
+          </DialogTitle> */}
+          {/* <Divider /> */}
 
-      <Divider />
+          <DialogContent>
+            <ContractDetails isEdit={false} popup={true}/>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose}>cancel</Button>
+            <Button type="submit" autoFocus>
+              Save
+            </Button>
+          </DialogActions>
+        </Dialog>
+        {/* ---- */}
+        <Scrollbar>
+          <TableContainer sx={{ minWidth: 720 }}>
+            <Table>
+
+              <TableHeadCustom headLabel={tableLabels} />
+              <TableBody>
+                {tableData.map((row) => (
+                  <AppNewInvoiceRow key={row.Contract_Purpose} row={row} />
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Scrollbar>
+
+        <Divider />
 
 
-
+      </FormProvider>
 
     </Card >
   );

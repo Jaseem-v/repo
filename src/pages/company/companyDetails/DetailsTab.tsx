@@ -6,7 +6,7 @@ import { capitalCase } from 'change-case';
 import { styled } from '@mui/material/styles';
 import CompanyDetailsWithEditForm from './Details';
 import { CompanyContext, CompanyContextType } from '../CompanyContext';
-import TableComponent from 'src/components/TableComponent';
+import TableComponent from 'src/pages/company/TableComponent';
 
 
 
