@@ -29,3 +29,22 @@ export const CREATE_USER = gql`
     }
   }
 `;
+
+
+
+export const GET_ALL_USERS = gql`
+query($options: PageQueryOptions){
+  users(options: $options) {
+    meta {
+      totalCount
+    }
+    data{
+      name
+      email
+      phone
+      username
+      website
+    }
+  }
+}
+`

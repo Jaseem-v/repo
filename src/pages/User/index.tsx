@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Container, IconButton } from "@mui/material";
 import React from "react";
 import Page from "src/components/Page";
@@ -32,27 +33,31 @@ export default function Test() {
               ]
             },
             {
-              field:"company",
-              type:"one",
-              matches:[{id:"cl2rh6bpr114801s6slmwv4s5"},{id:"cl2rh6l2d126701s64wgowqe1"}]
+              field: "company",
+              type: "one",
+              matches: [{ id: "cl2rh6bpr114801s6slmwv4s5" }, { id: "cl2rh6l2d126701s64wgowqe1" }]
             },
             {
-              field:"jobRole",
-              type:"one",
-              matches:["Backend","Hr"]
-            }            
-            
+              field: "jobRole",
+              type: "one",
+              matches: ["Backend", "Hr"]
+            }
+
+
+
           ]}
           columns={[
             {
-              sortId:"firstName",
-              field: {name:"firstName",img:"avatar"},
+              sortId: "firstName",
+              field: { name: "firstName", img: "avatar" },
               label: "Name",
-              type:"Avatar"
+              type: "Avatar"
             },
             {
               field: "company.name",
-              sortId:"companyId",
+              label: "Company",
+              sortId: "companyId",
+              field: "company.name",
               label: "CompanyName",
             },
 
@@ -63,12 +68,12 @@ export default function Test() {
             {
               field: "status",
               label: "Status",
-              type:"Status"
+              type: "Status"
             },
             {
-              field:"varified",
-              label:"Varified",
-              type:"Verified"
+              field: "varified",
+              label: "Varified",
+              type: "Verified"
             },
             {
               field: "roles",
