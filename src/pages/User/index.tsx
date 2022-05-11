@@ -40,9 +40,7 @@ export default function Test() {
               field:"jobRole",
               type:"one",
               matches:["Backend","Hr"]
-            }
-
-            
+            }            
             
           ]}
           columns={[
@@ -54,9 +52,7 @@ export default function Test() {
             },
             {
               field: "company.name",
-              label: "Company",
               sortId:"companyId",
-              field: "company.name",
               label: "CompanyName",
             },
 

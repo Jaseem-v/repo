@@ -48,6 +48,7 @@ import { AuthProvider } from './contexts/JWTContext';
 
 //
 import App from './App';
+import CompanyContextProvider from './pages/company/CompanyContext';
 
 // ----------------------------------------------------------------------
 
@@ -57,9 +58,11 @@ ReactDOM.render(
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <SettingsProvider>
           <CollapseDrawerProvider>
-            <BrowserRouter>
-              <App />
-            </BrowserRouter>
+            <CompanyContextProvider>
+              <BrowserRouter>
+                <App />
+              </BrowserRouter>
+            </CompanyContextProvider>
           </CollapseDrawerProvider>
         </SettingsProvider>
       </LocalizationProvider>

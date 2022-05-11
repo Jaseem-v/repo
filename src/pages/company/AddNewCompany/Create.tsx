@@ -40,8 +40,8 @@ export default function CreateNewCompanyForm() {
         remarks: '',
         director: '',
         director_role: '',
-        contact_purpose: '',
-        contact_no: '',
+        contract_purpose: '',
+        contract_no: '',
         employee_required: '',
         reliever_count: '',
         first_name: '',
@@ -71,7 +71,7 @@ export default function CreateNewCompanyForm() {
     const [clear1, setClear] = useState(true)
     const steps = [
         'Basic Details',
-        'Assign and Contact',
+        'Assign and Contract',
         'Contact Person Details',
     ];
     console.log("test");
@@ -95,7 +95,7 @@ export default function CreateNewCompanyForm() {
         return function () {
             if (!executed) {
                 executed = true;
-                clearErrors(["director", "director_role", "contact_purpose", "contact_no", "employee_required", "reliever_count"])
+                clearErrors(["director", "director_role", "contract_purpose", "contract_no", "employee_required", "reliever_count"])
             }
         };
     })();
@@ -110,7 +110,7 @@ export default function CreateNewCompanyForm() {
 
     useEffect(() => {
         let form1 = ["name_ar", "name_en", "trade_license", "trade_license_expiry", "phone", "remarks"]
-        let form2 = ["director", "director_role", "contact_purpose", "contact_no", "employee_required", "reliever_count"]
+        let form2 = ["director", "director_role", "contract_purpose", "contract_no", "employee_required", "reliever_count"]
         let form3 = ["first_name", "last_name", "email", "phone_2"]
         form1.map((el1) => {
             if (errors && errors.hasOwnProperty(el1)
