@@ -16,13 +16,11 @@ import {
   TableContainer,
   Stack,
   Dialog,
-  DialogTitle,
   DialogContent,
-  DialogContentText,
   DialogActions,
 } from '@mui/material';
 // utils
-import { fCurrency } from '../../utils/formatNumber';
+
 // components
 import Label from '../../components/Label';
 import Iconify from '../../components/Iconify';
@@ -73,7 +71,6 @@ export default function TableComponent({
   };
   const onSubmit = (data: any) => {
     console.log(data)
-    // enqueueSnackbar('Successfully Added', { variant: 'success' })
   }
 
   const defaultValues = useMemo(() => ({
@@ -89,17 +86,11 @@ export default function TableComponent({
   })
 
   const {
-    reset,
     watch,
-    control,
-    setValue,
-    getValues,
     handleSubmit,
-    clearErrors,
     formState: { isSubmitting, errors },
   } = methods;
 
-  const values = watch();
 
   return (
     <Card {...other}>
@@ -111,7 +102,7 @@ export default function TableComponent({
           alignItems="center"
         >
           <CardHeader title={title} subheader={subheader} sx={{ mb: 3 }} />
-          <Button variant='outlined' color="error" onClick={handleClickOpen}>
+          <Button variant='outlined' color="error" style={{ marginRight: "1rem" }} onClick={handleClickOpen}>
             add
           </Button>
         </Stack>
@@ -129,11 +120,11 @@ export default function TableComponent({
           {/* <Divider /> */}
 
           <DialogContent>
-            <ContractDetails isEdit={false} popup={true}/>
+            <ContractDetails isEdit={false} popup={true} />
           </DialogContent>
-          <DialogActions>
+          <DialogActions style={{ paddingTop: "0" }}>
             <Button onClick={handleClose}>cancel</Button>
-            <Button type="submit" autoFocus>
+            <Button type="submit">
               Save
             </Button>
           </DialogActions>

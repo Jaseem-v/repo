@@ -12,7 +12,6 @@ import DisabledByDefaultIcon from '@mui/icons-material/DisabledByDefault';
 import { useState } from 'react';
 import { useTheme } from '@mui/material/styles';
 import { useContext } from 'react';
-import CompanyContextProvider, { CompanyContext, CompanyContextType } from '../CompanyContext';
 import DetailsTab from './DetailsTab';
 
 

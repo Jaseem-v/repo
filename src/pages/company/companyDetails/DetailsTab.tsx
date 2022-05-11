@@ -5,7 +5,6 @@ import { Box, Card, Tab, Tabs } from '@mui/material';
 import { capitalCase } from 'change-case';
 import { styled } from '@mui/material/styles';
 import CompanyDetailsWithEditForm from './Details';
-import { CompanyContext, CompanyContextType } from '../CompanyContext';
 import TableComponent from 'src/pages/company/TableComponent';
 
 
@@ -19,6 +18,7 @@ const TabsWrapperStyle = styled('div')(({ theme }) => ({
     bottom: 0,
     width: '100%',
     display: 'flex',
+    marginBottom:"2.5rem",
     backgroundColor: theme.palette.background.paper,
     [theme.breakpoints.up('sm')]: {
         justifyContent: 'center',
@@ -82,7 +82,7 @@ export default function DetailsTab({ isEdit, setIsEdit }: editProps) {
                 sx={{
                     mb: 3,
                     height: "auto",
-                    padding: "1rem 2rem"
+                    padding: "2rem 2rem"
                 }}
             >
 
@@ -106,12 +106,13 @@ export default function DetailsTab({ isEdit, setIsEdit }: editProps) {
                         ))}
                     </Tabs>
                 </TabsWrapperStyle>
+
+                {PROFILE_TABS.map((tab) => {
+                    const isMatched = tab.value === currentTab;
+                    return isMatched && <Box key={tab.value}>{tab.component}</Box>;
+                })}
             </Card>
 
-            {PROFILE_TABS.map((tab) => {
-                const isMatched = tab.value === currentTab;
-                return isMatched && <Box key={tab.value}>{tab.component}</Box>;
-            })}
         </div>
     );
 }
