@@ -71,11 +71,11 @@ export default function CreateNewCompanyForm() {
     const [clear1, setClear] = useState(true)
     const steps = [
         'Basic Details',
-        'Contact Details',
+        'Assign and Contact',
         'Contact Person Details',
     ];
     console.log("test");
-    
+
 
 
     const totalSteps = () => {

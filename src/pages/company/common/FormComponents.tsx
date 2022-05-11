@@ -23,8 +23,8 @@ export function BasicDetails({ isEdit }: componentProps) {
         <Card sx={{ p: 3, my: 2 }}>
             <LabelStyle>Basic Details</LabelStyle>
             <GridBox>
-                <RHFTextField name='name_en' label='Company Name (en)' disabled={isEdit} />
-                <RHFTextField name='name_ar' label='Company Name (ar)' disabled={isEdit} />
+                <RHFTextField name='name_en' label='Company Name (EN)' disabled={isEdit} />
+                <RHFTextField name='name_ar' label='Company Name (AR)' dir='rtl' disabled={isEdit} />
                 <RHFTextField name='trade_license' label='Trade License' disabled={isEdit} />
                 {/* <RHFTextField name='trade_license_expiry' label='Trade License Expiry' /> */}
                 <RHFDatePicker name="trade_license_expiry" label="Trade License Expiry" disabled={isEdit} />
@@ -68,7 +68,7 @@ export function ContractDetails({ isEdit }: componentProps) {
                 <RHFTextField name='contact_purpose' label='Contact Purpose' disabled={isEdit} />
                 <RHFTextField name='contact_no' label='Contact No' disabled={isEdit} />
                 <RHFTextField name='employee_required' label='Employee Required' disabled={isEdit} />
-                <RHFTextField name='reliever_count' label='Reliever Count' disabled={isEdit} />
+                <RHFTextField name='reliever_count' type="number" label='Reliever Count' disabled={isEdit} />
             </GridBox>
         </Card>
 
