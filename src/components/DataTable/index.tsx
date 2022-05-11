@@ -11,6 +11,9 @@ import { useEffect, useState } from 'react'
 import Scrollbar from 'src/components/Scrollbar'
 import Loading from 'src/components/LoadingScreen'
 import SkeletonPost from 'src/components/skelton/SkeletonPost'
+import Toolbar from './Toolbar'
+import TableNoData from './TableNoData'
+import TableSkeleton from './TableSkeleton'
 
 type TableHead = {
     _key: string,
@@ -44,11 +47,12 @@ export default function DataTable({
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(false)
     const [count, setCount] = useState(0)
+    const [search, setSearch] = useState('')
 
     useEffect(() => {
         if (!dataSource) return
         setLoading(true)
-        dataSource('', page + 1, limit)
+        dataSource(search, page + 1, limit)
             .then((data) => {
                 setData(data.data)
                 setCount(data.count)
@@ -58,7 +62,7 @@ export default function DataTable({
                 setError(true)
                 setLoading(false)
             })
-    }, [page, limit])
+    }, [page, limit, search])
 
 
     const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -67,47 +71,57 @@ export default function DataTable({
     };
 
     return (
-        <Scrollbar>
-            <TableContainer>
-                <Table>
-                    <TableHead>
-                        <TableRow>
-                            {tableHead.map((head) => (
-                                <TableCell key={head._key}>
-                                    {head.label}
-                                </TableCell>
-                            ))}
-                        </TableRow>
-                    </TableHead>
-                    {
-                        !loading &&
+        <>
+            <Toolbar
+                onSearch={(value) => setSearch(value)}
+            />
+
+            <Scrollbar>
+                <TableContainer>
+                    <Table>
+                        <TableHead>
+                            <TableRow>
+                                {tableHead.map((head) => (
+                                    <TableCell key={head._key}>
+                                        {head.label}
+                                    </TableCell>
+                                ))}
+                            </TableRow>
+                        </TableHead>
                         <TableBody>
                             {
-                                data.map((row, index) => (
-                                    <TableRow key={'id_1' + index}>
-                                        {tableHead.map((head, ind) => (
-                                            <TableCell key={'id_2' + index + ind}>
-                                                {head.component ? head.component({ data: row }) : row[head._key]}
-                                            </TableCell>
-                                        ))}
-                                    </TableRow>
-                                ))
+                                loading ?
+                                    <TableSkeleton noOfRows={5} /> :
+                                    <>
+                                        {
+                                            data.length > 0 ?
+                                                data.map((row, index) => (
+                                                    <TableRow key={'id_1' + index}>
+                                                        {tableHead.map((head, ind) => (
+                                                            <TableCell key={'id_2' + index + ind}>
+                                                                {head.component ? head.component({ data: row }) : row[head._key]}
+                                                            </TableCell>
+                                                        ))}
+                                                    </TableRow>
+                                                ))
+                                                : <TableNoData isNotFound />
+                                        }
+                                    </>
                             }
-                        </TableBody>}
-                </Table>
-            </TableContainer>
-            {
-                loading && <SkeletonPost />
-            }
-            <TablePagination
-                component={'div'}
-                rowsPerPageOptions={[1, 5, 10]}
-                count={count || demoData?.length || 0}
-                rowsPerPage={limit}
-                page={page}
-                onPageChange={(e, p) => setPage(p)}
-                onRowsPerPageChange={handleChangeRowsPerPage}
-            />
-        </Scrollbar>
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+
+                <TablePagination
+                    component={'div'}
+                    rowsPerPageOptions={[1, 5, 10]}
+                    count={count || demoData?.length || 0}
+                    rowsPerPage={limit}
+                    page={page}
+                    onPageChange={(e, p) => setPage(p)}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                />
+            </Scrollbar>
+        </>
     )
 }
