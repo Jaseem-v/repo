@@ -6,7 +6,7 @@ import { capitalCase } from 'change-case';
 import { styled } from '@mui/material/styles';
 import CompanyDetailsWithEditForm from './Details';
 import { CompanyContext, CompanyContextType } from '../CompanyContext';
-import AppNewInvoice from 'src/components/AppNewInvoice';
+import TableComponent from 'src/components/TableComponent';
 
 
 
@@ -60,7 +60,7 @@ export default function DetailsTab({ isEdit, setIsEdit }: editProps) {
         {
             value: 'Contract Details',
             icon: <Iconify icon={'clarity:contract-solid'} width={23} height={23} />,
-            component: <AppNewInvoice
+            component: <TableComponent
                 title="Contracts"
                 tableData={tableFakaData}
                 tableLabels={[

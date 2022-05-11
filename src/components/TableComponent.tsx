@@ -16,6 +16,11 @@ import {
   CardHeader,
   TableContainer,
   Stack,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
 } from '@mui/material';
 // utils
 import { fCurrency } from '../utils/formatNumber';
@@ -24,6 +29,7 @@ import Label from './Label';
 import Iconify from './Iconify';
 import Scrollbar from './Scrollbar';
 import { TableMoreMenu, TableHeadCustom } from './table';
+import { ContractDetails } from 'src/pages/company/common/FormComponents';
 
 // ----------------------------------------------------------------------
 
@@ -44,27 +50,62 @@ interface Props extends CardProps {
 
 }
 
-export default function AppNewInvoice({
+export default function TableComponent({
   title,
   subheader,
   tableData,
   tableLabels,
   ...other
 }: Props) {
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   return (
     <Card {...other}>
-      <CardHeader title={title} subheader={subheader} sx={{ mb: 3 }} />
+      <Stack
+        direction={"row"}
+        justifyContent="space-between"
+        alignItems="center"
+      >
+        <CardHeader title={title} subheader={subheader} sx={{ mb: 3 }} />
+        <Button variant='outlined' color="error" onClick={handleClickOpen}>
+          add
+        </Button>
+      </Stack>
+      {/* ---- */}
 
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"Add new Contract"}
+        </DialogTitle>
+        <Divider />
+        <DialogContent>
+          <ContractDetails isEdit={false} />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>cancel</Button>
+          <Button onClick={handleClose} autoFocus>
+            Save
+          </Button>
+        </DialogActions>
+      </Dialog>
+      {/* ---- */}
       <Scrollbar>
         <TableContainer sx={{ minWidth: 720 }}>
           <Table>
-            <Stack
-              direction={"row"}
-              justifyContent="space-between"
-              alignItems="center"
-            >
-              <TableHeadCustom headLabel={tableLabels} />
-            </Stack>
+
+            <TableHeadCustom headLabel={tableLabels} />
             <TableBody>
               {tableData.map((row) => (
                 <AppNewInvoiceRow key={row.Contract_Purpose} row={row} />
@@ -76,16 +117,10 @@ export default function AppNewInvoice({
 
       <Divider />
 
-      <Box sx={{ p: 2, textAlign: 'right' }}>
-        <Button
-          size="small"
-          color="inherit"
-          endIcon={<Iconify icon={'eva:arrow-ios-forward-fill'} />}
-        >
-          View All
-        </Button>
-      </Box>
-    </Card>
+
+
+
+    </Card >
   );
 }
 
@@ -158,5 +193,16 @@ function AppNewInvoiceRow({ row }: AppNewInvoiceRowProps) {
         />
       </TableCell>
     </TableRow>
+  );
+}
+// ---------------------------------------------------------
+
+export function AlertDialog() {
+
+
+  return (
+    <div>
+
+    </div>
   );
 }

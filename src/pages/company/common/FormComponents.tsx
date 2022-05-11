@@ -62,13 +62,18 @@ export function AssignDirectors({ isEdit }: componentProps) {
 export function ContractDetails({ isEdit }: componentProps) {
 
     return (
-        <Card sx={{ p: 3, my: 2 }}>
+        <Card sx={{ p: 2, my: 2 }}>
             <LabelStyle>Contract Details</LabelStyle>
-            <GridBox>
-                <RHFTextField name='contract_purpose' label='Contract Purpose' disabled={isEdit} />
+            <GridBox style={{ padding: "3rem" }}>
+                {/* <RHFTextField name='contract_purpose' label='Contract Purpose' disabled={isEdit} />
                 <RHFTextField name='contract_no' label='Contract No' disabled={isEdit} />
                 <RHFTextField name='employee_required' type="number" label='Employees Required' disabled={isEdit} />
-                <RHFTextField name='reliever_count' type="number" label='Reliever Count' disabled={isEdit} />
+                <RHFTextField name='reliever_count' type="number" label='Reliever Count' disabled={isEdit} /> */}
+                {/* <RHFTextField name='contract_purpose' label='Contract Purpose' disabled={isEdit} /> */}
+
+                Contract input fields
+
+
             </GridBox>
         </Card>
 
