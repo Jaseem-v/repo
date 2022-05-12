@@ -70,6 +70,7 @@ export default function TableComponent({
 
   const handleClose = () => {
     setOpen(false);
+    reset(defaultValues)
   };
 
 
@@ -95,12 +96,7 @@ export default function TableComponent({
 
     handleClose()
     enqueueSnackbar('Successfully Added', { variant: 'success' })
-    reset({
-      contract_purpose: "",
-      contract_no: "",
-      employee_required: "",
-      reliever_count: ""
-    })
+    reset(defaultValues)
 
   }
 
