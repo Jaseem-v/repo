@@ -54,8 +54,8 @@ export default function CompanyDetailsWithEditForm({ isEdit, setIsEdit }: editPr
         remarks: 'hello world',
         director: 'Shahul',
         director_role: 'Admin',
-        contact_purpose: 'New Purpose',
-        contact_no: '123456',
+        contract_purpose: 'New Purpose',
+        contract_no: '123456',
         employee_required: '230',
         reliever_count: '32',
         first_name: 'Mohammed',
@@ -93,7 +93,6 @@ export default function CompanyDetailsWithEditForm({ isEdit, setIsEdit }: editPr
                 <Grid item xs={12} md={8} >
                     <BasicDetails isEdit={isEdit} />
                     <AssignDirectors isEdit={isEdit} />
-                    <ContractDetails isEdit={isEdit} />
                     {!isEdit &&
                         <Stack
                             direction={largeScreen ? "row" : "column"}

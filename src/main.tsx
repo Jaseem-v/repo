@@ -57,9 +57,11 @@ ReactDOM.render(
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <SettingsProvider>
           <CollapseDrawerProvider>
-            <BrowserRouter>
-              <App />
-            </BrowserRouter>
+        
+              <BrowserRouter>
+                <App />
+              </BrowserRouter>
+           
           </CollapseDrawerProvider>
         </SettingsProvider>
       </LocalizationProvider>

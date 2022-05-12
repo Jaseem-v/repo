@@ -59,16 +59,17 @@ export function AssignDirectors({ isEdit }: componentProps) {
 }
 
 
-export function ContractDetails({ isEdit }: componentProps) {
+export function ContractDetails({ isEdit, popup }: { isEdit: boolean, popup?: boolean }) {
 
     return (
-        <Card sx={{ p: 3, my: 2 }}>
-            <LabelStyle>Contact Details</LabelStyle>
-            <GridBox>
-                <RHFTextField name='contact_purpose' label='Contact Purpose' disabled={isEdit} />
-                <RHFTextField name='contact_no' label='Contact No' disabled={isEdit} />
-                <RHFTextField name='employee_required' label='Employee Required' disabled={isEdit} />
+        <Card sx={{ p: 2, my: 2 }}>
+            <LabelStyle>{popup ? "Add new Contract" : "Contract Details"}</LabelStyle>
+            <GridBox >
+                <RHFTextField name='contract_purpose' label='Contract Purpose' disabled={isEdit} />
+                <RHFTextField name='contract_no' label='Contract No' disabled={isEdit} />
+                <RHFTextField name='employee_required' type="number" label='Employees Required' disabled={isEdit} />
                 <RHFTextField name='reliever_count' type="number" label='Reliever Count' disabled={isEdit} />
+
             </GridBox>
         </Card>
 

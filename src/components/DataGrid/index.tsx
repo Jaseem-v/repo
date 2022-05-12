@@ -121,7 +121,7 @@ export default function Index(props: {
       where[_key] = Filtered[_key].q
     }
 
-  
+
   })
 
   if (Searchq) {
@@ -160,7 +160,7 @@ export default function Index(props: {
 
 
   const [_rows, set_rows] = useState(rows);
- 
+
 
 
 
@@ -168,7 +168,7 @@ export default function Index(props: {
 
   let TotalCount = data?.[Object.keys(data)[0]]?.count;
 
-  
+
   let TotalPage = Math.ceil(TotalCount / Limit);
 
   function FilterGenerateLabel(obj: { [key: string]: string }) {
@@ -251,7 +251,7 @@ export default function Index(props: {
         <Stack direction="row" padding={2} spacing={2}>
           <Paper
             component="form"
-            sx={{ p: '0px 0px',pl:"20px", display: 'flex',border:"1px solid lightgray", alignItems: 'center', }}
+            sx={{ p: '0px 0px', pl: "20px", display: 'flex', border: "1px solid lightgray", alignItems: 'center', }}
           >
 
             <InputBase
@@ -471,24 +471,24 @@ type FilterArrayTypes =
   | { "every": [string] };
 
 
- type SimpleFilter = {
+type SimpleFilter = {
   field: string;
-  type:"simple";
-  matches:FiltersSingle[];
+  type: "simple";
+  matches: FiltersSingle[];
 };
- type ArrayManyFilter = {
+type ArrayManyFilter = {
   field: string;
-  type:"many";
-  matches:FilterArrayTypes;
-};
-
- type ArrayOneFilter = {
-  field: string;
-  type:"one";
-  matches:{[key:string]:any}[];
+  type: "many";
+  matches: FilterArrayTypes;
 };
 
-export type FilterI=SimpleFilter|ArrayManyFilter|ArrayOneFilter;
+type ArrayOneFilter = {
+  field: string;
+  type: "one";
+  matches: { [key: string]: any }[];
+};
+
+export type FilterI = SimpleFilter | ArrayManyFilter | ArrayOneFilter;
 
 export type TableSchemaI = {
   field: string;
