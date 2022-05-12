@@ -36,13 +36,9 @@ type DetailsTabProps = {
 
 export default function DetailsTab({ isEdit, setIsEdit, setContractTab }: DetailsTabProps) {
 
-
-
     const { currentTab, onChangeTab } = useTabs('Basic Details');
 
-    console.log(currentTab);
-
-    const tableFakaData = [{
+    const tableMokeData = [{
         Contract_Purpose: "Painting",
         employee_required: 25,
         reliever_count: 50,
@@ -63,7 +59,7 @@ export default function DetailsTab({ isEdit, setIsEdit, setContractTab }: Detail
             icon: <Iconify icon={'clarity:contract-solid'} width={23} height={23} />,
             component: <TableComponent
                 title="Contracts"
-                tableData={tableFakaData}
+                tableData={tableMokeData}
                 tableLabels={[
                     { id: 'Contract_Purpose', label: 'Contract Purpose' },
                     { id: 'contract_no', label: 'contract no' },

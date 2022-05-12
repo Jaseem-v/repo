@@ -61,6 +61,8 @@ export default function TableComponent({
   ...other
 }: Props) {
   const [open, setOpen] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
+
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -69,9 +71,7 @@ export default function TableComponent({
   const handleClose = () => {
     setOpen(false);
   };
-  const onSubmit = (data: any) => {
-    console.log(data)
-  }
+
 
   const defaultValues = useMemo(() => ({
     contract_purpose: '',
@@ -86,34 +86,47 @@ export default function TableComponent({
   })
 
   const {
-    watch,
     handleSubmit,
     formState: { isSubmitting, errors },
+    reset
   } = methods;
 
+  const onSubmit = (data: any) => {
+
+    handleClose()
+    enqueueSnackbar('Successfully Added', { variant: 'success' })
+    reset({
+      contract_purpose: "",
+      contract_no: "",
+      employee_required: "",
+      reliever_count: ""
+    })
+
+  }
 
   return (
     <Card {...other}>
-      <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
 
-        <Stack
-          direction={"row"}
-          justifyContent="space-between"
-          alignItems="center"
-        >
-          <CardHeader title={title} subheader={subheader} sx={{ mb: 3 }} />
-          <Button variant='outlined' color="error" style={{ marginRight: "1rem" }} onClick={handleClickOpen}>
-            add
-          </Button>
-        </Stack>
-        {/* ---- */}
+      <Stack
+        direction={"row"}
+        justifyContent="space-between"
+        alignItems="center"
+      >
+        <CardHeader title={title} subheader={subheader} sx={{ mb: 3 }} />
+        <Button variant='outlined' color="error" style={{ marginRight: "1rem" }} onClick={handleClickOpen}>
+          add
+        </Button>
+      </Stack>
+      {/* ---- */}
 
-        <Dialog
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-        >
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
+
           {/* <DialogTitle id="alert-dialog-title">
             {"Add new Contract"}
           </DialogTitle> */}
@@ -128,26 +141,26 @@ export default function TableComponent({
               Save
             </Button>
           </DialogActions>
-        </Dialog>
-        {/* ---- */}
-        <Scrollbar>
-          <TableContainer sx={{ minWidth: 720 }}>
-            <Table>
+        </FormProvider>
+      </Dialog>
+      {/* ---- */}
+      <Scrollbar>
+        <TableContainer sx={{ minWidth: 720 }}>
+          <Table>
 
-              <TableHeadCustom headLabel={tableLabels} />
-              <TableBody>
-                {tableData.map((row) => (
-                  <AppNewInvoiceRow key={row.Contract_Purpose} row={row} />
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </Scrollbar>
+            <TableHeadCustom headLabel={tableLabels} />
+            <TableBody>
+              {tableData.map((row) => (
+                <AppNewInvoiceRow key={row.Contract_Purpose} row={row} />
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Scrollbar>
 
-        <Divider />
+      <Divider />
 
 
-      </FormProvider>
 
     </Card >
   );

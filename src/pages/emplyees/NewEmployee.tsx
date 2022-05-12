@@ -101,6 +101,7 @@ export default function NewEmployee() {
         getValues
     } = methods;
 
+    const [formSubmit, setFormSubmit] = useState<boolean>(false)
 
     const onSubmit = (data: any) => {
         if (formSubmit) {
@@ -109,7 +110,6 @@ export default function NewEmployee() {
         }
     }
 
-    const [formSubmit, setFormSubmit] = useState<boolean>(false)
 
     const steps = [
         'Basic Details',
@@ -151,7 +151,6 @@ export default function NewEmployee() {
         };
     })();
     let CleanErrorSecondTime = function () {
-
         if (clear1) {
             setClear(false)
 
