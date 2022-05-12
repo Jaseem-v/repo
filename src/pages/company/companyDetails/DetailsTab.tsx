@@ -18,7 +18,7 @@ const TabsWrapperStyle = styled('div')(({ theme }) => ({
     bottom: 0,
     width: '100%',
     display: 'flex',
-    marginBottom:"2.5rem",
+    marginBottom: "2.5rem",
     backgroundColor: theme.palette.background.paper,
     [theme.breakpoints.up('sm')]: {
         justifyContent: 'center',
@@ -28,18 +28,19 @@ const TabsWrapperStyle = styled('div')(({ theme }) => ({
         paddingRight: theme.spacing(3),
     },
 }));
-type editProps = {
+type DetailsTabProps = {
     isEdit: boolean
     setIsEdit: React.Dispatch<React.SetStateAction<boolean>>
+    setContractTab: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export default function DetailsTab({ isEdit, setIsEdit }: editProps) {
+export default function DetailsTab({ isEdit, setIsEdit, setContractTab }: DetailsTabProps) {
 
 
 
     const { currentTab, onChangeTab } = useTabs('Basic Details');
 
-    console.log(isEdit);
+    console.log(currentTab);
 
     const tableFakaData = [{
         Contract_Purpose: "Painting",
@@ -76,6 +77,19 @@ export default function DetailsTab({ isEdit, setIsEdit }: editProps) {
         },
 
     ];
+
+    React.useEffect(() => {
+        if (currentTab === "Contract Details") {
+            setContractTab(true)
+        } else {
+            setContractTab(false)
+        }
+
+        return () => {
+
+        }
+    }, [currentTab])
+
     return (
         <div>
             <Card
