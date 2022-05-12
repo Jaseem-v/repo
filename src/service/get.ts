@@ -2,7 +2,9 @@ import { GET_ALL_USERS } from 'src/graphql/User'
 import { client } from './client'
 
 
-export async function getAllUsers(search: string, page: number, limit: number) {
+export async function getAllUsers(search: string, page: number, limit: number, filter?: any) {
+
+    filter = filter ? filter : {}
 
     try {
         const { data } = await client.query({
@@ -15,6 +17,11 @@ export async function getAllUsers(search: string, page: number, limit: number) {
                     paginate: {
                         page,
                         limit
+                    },
+                    "operators": {
+                        "field": "name",
+                        "kind": filter.tabFilter,
+                        "value": "Dennis"
                     }
                 }
             }

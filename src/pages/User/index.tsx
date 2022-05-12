@@ -1,88 +1,177 @@
-// @ts-nocheck
-import { Container, IconButton } from "@mui/material";
-import React from "react";
-import Page from "src/components/Page";
-import DataGrid, { TableSchemaI } from "src/components/DataGrid";
+import DataTable from 'src/components/DataTable';
+import { _TableHead } from 'src/@types/common'
+import { IconButton, MenuItem, Container, Select, TextField } from '@mui/material';
+import TableMoreMenu from 'src/components/DataTable/TableMoreMenu';
+import { useState } from 'react';
+import Iconify from 'src/components/Iconify';
+import Page from 'src/components/Page'
+import useSettings from 'src/hooks/useSettings';
+import Label from 'src/components/Label';
 
-import { useQuery } from "@apollo/client";
-import { ALL_USERS } from "../../graphql/User";
 
-export default function Test() {
-  // const { data, loading, error } = useQuery(ALL_USERS)
+function Filter({ setFilter }: { setFilter: (filter: any) => void }) {
 
-  // console.log(data, "w");
+  const [filter, setFilterState] = useState('all');
 
   return (
-    <Page title="TestTable">
-      <Container>
-        <DataGrid
-          query={ALL_USERS}
-          searchKeys={["firstName"]}
-          filters={[
-            {
-              field: "firstName", type: "simple", matches: [
-
-                {
-                  equals: "dasfasdfasd"
-                },
-                {
-                  gt: "dasfasdfasd"
-                }
-
-
-              ]
-            },
-            {
-              field: "company",
-              type: "one",
-              matches: [{ id: "cl2rh6bpr114801s6slmwv4s5" }, { id: "cl2rh6l2d126701s64wgowqe1" }]
-            },
-            {
-              field: "jobRole",
-              type: "one",
-              matches: ["Backend", "Hr"]
-            }
+    <TextField
+      select
+      sx={{
+        minWidth: '170px',
+      }}
+      label='Filter by role'
+      value={filter}
+      onChange={(event) => { setFilterState(event.target.value) }}
+    >
+      <MenuItem value="all">All</MenuItem>
+      <MenuItem value="admin">Admin</MenuItem>
+      <MenuItem value="user">User</MenuItem>
+    </TextField>
+  )
+}
 
 
 
-          ]}
-          columns={[
-            {
-              sortId: "firstName",
-              field: { name: "firstName", img: "avatar" },
-              label: "Name",
-              type: "Avatar"
-            },
-            {
-              field: "company.name",
-              label: "Company",
-              sortId: "companyId",
-              field: "company.name",
-              label: "CompanyName",
-            },
+export default function UsersLists() {
 
-            {
-              field: "jobRole",
-              label: "Role",
-            },
-            {
-              field: "status",
-              label: "Status",
-              type: "Status"
-            },
-            {
-              field: "varified",
-              label: "Varified",
-              type: "Verified"
-            },
-            {
-              field: "roles",
-              label: "roles",
-              type: "List",
-            },
-          ]}
-        ></DataGrid>
+  const TableHead: _TableHead[] = [
+    { _key: 'user_name', label: 'User Name', },
+    { _key: 'name', label: 'name', },
+    { _key: 'surname', label: 'Surname', },
+    { _key: 'roles', label: 'Roles', },
+    { _key: 'email', label: 'Email', },
+    { _key: 'email_verified', label: 'Email Verified', component: EmailVerified },
+    { _key: 'active', label: 'Active', component: isUserActive },
+    { _key: 'created_at', label: 'Created At', },
+    { _key: 'action', label: 'Actions', component: ListAction },
+  ]
+
+  const { themeStretch } = useSettings();
+
+  return (
+    <Page title='Users' >
+      <Container maxWidth={themeStretch ? false : 'xl'}>
+        <DataTable
+          tableHead={TableHead}
+          demoData={demoData}
+          containerProps={{
+            minWidth: 1050, position: 'relative'
+          }}
+          Filter={Filter}
+
+        />
       </Container>
     </Page>
-  );
+  )
 }
+
+
+const EmailVerified = ({ data }: any) => {
+
+  return (
+    <Label color={data.email_verified ? 'success' : 'error'} >
+      {data.email_verified ? 'Yes' : 'No'}
+    </Label>
+  )
+}
+
+const isUserActive = ({ data }: any) => {
+
+  return (
+    <Label color={data.active ? 'success' : 'error'} >
+      {data.active ? 'Yes' : 'No'}
+    </Label>
+  )
+}
+
+function ListAction({ data }: any) {
+
+  const [openMenu, setOpenMenuActions] = useState<HTMLElement | null>(null);
+
+  const handleOpenMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setOpenMenuActions(event.currentTarget);
+  };
+
+  const handleCloseMenu = () => {
+    setOpenMenuActions(null);
+  };
+
+  return (
+    <TableMoreMenu
+      open={openMenu}
+      onOpen={handleOpenMenu}
+      onClose={handleCloseMenu}
+      actions={
+        <>
+          <MenuItem
+            onClick={() => {
+              handleCloseMenu();
+            }}
+            sx={{ color: 'error.main' }}
+          >
+            <Iconify icon={'eva:trash-2-outline'} />
+            Delete
+          </MenuItem>
+          <MenuItem
+            onClick={() => {
+              handleCloseMenu();
+            }}
+          >
+            <Iconify icon={'eva:edit-fill'} />
+            Edit
+          </MenuItem>
+        </>
+      }
+    />
+  )
+}
+
+
+
+const demoData = [{
+  "user_name": "rmack0",
+  "name": "Rosy",
+  "surname": "Mack",
+  "roles": "Supervisor",
+  "email": "rmack0@hhs.gov",
+  "email_verified": true,
+  "active": false,
+  "created_at": "4/8/2022"
+}, {
+  "user_name": "ahallibone1",
+  "name": "Ag",
+  "surname": "Hallibone",
+  "roles": "Construction Manager",
+  "email": "ahallibone1@un.org",
+  "email_verified": true,
+  "active": false,
+  "created_at": "4/16/2022"
+}, {
+  "user_name": "kwebster2",
+  "name": "Katee",
+  "surname": "Webster",
+  "roles": "Construction Worker",
+  "email": "kwebster2@home.pl",
+  "email_verified": true,
+  "active": true,
+  "created_at": "10/2/2021"
+}, {
+  "user_name": "egloucester3",
+  "name": "Eryn",
+  "surname": "Gloucester",
+  "roles": "Construction Manager",
+  "email": "egloucester3@home.pl",
+  "email_verified": false,
+  "active": false,
+  "created_at": "11/30/2021"
+}, {
+  "user_name": "ablackler4",
+  "name": "Ardenia",
+  "surname": "Blackler",
+  "roles": "Engineer",
+  "email": "ablackler4@naver.com",
+  "email_verified": true,
+  "active": false,
+  "created_at": "7/1/2021"
+}]
+

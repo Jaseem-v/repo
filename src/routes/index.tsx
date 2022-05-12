@@ -81,6 +81,7 @@ export default function Router() {
         { path: 'add-new-employee', element: <NewEmployee /> },
         { path: 'add-new-company', element: <AddNewCompany /> },
         { path: 'company-details', element: <CompanyDetails /> },
+        { path: 'companies', element: <CompanyLists /> },
         {
           path: 'Employee',
           children: [
@@ -189,7 +190,7 @@ const Home = Loadable(lazy(() => import('../pages/Home')));
 const NewEmployee = Loadable(lazy(() => import('../pages/emplyees/NewEmployee')));
 const EmployeeDetails = Loadable(lazy(() => import('../pages/emplyees/EmployeeDetails')));
 const User = Loadable(lazy(() => import('../pages/User')));
-
+const CompanyLists = Loadable(lazy(() => import('../pages/company/List')));
 
 const Page500 = Loadable(lazy(() => import('../pages/Page500')));
 const Page403 = Loadable(lazy(() => import('../pages/Page403')));

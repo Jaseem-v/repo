@@ -5,39 +5,50 @@ import {
     TableBody,
     TableRow,
     TableCell,
-    TablePagination
+    TablePagination,
+    SxProps,
+    Box,
+    Tabs,
+    Tab
 } from '@mui/material'
-import { useEffect, useState } from 'react'
+import { ReactElement, useEffect, useState } from 'react'
 import Scrollbar from 'src/components/Scrollbar'
-import Loading from 'src/components/LoadingScreen'
-import SkeletonPost from 'src/components/skelton/SkeletonPost'
 import Toolbar from './Toolbar'
 import TableNoData from './TableNoData'
 import TableSkeleton from './TableSkeleton'
+import { _TableHead } from 'src/@types/common'
 
-type TableHead = {
-    _key: string,
-    label: string,
-    component?: ({ data }: any) => JSX.Element,
-}
+
 
 type props = {
-    tableHead: TableHead[],
+    tableHead: _TableHead[],
     dataSource?: (
         search: string,
         limit: number,
         page: number,
+        filter?: {
+            [key: string]: any
+        }
     ) => Promise<{
         data: any[],
         count: number,
     }>,
     demoData?: any[],
+    containerProps?: SxProps,
+    Filter?: ({ setFilter }: { setFilter: (filter: any) => void }) => JSX.Element,
+    tabNavValues?: {
+        label: string,
+        value: string
+    }[],
 }
 
 export default function DataTable({
     tableHead,
     dataSource,
-    demoData
+    demoData,
+    containerProps,
+    Filter,
+    tabNavValues
 }: props) {
 
 
@@ -48,11 +59,14 @@ export default function DataTable({
     const [error, setError] = useState(false)
     const [count, setCount] = useState(0)
     const [search, setSearch] = useState('')
+    const [filter, setFilter] = useState({
+        tabFilter: tabNavValues?.[0]?.value || 'all'
+    })
 
     useEffect(() => {
         if (!dataSource) return
         setLoading(true)
-        dataSource(search, page + 1, limit)
+        dataSource(search, page + 1, limit, filter)
             .then((data) => {
                 setData(data.data)
                 setCount(data.count)
@@ -62,7 +76,7 @@ export default function DataTable({
                 setError(true)
                 setLoading(false)
             })
-    }, [page, limit, search])
+    }, [page, limit, search, filter])
 
 
     const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -72,14 +86,41 @@ export default function DataTable({
 
     return (
         <>
+            {
+                tabNavValues &&
+                <Tabs
+                    allowScrollButtonsMobile
+                    variant="scrollable"
+                    scrollButtons="auto"
+                    value={filter.tabFilter}
+                    onChange={(event, value) => {
+                        setFilter((prev) => ({
+                            ...prev,
+                            tabFilter: value
+                        }))
+                    }}
+                    sx={{ px: 2, bgcolor: 'background.neutral' }}
+                >
+                    {tabNavValues.map((tab) => (
+                        <Tab disableRipple key={tab.value} label={tab.label} value={tab.value} />
+                    ))}
+                </Tabs>
+
+            }
             <Toolbar
                 onSearch={(value) => setSearch(value)}
+                Filter={Filter ? <Filter setFilter={setFilter} /> : null}
             />
 
+            {/* {Filter &&
+                <Box sx={{ display: 'flex', pb: 1, px: 3 }}>
+                    <Filter setFilter={setFilter} />
+                </Box>
+            } */}
             <Scrollbar>
-                <TableContainer>
+                <TableContainer sx={{ ...containerProps }} >
                     <Table>
-                        <TableHead>
+                        <TableHead sx={{ whiteSpace: 'nowrap' }}>
                             <TableRow>
                                 {tableHead.map((head) => (
                                     <TableCell key={head._key}>
@@ -91,7 +132,7 @@ export default function DataTable({
                         <TableBody>
                             {
                                 loading ?
-                                    <TableSkeleton noOfRows={5} /> :
+                                    <TableSkeleton noOfRows={4} /> :
                                     <>
                                         {
                                             data.length > 0 ?
@@ -111,7 +152,8 @@ export default function DataTable({
                         </TableBody>
                     </Table>
                 </TableContainer>
-
+            </Scrollbar>
+            <Box sx={{ position: 'relative' }}>
                 <TablePagination
                     component={'div'}
                     rowsPerPageOptions={[1, 5, 10]}
@@ -121,7 +163,7 @@ export default function DataTable({
                     onPageChange={(e, p) => setPage(p)}
                     onRowsPerPageChange={handleChangeRowsPerPage}
                 />
-            </Scrollbar>
+            </Box>
         </>
     )
 }
