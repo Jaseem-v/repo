@@ -28,7 +28,11 @@ export default function () {
             <DataTable
                 tableHead={TableHead}
                 dataSource={getAllUsers}
-            // demoData={demoData}
+                // demoData={demoData}
+                tabNavValues={[
+                    { label: 'NE', value: 'NE' },
+                    { label: 'LIKE', value: 'LIKE' },
+                ]}
             />
 
           

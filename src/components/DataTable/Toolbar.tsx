@@ -6,15 +6,16 @@ import { useState } from 'react';
 
 const StyledSearchBar = styled(TextField)(({ theme }) => ({
     [theme.breakpoints.up('md')]: {
-        minWidth: '500px',
+        minWidth: '400px',
     }
 }))
 
 type props = {
-    onSearch: (value: string) => void
+    onSearch: (value: string) => void,
+    Filter?: React.ReactNode,
 }
 
-export default function Toolbar({ onSearch }: props) {
+export default function Toolbar({ onSearch, Filter }: props) {
 
 
     const [search, setSearch] = useState('')
@@ -22,7 +23,7 @@ export default function Toolbar({ onSearch }: props) {
     return (
 
 
-        <Box sx={{ display: 'flex', py: 2.5, px: 3 }}>
+        <Box sx={{ display: 'flex', py: 2.5, px: 3, flexWrap: 'wrap' }}>
 
             <StyledSearchBar
                 onChange={(event) => setSearch(event.target.value)}
@@ -59,12 +60,14 @@ export default function Toolbar({ onSearch }: props) {
 
             <Button
                 onClick={() => onSearch(search)}
-                variant="contained" color="primary" sx={{ ml: 1 }} >
+                variant="contained" color="primary" sx={{ mx: 1 }} >
                 <Iconify
                     icon={'eva:search-fill'}
                     sx={{ width: 20, height: 20 }}
                 />
             </Button>
+
+            {Filter && <Stack sx={{ mx: 1 }}>{Filter}</Stack>}
         </Box>
     )
 }
