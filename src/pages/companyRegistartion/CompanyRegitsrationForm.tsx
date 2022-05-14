@@ -163,6 +163,9 @@ export default function CompanyRegistrationForm() {
             ])
         }
     };
+    useEffect(() => {
+        watch()
+    }, [])
     // useEffect(() => {
     //     let form1 = ["companyName", "companyName_ar", "companyCode", "companyLicense", "companyActivity_ar", "companyActivity"]
     //     let form2 = ["passportExpiryDate", "passportNumber", "emiratesID", "EIDExpirydate", "visaExpiryDate", "passportExpiryDate"]
@@ -255,7 +258,7 @@ export default function CompanyRegistrationForm() {
                             <CompanyInfoTables />
                         }
 
-                    
+
                         {
                             activeStep === 2 &&
                             <>

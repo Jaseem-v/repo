@@ -6,7 +6,8 @@ import {
     Button,
     TextField,
     Autocomplete,
-    Box
+    Box,
+    InputAdornment
 } from '@mui/material';
 
 import { styled } from '@mui/material/styles';
@@ -171,7 +172,7 @@ export const FileUpload = ({ schema, setValue, getValue, title }: Props) => {
         <Card sx={{ p: 2 }}>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                 <Typography variant="body1" mt={0} >
-                    {currentFile ? null : title} {currentFile ? null : <br />}
+                    {title} {currentFile ? <br /> : null }
                     <span style={{ textDecoration: "underline", cursor: currentFile ? "pointer" : "" }}>
                         {currentFile}
                     </span>
@@ -213,7 +214,9 @@ export const Address = () => {
                     </RHFSelect>
                 </Grid>
                 <Grid item md={6} xs={12}>
-                    <RHFTextField name="address2" label="Fax" />
+                    <RHFTextField name="address2" label="Fax" InputProps={{
+                        startAdornment: <InputAdornment position="start">+971</InputAdornment>,
+                    }} />
                 </Grid>
                 <Grid item md={6} xs={12}>
                     <RHFTextField name="address3" label="Area" />
