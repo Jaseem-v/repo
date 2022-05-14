@@ -1,5 +1,5 @@
+import * as React from 'react';
 import { useState, useMemo } from 'react';
-import { sentenceCase } from 'change-case';
 // @mui
 import { useTheme } from '@mui/material/styles';
 import {
@@ -22,19 +22,18 @@ import {
 // utils
 
 // components
-import Label from '../../../components/Label';
 import Iconify from '../../../components/Iconify';
 import Scrollbar from '../../../components/Scrollbar';
 import { TableMoreMenu, TableHeadCustom } from '../../../components/table';
-import { ContractDetails } from 'src/pages/company/common/FormComponents';
-
-
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useSnackbar } from 'notistack';
 import { FormProvider } from 'src/components/hook-form';
 import { CompanyRegistrationSchema } from '../common/CompanyRegistrationSchema';
 import { OwnerPopup } from './TablePopupComponents';
+import Box from '@mui/material/Box';
+import TablePagination from '@mui/material/TablePagination';
+import Paper from '@mui/material/Paper';
 // ----------------------------------------------------------------------
 
 type RowProps = {
@@ -64,7 +63,6 @@ export default function OwnerTable({
   const [open, setOpen] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
 
-
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -73,7 +71,6 @@ export default function OwnerTable({
     setOpen(false);
     reset(defaultValues)
   };
-
 
   const defaultValues = useMemo(() => ({
     contract_purpose: '',
@@ -89,17 +86,30 @@ export default function OwnerTable({
 
   const {
     handleSubmit,
-    formState: { isSubmitting, errors },
     reset
   } = methods;
 
   const onSubmit = (data: any) => {
-
     handleClose()
     enqueueSnackbar('Successfully Added', { variant: 'success' })
     reset(defaultValues)
 
   }
+
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
+  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+  const handleChangePage = (event: unknown, newPage: number) => {
+    setPage(newPage);
+  };
+
+
+
 
   return (
     <Card {...other}>
@@ -147,7 +157,7 @@ export default function OwnerTable({
 
             <TableHeadCustom headLabel={tableLabels} />
             <TableBody>
-              {tableData.map((row) => (
+              {tableData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
                 <AppNewInvoiceRow key={row.unified_no} row={row} />
               ))}
             </TableBody>
@@ -156,7 +166,21 @@ export default function OwnerTable({
       </Scrollbar>
 
       <Divider />
+      <Box sx={{ width: '100%' }}>
+        <Paper sx={{ width: '100%', mb: 2 }}>
+          {tableData.length > 5 &&
+            <TablePagination
+              component="div"
+              count={tableData.length}
+              rowsPerPage={5}
+              page={page}
+              onPageChange={handleChangePage}
+              rowsPerPageOptions={[]}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+            />}
+        </Paper>
 
+      </Box>
 
 
     </Card >
@@ -184,7 +208,7 @@ function AppNewInvoiceRow({ row }: AppNewInvoiceRowProps) {
 
 
 
-  console.log("r", row);
+
 
 
   return (
@@ -197,19 +221,6 @@ function AppNewInvoiceRow({ row }: AppNewInvoiceRowProps) {
           )
         })
       }
-
-      {/* <TableCell>
-        <Label
-          variant={theme.palette.mode === 'light' ? 'ghost' : 'filled'}
-          color={
-            (row.status === 'in_progress' && 'warning') ||
-            (row.status === 'out_of_date' && 'error') ||
-            'success'
-          }
-        >
-          {sentenceCase(row.status)}
-        </Label>
-      </TableCell> */}
 
       <TableCell align="right">
         <TableMoreMenu
@@ -238,12 +249,5 @@ function AppNewInvoiceRow({ row }: AppNewInvoiceRowProps) {
 }
 // ---------------------------------------------------------
 
-export function AlertDialog() {
 
 
-  return (
-    <div>
-
-    </div>
-  );
-}

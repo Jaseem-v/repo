@@ -185,7 +185,7 @@ function InfoTableRow({ row }: InfoTableRowProps) {
 
 
 
-    console.log("r", row);
+   
 
 
     return (

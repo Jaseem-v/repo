@@ -51,12 +51,12 @@ export default function DetailsTab({ isEdit, setIsEdit, setContractTab }: Detail
     const PROFILE_TABS = [
         {
             value: 'Basic Details',
-            icon: <Iconify icon={'ic:round-account-box'} width={23} height={23} />,
+            // icon: <Iconify icon={'ic:round-account-box'} width={23} height={23} />,
             component: <CompanyDetailsWithEditForm isEdit={isEdit} setIsEdit={setIsEdit} />,
         },
         {
             value: 'Contract Details',
-            icon: <Iconify icon={'clarity:contract-solid'} width={23} height={23} />,
+            // icon: <Iconify icon={'clarity:contract-solid'} width={23} height={23} />,
             component: <TableComponent
                 title="Contracts"
                 tableData={tableMokeData}
@@ -88,40 +88,34 @@ export default function DetailsTab({ isEdit, setIsEdit, setContractTab }: Detail
 
     return (
         <div>
-            <Card
-                sx={{
-                    mb: 3,
-                    height: "auto",
-                    padding: "2rem 2rem"
-                }}
-            >
 
-                <TabsWrapperStyle>
-                    <Tabs
-                        allowScrollButtonsMobile
-                        variant="scrollable"
-                        scrollButtons="auto"
-                        value={currentTab}
-                        onChange={onChangeTab}
-                    >
-                        {PROFILE_TABS.map((tab) => (
-                            <Tab
-                                disableRipple
-                                key={tab.value}
-                                value={tab.value}
-                                icon={tab.icon}
-                                label={capitalCase(tab.value)}
-                                style={{ fontSize: "1rem" }}
-                            />
-                        ))}
-                    </Tabs>
-                </TabsWrapperStyle>
 
-                {PROFILE_TABS.map((tab) => {
-                    const isMatched = tab.value === currentTab;
-                    return isMatched && <Box key={tab.value}>{tab.component}</Box>;
-                })}
-            </Card>
+            <TabsWrapperStyle>
+                <Tabs
+                    allowScrollButtonsMobile
+                    variant="scrollable"
+                    scrollButtons="auto"
+                    value={currentTab}
+                    onChange={onChangeTab}
+                >
+                    {PROFILE_TABS.map((tab) => (
+                        <Tab
+                            disableRipple
+                            key={tab.value}
+                            value={tab.value}
+                            // icon={tab.icon}
+                            label={capitalCase(tab.value)}
+                            style={{ fontSize: "1rem" }}
+                        />
+                    ))}
+                </Tabs>
+            </TabsWrapperStyle>
+
+            {PROFILE_TABS.map((tab) => {
+                const isMatched = tab.value === currentTab;
+                return isMatched && <Box key={tab.value}>{tab.component}</Box>;
+            })}
+
 
         </div>
     );

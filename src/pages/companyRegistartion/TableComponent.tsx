@@ -157,7 +157,14 @@ export default function TableComponent({
       <Divider />
 
 
-
+      {/* <TablePagination
+        rowsPerPageOptions={[5, 10, 25]}
+        component="div"
+        rowsPerPage={[5]}
+        page={page}
+        onPageChange={onChangePage}
+        onRowsPerPageChange={onChangeRowsPerPage}
+      /> */}
     </Card >
   );
 }
@@ -244,3 +251,4 @@ export function AlertDialog() {
     </div>
   );
 }
+

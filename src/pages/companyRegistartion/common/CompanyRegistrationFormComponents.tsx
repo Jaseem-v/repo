@@ -172,7 +172,7 @@ export const FileUpload = ({ schema, setValue, getValue, title }: Props) => {
         <Card sx={{ p: 2 }}>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                 <Typography variant="body1" mt={0} >
-                    {title} {currentFile ? <br /> : null }
+                    {title} {currentFile ? <br /> : null}
                     <span style={{ textDecoration: "underline", cursor: currentFile ? "pointer" : "" }}>
                         {currentFile}
                     </span>
@@ -214,7 +214,7 @@ export const Address = () => {
                     </RHFSelect>
                 </Grid>
                 <Grid item md={6} xs={12}>
-                    <RHFTextField name="address2" label="Fax" InputProps={{
+                    <RHFTextField name="address2" type="number" label="Fax" InputProps={{
                         startAdornment: <InputAdornment position="start">+971</InputAdornment>,
                     }} />
                 </Grid>
@@ -241,12 +241,12 @@ export const Address = () => {
 
 
 export const CompanyInfoTables = () => {
-    const tableMokeData = [{
+    const tableMokeData = {
         ownerName: "abdulla",
         place_of_work: "Dubai",
         unified_no: 25489,
         notes: "Main Owner of the Company",
-    }]
+    }
     const SignatureMockData = [{
         ownerName: "sakkeer",
         place_of_work: "Doha",
@@ -270,7 +270,7 @@ export const CompanyInfoTables = () => {
         <div>
 
             <OwnerTable title="Owner Info"
-                tableData={tableMokeData}
+                tableData={[tableMokeData, tableMokeData, tableMokeData, tableMokeData, tableMokeData, tableMokeData]}
                 tableLabels={[
                     { id: 'owner_name', label: 'Owner Name' },
                     { id: 'place_of_work', label: 'Place Of Work' },

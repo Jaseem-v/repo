@@ -41,9 +41,9 @@ export default function CompanyDetails() {
                     <HeaderBreadcrumbs
                         heading="Company Details"
                         links={[
-                            { name: 'Employees', href: "/dashboard/app" },
+                            { name: 'Company', href: "/dashboard/app" },
 
-                            { name: "EmployeeDetails", href: "/dashboard/EmployeeDetails", }
+                            { name: "Company Details", href: "/dashboard/EmployeeDetails", }
                         ]}
                         style={{ marginBottom: 0 }}
                     />

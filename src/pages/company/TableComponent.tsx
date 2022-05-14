@@ -109,8 +109,8 @@ export default function TableComponent({
         alignItems="center"
       >
         <CardHeader title={title} subheader={subheader} sx={{ mb: 3 }} />
-        <Button variant='outlined' color="error" style={{ marginRight: "1rem" }} onClick={handleClickOpen}>
-          add
+        <Button variant='contained' color="primary" style={{ marginRight: "1rem" }} onClick={handleClickOpen}>
+        Add Contract
         </Button>
       </Stack>
       {/* ---- */}

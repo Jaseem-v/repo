@@ -185,7 +185,7 @@ function AppNewInvoiceRow({ row }: AppNewInvoiceRowProps) {
 
 
 
-    console.log("r", row);
+   
 
 
     return (
