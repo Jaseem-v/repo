@@ -62,7 +62,7 @@ export default function DetailsTab({ isEdit, setIsEdit, setContractTab }: Detail
                 tableData={tableMokeData}
                 tableLabels={[
                     { id: 'Contract_Purpose', label: 'Contract Purpose' },
-                    { id: 'contract_no', label: 'contract no' },
+                    { id: 'contract_no', label: 'Contract No' },
                     { id: 'employee_required', label: 'Employee Required' },
                     { id: 'reliever_count', label: 'Reliever Count' },
                     { id: 'status', label: 'Status' },
@@ -97,6 +97,7 @@ export default function DetailsTab({ isEdit, setIsEdit, setContractTab }: Detail
                     scrollButtons="auto"
                     value={currentTab}
                     onChange={onChangeTab}
+                    style={{ background: "rgb(244, 246, 248)", paddingLeft: "1rem", width:"100%" , borderRadius:"8px"}}
                 >
                     {PROFILE_TABS.map((tab) => (
                         <Tab
