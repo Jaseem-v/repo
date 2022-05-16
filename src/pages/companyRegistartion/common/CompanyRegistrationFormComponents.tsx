@@ -7,7 +7,8 @@ import {
     TextField,
     Autocomplete,
     Box,
-    InputAdornment
+    InputAdornment,
+    CardHeader
 } from '@mui/material';
 
 import { styled } from '@mui/material/styles';
@@ -87,7 +88,8 @@ export const CommonDetails = ({ errors, isEdit }: editInterface) => {
 
     return (
         <Card sx={{ p: 3 }}>
-            <LabelStyle sx={{ marginBottom: 3 }}>Employee Name</LabelStyle>
+
+            <CardHeader title={"Company Information"} sx={{ mb: 3, p: 0 }} />
             <Grid container spacing={3} rowSpacing={2}>
                 <Grid item md={6} xs={12}>
                     <RHFTextField name="companyName" label="Company Name (EN)" disabled={isEdit} fullWidth />
@@ -120,7 +122,7 @@ export const DocUploads = ({ setValue, getValue }: DocProps) => {
     return (
         <div>
             <Card sx={{ p: 3 }} style={{ marginTop: "2rem" }}>
-                <LabelStyle>Employee Documents</LabelStyle>
+                <CardHeader title={"Documents"} sx={{ mb: 3, p: 0 }} />
                 <Grid container spacing={3} rowSpacing={2}>
 
                     <Grid item md={6} xs={12} mt={2}>
@@ -191,7 +193,7 @@ export const FileUpload = ({ schema, setValue, getValue, title }: Props) => {
                     // disabled={isEdit}
                     name={schema}
                 />
-             
+
             </div>
         </Card>
     )
@@ -202,7 +204,7 @@ export const Address = () => {
 
     return (
         <Card sx={{ p: 3 }} style={{ marginTop: "2rem" }}>
-            <LabelStyle>Address</LabelStyle>
+            <CardHeader title={"Address"} sx={{ mb: 3, p: 0 }} />
             <Grid container spacing={3} rowSpacing={2}>
                 <Grid item md={6} xs={12}>
                     <RHFSelect name='emirate' label='Emirate' >
@@ -326,8 +328,8 @@ export const Military = () => {
         ownerName: "abdulla",
         position: "owner",
         unit: 4,
-        rank:"25th",
-        military_number:9999,
+        rank: "25th",
+        military_number: 9999,
         notes: "Main Owner of the Company",
     }
     return (
