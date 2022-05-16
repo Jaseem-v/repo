@@ -161,7 +161,7 @@ export const FileUpload = ({ schema, setValue, getValue, title }: Props) => {
 
 
     const currentFile = getValue(schema)
-    // console.log(currentFile);
+   
 
 
     const { control } = useFormContext();
@@ -194,8 +194,7 @@ export const FileUpload = ({ schema, setValue, getValue, title }: Props) => {
                 name={schema}
                 control={control}
                 render={({ field, fieldState: { error } }) => {
-                    console.log("sinError", error);
-
+        
                     return (
                         <>
                             {/* // <TextField {...field} fullWidth error={!!error} helperText={error?.message} style={{ borderColor: "#ff7730" }} /> */}

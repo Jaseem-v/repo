@@ -41,7 +41,7 @@ interface dropDownData {
     getValue: UseFormGetValues<FormValidInputs>
 }
 
-interface inputValueProps {
+export interface inputValueProps {
 
     code: string;
     label: string;
@@ -153,7 +153,7 @@ export const EmployeeFileUpload = ({ detailsPage, isEdit, setValue, getValue }: 
     }
 
     const currentFile = getValue("docImage")
-    console.log(currentFile);
+
 
 
 

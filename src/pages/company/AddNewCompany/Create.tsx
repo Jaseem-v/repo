@@ -74,7 +74,7 @@ export default function CreateNewCompanyForm() {
         'Assign and Contract',
         'Contact Person Details',
     ];
-    console.log("test");
+  
 
 
 

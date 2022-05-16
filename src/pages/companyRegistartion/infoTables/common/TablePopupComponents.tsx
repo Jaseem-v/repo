@@ -23,6 +23,8 @@ import RHFDatePicker from 'src/components/hook-form/RHFDatePicker';
 import { FormValidInputs } from '../../CompanyRegitsrationForm';
 
 import TableComponent from "../../TableComponent"
+import { inputValueProps } from 'src/pages/emplyees/common/EmployeeFormComponents';
+import { stafflistFormValue } from '../StaffListTable';
 
 // Types
 // LabelStyle
@@ -56,23 +58,23 @@ export const OwnerPopup = () => {
                     <div>
                         <LabelStyle style={{ fontSize: "1rem", color: "#637381", fontWeight: "400", marginBottom: " 0px" }}>Position Type</LabelStyle>
                         <RHFRadioGroup
-                            name="gender"
+                            name="position"
                             options={GENDER_OPTION}
                             sx={{
                                 '& .MuiFormControlLabel-root': { mr: 4 },
                             }}
-                            style={{marginLeft:"1rem"}}
+                            style={{ marginLeft: "1rem" }}
                         />
                     </div>
                 </Grid>
                 <Grid item md={6} xs={12}>
-                    <RHFTextField name="companyActivity_ar" type="number" label="Unified Code" />
+                    <RHFTextField name="unified_code" type="number" label="Unified Code" />
                 </Grid>
                 <Grid item md={6} xs={12}>
-                    <RHFTextField name="companyCode" label="Place Of Work" />
+                    <RHFTextField name="work_place" label="Place Of Work" />
                 </Grid>
                 <Grid item md={6} xs={12}>
-                    <RHFTextField name="companyCode_ar" label="Place Of Work (AR)" dir="rtl" />
+                    <RHFTextField name="work_place_ar" label="Place Of Work (AR)" dir="rtl" />
                 </Grid>
                 <Grid item md={12} xs={12}>
                     <RHFTextField name="Notes" label="Notes" multiline rows={3} />
@@ -138,7 +140,12 @@ export const AuthorisedSignaturePopup = () => {
         </Box>
     )
 }
-export const StaffListPopup = () => {
+
+interface stafflistProps {
+    setValue: UseFormSetValue<stafflistFormValue>
+    getValue: UseFormGetValues<stafflistFormValue>
+}
+export const StaffListPopup = ({ setValue, getValue }: stafflistProps) => {
 
     return (
         <Box sx={{ p: 3 }}>
@@ -158,6 +165,12 @@ export const StaffListPopup = () => {
                         autoHighlight
                         autoSelect
                         getOptionLabel={(option) => option.label}
+                        onChange={(_, newValue: inputValueProps | null) => {
+                            if (newValue) {
+                                setValue("nationality", newValue)
+                            }
+
+                        }}
                         disableClearable={true}
                         renderOption={(props, option) => (
                             <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
@@ -171,16 +184,20 @@ export const StaffListPopup = () => {
                                 {option.label} ({option.code})
                             </Box>
                         )}
+
                         renderInput={(params) => (
                             <RHFTextField name="nationality" {...params}
                                 label="Choose Nationality"
+
+                                value={getValue("nationality.label") ? getValue("nationality.label") : ""}
                             />
                         )}
+                        defaultValue={getValue("nationality.label") ? getValue("nationality") : undefined}
 
                     />
                 </Grid>
                 <Grid item md={6} xs={12}>
-                    <RHFTextField name="companyActivity_ar" type="number" label="Unified Code" />
+                    <RHFTextField name="unified_code" type="number" label="Unified Code" />
                 </Grid>
                 <Grid item md={6} xs={12}>
                     <RHFTextField name="job" label="Job" />
@@ -189,7 +206,7 @@ export const StaffListPopup = () => {
                     <RHFTextField name="job_ar" label="Job (AR)" dir="rtl" />
                 </Grid>
                 <Grid item md={12} xs={12}>
-                    <RHFTextField name="Notes" label="Notes" multiline rows={3} />
+                    <RHFTextField name="notes" label="Notes" multiline rows={3} />
                 </Grid>
             </Grid>
         </Box>

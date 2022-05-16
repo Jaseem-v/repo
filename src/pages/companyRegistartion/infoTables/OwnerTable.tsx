@@ -29,7 +29,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useSnackbar } from 'notistack';
 import { FormProvider } from 'src/components/hook-form';
-import { CompanyRegistrationSchema } from '../common/CompanyRegistrationSchema';
+import { CompanyRegistrationSchema, OwnerPopupSchema } from '../common/CompanyRegistrationSchema';
 import { OwnerPopup } from './common/TablePopupComponents';
 import Box from '@mui/material/Box';
 import TablePagination from '@mui/material/TablePagination';
@@ -74,26 +74,31 @@ export default function OwnerTable({
   };
 
   const defaultValues = useMemo(() => ({
-    contract_purpose: '',
-    contract_no: '',
-    employee_required: '',
-    reliever_count: '',
+    ownerName: "",
+    ownerName_ar: "",
+    position: "",
+    unified_code: "",
+    work_place: "",
+    work_place_ar: "",
   }), [])
 
   const methods = useForm({
-    resolver: yupResolver(CompanyRegistrationSchema),
+    resolver: yupResolver(OwnerPopupSchema),
     defaultValues,
   })
 
   const {
     handleSubmit,
-    reset
+    reset,
+    formState: { errors },
   } = methods;
 
   const onSubmit = (data: any) => {
-    handleClose()
-    enqueueSnackbar('Successfully Added', { variant: 'success' })
-    reset(defaultValues)
+    if (Object.keys(errors).length === 0) {
+      handleClose()
+      enqueueSnackbar('Successfully Added', { variant: 'success' })
+      reset(defaultValues)
+    }
 
   }
 
@@ -149,7 +154,7 @@ export default function OwnerTable({
 
             <TableHeadCustom headLabel={tableLabels} />
             <TableBody>
-              {tableData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row,i) => (
+              {tableData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, i) => (
                 <InfoTableRow row={row} />
               ))}
             </TableBody>

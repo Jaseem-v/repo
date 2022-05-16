@@ -24,7 +24,7 @@ const TablePopup: React.FC<IAppProps> = ({ handleClose, children }) => {
         </SubmitBtn>
         <SubmitBtn
           color="primary"
-          onClick={handleClose}
+          // onClick={handleClose}
           variant="contained"
           size='small'
           type='submit'

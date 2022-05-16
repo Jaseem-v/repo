@@ -33,7 +33,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useSnackbar } from 'notistack';
 import { FormProvider } from 'src/components/hook-form';
-import { CompanyRegistrationSchema } from '../common/CompanyRegistrationSchema';
+import { CompanyRegistrationSchema, StaffListPopupSchema } from '../common/CompanyRegistrationSchema';
 import { AuthorisedSignaturePopup, OwnerPopup, StaffListPopup } from './common/TablePopupComponents';
 import { SubmitBtn } from 'src/components/ButtonSet';
 import TablePopup from './common/TablePopup';
@@ -55,6 +55,15 @@ interface Props extends CardProps {
     tableLabels: any;
 
 
+}
+
+export interface stafflistFormValue {
+    staffName: string,
+    staffName_ar: string,
+    job: string,
+    job_ar: string,
+    unified_code: string,
+    nationality: { code: string, label: string, phone: string },
 }
 
 export default function StaffListTable({
@@ -79,18 +88,23 @@ export default function StaffListTable({
 
 
     const defaultValues = useMemo(() => ({
-        staffName: ""
+        staffName: "",
+        staffName_ar: "",
+        job: "",
+        job_ar: "",
+        unified_code: "",
+        nationality: { code: "", label: "", phone: "" },
     }), [])
 
     const methods = useForm({
-        resolver: yupResolver(CompanyRegistrationSchema),
+        resolver: yupResolver(StaffListPopupSchema),
         defaultValues,
     })
 
     const {
         handleSubmit,
         formState: { isSubmitting, errors },
-        reset
+        reset, setValue, getValues
     } = methods;
 
     const onSubmit = (data: any) => {
@@ -133,7 +147,7 @@ export default function StaffListTable({
                     {/* <Divider /> */}
 
                     <TablePopup handleClose={handleClose} >
-                        <StaffListPopup />
+                        <StaffListPopup setValue={setValue} getValue={getValues} />
                     </TablePopup>
                 </FormProvider>
             </Dialog>
@@ -145,8 +159,7 @@ export default function StaffListTable({
                         <TableHeadCustom headLabel={tableLabels} />
                         <TableBody>
                             {tableData.map((row, i) => {
-                                console.log("i",i);
-                                
+
                                 return (
                                     <InfoTableRow key={i} row={row} />
                                 )

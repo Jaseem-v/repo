@@ -19,9 +19,26 @@ export const CompanyRegistrationSchema = Yup.object().shape({
     docImage3: Yup.string().required('File is required'),
     docImage4: Yup.string().required('File is required'),
     docImage5: Yup.string().required('File is required'),
-   
+
 });
 export const StaffListPopupSchema = Yup.object().shape({
-    staffName: Yup.string().required('FirstName is required'),
+    staffName: Yup.string().required('Staff Name is required'),
+    staffName_ar: Yup.string().required('Staff Name is required'),
+    job: Yup.string().required('Job is required'),
+    job_ar: Yup.string().required('Job (AR) is required'),
+    unified_code: Yup.string().required('Unified Code is required'),
+    nationality: Yup.object().shape({
+        code: Yup.string().required('nationality is required'),
+        label: Yup.string().required('nationality is required'),
+        phone: Yup.string().required('nationality is required')
+    }),
+});
+export const OwnerPopupSchema = Yup.object().shape({
+    ownerName: Yup.string().required('Owner Name is required'),
+    ownerName_ar: Yup.string().required('Owner Name (AR) is required'),
+    position: Yup.string().required('Position is required'),
+    unified_code: Yup.string().required('Unified Code is required'),
+    work_place: Yup.string().required('Work Place is required'),
+    work_place_ar: Yup.string().required('Work Place (AR) is required'),
 });
 
