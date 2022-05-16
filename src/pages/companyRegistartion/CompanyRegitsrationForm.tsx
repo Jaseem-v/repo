@@ -169,6 +169,14 @@ export default function CompanyRegistrationForm() {
 
                 })
             }
+            if (errors && activeStep == 3 && !(errors.hasOwnProperty(el1))) {
+                form2.map((el2) => {
+                    if (errors.hasOwnProperty(el2)) {
+                        setActiveStep(2)
+                    }
+
+                })
+            }
             if (errors && activeStep == 2 && !errors.hasOwnProperty(el1)
             ) {
                 CleanErrorOneTime();
