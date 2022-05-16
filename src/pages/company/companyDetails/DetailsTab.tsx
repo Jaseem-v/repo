@@ -57,7 +57,7 @@ export default function DetailsTab({ isEdit, setIsEdit, setContractTab }: Detail
         {
             value: 'Contract Details',
             // icon: <Iconify icon={'clarity:contract-solid'} width={23} height={23} />,
-            component: <TableComponent
+            component: <TableComponent style={{marginTop: "16px"}}
                 title="Contracts"
                 tableData={tableMokeData}
                 tableLabels={[
@@ -97,7 +97,7 @@ export default function DetailsTab({ isEdit, setIsEdit, setContractTab }: Detail
                     scrollButtons="auto"
                     value={currentTab}
                     onChange={onChangeTab}
-                    style={{ background: "rgb(244, 246, 248)", paddingLeft: "1rem", width:"100%" , borderRadius:"8px"}}
+                    style={{ background: "rgb(244, 246, 248)", paddingLeft: "1rem", width: "100%", borderRadius: "8px", marginBottom: "0rem" }}
                 >
                     {PROFILE_TABS.map((tab) => (
                         <Tab
