@@ -28,6 +28,7 @@ import OwnerTable from '../infoTables/OwnerTable';
 import AuthorisedSignatureTable from '../infoTables/AuthorisedSignatureTable';
 import StaffListTable from '../infoTables/StaffListTable';
 import NationalitiesWorkingTable from '../infoTables/NationalitiesWorkingTable';
+import MilitaryInfoTable from '../infoTables/MilitaryInfoTable';
 
 // Types
 
@@ -162,7 +163,7 @@ export const FileUpload = ({ schema, setValue, getValue, title }: Props) => {
 
 
     const currentFile = getValue(schema)
-    console.log(currentFile);
+    // console.log(currentFile);
 
 
 
@@ -190,6 +191,7 @@ export const FileUpload = ({ schema, setValue, getValue, title }: Props) => {
                     // disabled={isEdit}
                     name={schema}
                 />
+             
             </div>
         </Card>
     )
@@ -204,7 +206,7 @@ export const Address = () => {
             <Grid container spacing={3} rowSpacing={2}>
                 <Grid item md={6} xs={12}>
                     <RHFSelect name='emirate' label='Emirate' >
-                        <option value=''> Select Emirate</option>
+                        <option value=''></option>
                         <option value='1'> Abu Dhabi</option>
                         <option value='2'> Dubai </option>
                         <option value='2'> Sharjah </option>
@@ -314,6 +316,34 @@ export const CompanyInfoTables = () => {
 
 
 
+        </div>
+    )
+}
+
+
+export const Military = () => {
+    const tableMokeData = {
+        ownerName: "abdulla",
+        position: "owner",
+        unit: 4,
+        rank:"25th",
+        military_number:9999,
+        notes: "Main Owner of the Company",
+    }
+    return (
+        <div>
+            <MilitaryInfoTable title="Related to Military"
+                tableData={[tableMokeData, tableMokeData, tableMokeData, tableMokeData, tableMokeData, tableMokeData]}
+                tableLabels={[
+                    { id: 'name', label: 'Name' },
+                    { id: 'position', label: 'Owner / Partner' },
+                    { id: 'unit', label: 'Unit' },
+                    { id: 'rank', label: 'Rank' },
+                    { id: 'military_number', label: 'Military Number' },
+                    { id: 'notes', label: 'notes' },
+                    // { id: 'status', label: 'Status' },
+                    { id: '' },
+                ]} />
         </div>
     )
 }

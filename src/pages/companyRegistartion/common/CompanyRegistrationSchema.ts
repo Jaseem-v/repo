@@ -14,11 +14,6 @@ export const CompanyRegistrationSchema = Yup.object().shape({
     area_ar: Yup.string().required('Area (AR) is required'),
     p_o_box: Yup.string().required('P.O is required'),
     email: Yup.string().required('Email is required'),
-    nationality: Yup.object().shape({
-        code: Yup.string().required('nationality is required'),
-        label: Yup.string().required('nationality is required'),
-        phone: Yup.string().required('nationality is required')
-    }),
     docImage1: Yup.string().required('File is required'),
     docImage2: Yup.string().required('File is required'),
     docImage3: Yup.string().required('File is required'),

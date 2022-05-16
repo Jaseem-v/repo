@@ -19,7 +19,7 @@ import {
 import { FormProvider } from '../../components/hook-form';
 import Page from 'src/components/Page';
 import HeaderBreadcrumbs from 'src/components/HeaderBreadcrumbs';
-import { Address, CommonDetails, CompanyInfoTables, DocUploads } from './common/CompanyRegistrationFormComponents';
+import { Address, CommonDetails, CompanyInfoTables, DocUploads, Military } from './common/CompanyRegistrationFormComponents';
 import { SubmitBtn } from '../../components/ButtonSet';
 import OwnerTable from './infoTables/OwnerTable';
 
@@ -111,7 +111,7 @@ export default function CompanyRegistrationForm() {
         'Company Information',
         'Team Details',
         'Address',
-        'Related to Miltary',
+        'Related to Military',
         'Documents',
     ];
 
@@ -193,7 +193,7 @@ export default function CompanyRegistrationForm() {
 
             }
 
-            if (Object.keys(errors).length === 0 && activeStep === 5) {
+            if (Object.keys(errors).length === 0 && activeStep === 4) {
                 setFormSubmit(true)
             }
 
@@ -223,6 +223,7 @@ export default function CompanyRegistrationForm() {
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
 
+    console.log("errors", errors, formSubmit);
 
 
 
@@ -262,7 +263,7 @@ export default function CompanyRegistrationForm() {
 
                         {
                             activeStep === 3 &&
-                            <>Related to Miltary</>
+                            <Military />
                         }
                         {
                             activeStep === 4 &&
