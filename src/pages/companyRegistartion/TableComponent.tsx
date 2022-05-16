@@ -146,8 +146,8 @@ export default function TableComponent({
 
             <TableHeadCustom headLabel={tableLabels} />
             <TableBody>
-              {tableData.map((row) => (
-                <AppNewInvoiceRow key={row.Contract_Purpose} row={row} />
+              {tableData.map((row, i) => (
+                <InfoTableRow key={i} row={row} />
               ))}
             </TableBody>
           </Table>
@@ -171,11 +171,11 @@ export default function TableComponent({
 
 // ----------------------------------------------------------------------
 
-type AppNewInvoiceRowProps = {
+type InfoTableRowProps = {
   row: RowProps;
 };
 
-function AppNewInvoiceRow({ row }: AppNewInvoiceRowProps) {
+function InfoTableRow({ row }: InfoTableRowProps) {
   const theme = useTheme();
 
   const [openMenu, setOpenMenuActions] = useState<HTMLElement | null>(null);

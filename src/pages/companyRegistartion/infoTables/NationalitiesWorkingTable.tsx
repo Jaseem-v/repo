@@ -140,8 +140,8 @@ export default function NationalitiesWorkingTable({
 
                         <TableHeadCustom headLabel={tableLabels} />
                         <TableBody>
-                            {tableData.map((row) => (
-                                <InfoTableRow key={row.number} row={row} />
+                            {tableData.map((row,i) => (
+                                <InfoTableRow key={i} row={row} />
                             ))}
                         </TableBody>
                     </Table>

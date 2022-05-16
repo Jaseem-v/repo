@@ -141,8 +141,8 @@ export default function AuthorisedSignatureTable({
 
                         <TableHeadCustom headLabel={tableLabels} />
                         <TableBody>
-                            {tableData.map((row) => (
-                                <AppNewInvoiceRow key={row.unified_no} row={row} />
+                            {tableData.map((row, i) => (
+                                <InfoTableRow key={i} row={row} />
                             ))}
                         </TableBody>
                     </Table>
@@ -159,11 +159,11 @@ export default function AuthorisedSignatureTable({
 
 // ----------------------------------------------------------------------
 
-type AppNewInvoiceRowProps = {
+type InfoTableRowProps = {
     row: RowProps;
 };
 
-function AppNewInvoiceRow({ row }: AppNewInvoiceRowProps) {
+function InfoTableRow({ row }: InfoTableRowProps) {
     const theme = useTheme();
 
     const [openMenu, setOpenMenuActions] = useState<HTMLElement | null>(null);

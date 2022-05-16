@@ -133,7 +133,7 @@ export default function CompanyRegistrationForm() {
 
     const [clear1, setClear] = useState(true)
 
-    let CleanErrorOneTime = (function () {
+    let CleanSecondFormErrorOneTime = (function () {
         let executed = false;
         return function () {
             if (!executed) {
@@ -142,10 +142,9 @@ export default function CompanyRegistrationForm() {
             }
         };
     })();
-    let CleanErrorSecondTime = function () {
+    let CleanThirdFormErrorOneTime = function () {
         if (clear1) {
             setClear(false)
-
             clearErrors(["docImage1", "docImage2", "docImage3", "docImage4", "docImage5"])
         }
     };
@@ -179,15 +178,15 @@ export default function CompanyRegistrationForm() {
             }
             if (errors && activeStep == 2 && !errors.hasOwnProperty(el1)
             ) {
-                CleanErrorOneTime();
+                CleanSecondFormErrorOneTime();
 
             }
 
-            if (errors && activeStep == 5 && !errors.hasOwnProperty(el1)
+            if (errors && activeStep == 4 && !errors.hasOwnProperty(el1)
             ) {
                 form2.map((el) => {
                     if (!errors.hasOwnProperty(el)) {
-                        CleanErrorSecondTime()
+                        CleanThirdFormErrorOneTime()
                     }
                 })
 

@@ -153,8 +153,8 @@ export default function MilitaryInfoTable({
 
                         <TableHeadCustom headLabel={tableLabels} />
                         <TableBody>
-                            {tableData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
-                                <AppNewInvoiceRow key={row.unit} row={row} />
+                            {tableData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row,i) => (
+                                <InfoTableRow key={i} row={row} />
                             ))}
                         </TableBody>
                     </Table>
@@ -185,11 +185,11 @@ export default function MilitaryInfoTable({
 
 // ----------------------------------------------------------------------
 
-type AppNewInvoiceRowProps = {
+type InfoTableRowProps = {
     row: RowProps;
 };
 
-function AppNewInvoiceRow({ row }: AppNewInvoiceRowProps) {
+function InfoTableRow({ row }: InfoTableRowProps) {
     const theme = useTheme();
 
     const [openMenu, setOpenMenuActions] = useState<HTMLElement | null>(null);

@@ -149,8 +149,8 @@ export default function OwnerTable({
 
             <TableHeadCustom headLabel={tableLabels} />
             <TableBody>
-              {tableData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
-                <AppNewInvoiceRow key={row.unified_no} row={row} />
+              {tableData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row,i) => (
+                <InfoTableRow row={row} />
               ))}
             </TableBody>
           </Table>
@@ -181,11 +181,11 @@ export default function OwnerTable({
 
 // ----------------------------------------------------------------------
 
-type AppNewInvoiceRowProps = {
+type InfoTableRowProps = {
   row: RowProps;
 };
 
-function AppNewInvoiceRow({ row }: AppNewInvoiceRowProps) {
+function InfoTableRow({ row }: InfoTableRowProps) {
   const theme = useTheme();
 
   const [openMenu, setOpenMenuActions] = useState<HTMLElement | null>(null);

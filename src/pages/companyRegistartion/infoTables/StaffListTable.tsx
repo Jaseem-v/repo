@@ -144,9 +144,13 @@ export default function StaffListTable({
 
                         <TableHeadCustom headLabel={tableLabels} />
                         <TableBody>
-                            {tableData.map((row) => (
-                                <InfoTableRow key={row.unified_no} row={row} />
-                            ))}
+                            {tableData.map((row, i) => {
+                                console.log("i",i);
+                                
+                                return (
+                                    <InfoTableRow key={i} row={row} />
+                                )
+                            })}
                         </TableBody>
                     </Table>
                 </TableContainer>

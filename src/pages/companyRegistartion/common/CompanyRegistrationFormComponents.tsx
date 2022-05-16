@@ -1,35 +1,21 @@
-import React, { useRef, ChangeEvent, useState, useEffect } from 'react'
 import {
-    Card,
-    Grid,
-    Typography,
-    Button,
-    TextField,
-    Autocomplete,
-    Box,
-    InputAdornment,
-    CardHeader
+    Button, Card, CardHeader, Grid, InputAdornment, Typography
 } from '@mui/material';
-
 import { styled } from '@mui/material/styles';
-
-import { RHFTextField, RHFSelect } from '../../../components/hook-form';
-import QrCodeScannerOutlinedIcon from '@mui/icons-material/QrCodeScannerOutlined';
-import {
-    countries
-} from "../../../data/_countries"
+import React, { ChangeEvent, useRef } from 'react';
 // import DetailsSelect from '../DetailsSelect';
-import { useFormContext, Controller, UseFormGetValues, UseFormSetValue } from 'react-hook-form';
-import DatePicker from '@mui/lab/DatePicker';
-import RHFDatePicker from 'src/components/hook-form/RHFDatePicker';
+import { Controller, useFormContext, UseFormGetValues, UseFormSetError, UseFormSetValue } from 'react-hook-form';
+import { RHFSelect, RHFTextField } from '../../../components/hook-form';
 import { FormValidInputs } from '../CompanyRegitsrationForm';
-
-import TableComponent from "../TableComponent"
-import OwnerTable from '../infoTables/OwnerTable';
 import AuthorisedSignatureTable from '../infoTables/AuthorisedSignatureTable';
-import StaffListTable from '../infoTables/StaffListTable';
-import NationalitiesWorkingTable from '../infoTables/NationalitiesWorkingTable';
 import MilitaryInfoTable from '../infoTables/MilitaryInfoTable';
+import NationalitiesWorkingTable from '../infoTables/NationalitiesWorkingTable';
+import OwnerTable from '../infoTables/OwnerTable';
+import StaffListTable from '../infoTables/StaffListTable';
+import { ErrorMessage } from '@hookform/error-message';
+
+
+
 
 // Types
 
@@ -45,7 +31,10 @@ type DocProps = {
     isEdit?: boolean
     setValue: UseFormSetValue<FormValidInputs>
     getValue: UseFormGetValues<FormValidInputs>
+
 }
+
+type Errors = UseFormSetError<FormValidInputs>
 
 interface dropDownData {
     data: {
@@ -82,6 +71,13 @@ const LabelStyle = styled(Typography)(({ theme }) => ({
     marginBottom: theme.spacing(1),
 }));
 
+const CustomError = styled(Typography)(() => ({
+    color: "#FF4842",
+    lineHeight: 1.5,
+    fontSize: "0.75rem",
+    fontWeight: 400,
+    margin: "8px 14px 0 14px"
+}))
 
 
 export const CommonDetails = ({ errors, isEdit }: editInterface) => {
@@ -168,34 +164,62 @@ export const FileUpload = ({ schema, setValue, getValue, title }: Props) => {
     // console.log(currentFile);
 
 
+    const { control } = useFormContext();
 
 
 
     return (
-        <Card sx={{ p: 2 }}>
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                <Typography variant="body1" mt={0} >
-                    {title} {currentFile ? <br /> : null}
-                    <span style={{ textDecoration: "underline", cursor: currentFile ? "pointer" : "" }}>
-                        {currentFile}
-                    </span>
-                </Typography>
+        <>
+            <Card sx={{ p: 2 }}>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                    <Typography variant="body1" mt={0} >
+                        {title} {currentFile ? <br /> : null}
+                        <span style={{ textDecoration: "underline", cursor: currentFile ? "pointer" : "" }}>
+                            {currentFile}
+                        </span>
+                    </Typography>
 
-                <Button variant="outlined" onClick={uploadDocumentHandle} >
-                    {currentFile ? "Upload New" : "Browse"}
-                </Button>
-                <input
-                    ref={uploadInputRef}
-                    type="file"
-                    accept="image/*"
-                    style={{ display: "none" }}
-                    onChange={fileOnchange}
-                    // disabled={isEdit}
-                    name={schema}
-                />
+                    <Button variant="outlined" onClick={uploadDocumentHandle} >
+                        {currentFile ? "Upload New" : "Browse"}
+                    </Button>
 
-            </div>
-        </Card>
+
+
+
+
+
+                </div>
+            </Card>
+            <Controller
+                name={schema}
+                control={control}
+                render={({ field, fieldState: { error } }) => {
+                    console.log("sinError", error);
+
+                    return (
+                        <>
+                            {/* // <TextField {...field} fullWidth error={!!error} helperText={error?.message} style={{ borderColor: "#ff7730" }} /> */}
+                            <input
+                                ref={uploadInputRef}
+                                type="file"
+                                accept="image/*"
+                                style={{ display: "none" }}
+                                onChange={fileOnchange}
+                                // disabled={isEdit}
+                                name={schema}
+                            />
+                            {/* <p></p> */}
+                            {!currentFile &&
+
+                                <CustomError>{error?.message}</CustomError>
+                            }
+                            {/* <p style={{ fontSize: "1.5rem", margin: "0.81rem 1rem", color: "#FF4842" }}>{error?.message}</p> */}
+                        </>
+                    )
+                }}
+
+            />
+        </>
     )
 }
 
