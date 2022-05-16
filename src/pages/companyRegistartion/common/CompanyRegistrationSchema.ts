@@ -24,3 +24,7 @@ export const CompanyRegistrationSchema = Yup.object().shape({
     }),
     docImage: Yup.string().required('File is required')
 });
+export const StaffListPopupSchema = Yup.object().shape({
+    staffName: Yup.string().required('FirstName is required'),
+});
+

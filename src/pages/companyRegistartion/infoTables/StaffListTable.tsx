@@ -34,7 +34,9 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useSnackbar } from 'notistack';
 import { FormProvider } from 'src/components/hook-form';
 import { CompanyRegistrationSchema } from '../common/CompanyRegistrationSchema';
-import { AuthorisedSignaturePopup, OwnerPopup, StaffListPopup } from './TablePopupComponents';
+import { AuthorisedSignaturePopup, OwnerPopup, StaffListPopup } from './common/TablePopupComponents';
+import { SubmitBtn } from 'src/components/ButtonSet';
+import TablePopup from './common/TablePopup';
 // ----------------------------------------------------------------------
 
 type RowProps = {
@@ -77,10 +79,7 @@ export default function StaffListTable({
 
 
     const defaultValues = useMemo(() => ({
-        contract_purpose: '',
-        contract_no: '',
-        employee_required: '',
-        reliever_count: '',
+        staffName: ""
     }), [])
 
     const methods = useForm({
@@ -122,6 +121,9 @@ export default function StaffListTable({
                 onClose={handleClose}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
+                sx={{
+                    '& .css-y4brsv-MuiPaper-root-MuiDialog-paper': { maxWidth: "700px" },
+                }}
             >
                 <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
 
@@ -130,15 +132,9 @@ export default function StaffListTable({
           </DialogTitle> */}
                     {/* <Divider /> */}
 
-                    <DialogContent>
+                    <TablePopup handleClose={handleClose} >
                         <StaffListPopup />
-                    </DialogContent>
-                    <DialogActions style={{ paddingTop: "0" }}>
-                        <Button onClick={handleClose}>cancel</Button>
-                        <Button type="submit">
-                            Save
-                        </Button>
-                    </DialogActions>
+                    </TablePopup>
                 </FormProvider>
             </Dialog>
             {/* ---- */}
@@ -185,7 +181,7 @@ function InfoTableRow({ row }: InfoTableRowProps) {
 
 
 
-   
+
 
 
     return (

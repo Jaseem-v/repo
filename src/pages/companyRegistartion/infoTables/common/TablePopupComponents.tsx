@@ -11,25 +11,26 @@ import {
 
 import { styled } from '@mui/material/styles';
 
-import { RHFTextField, RHFSelect, RHFRadioGroup } from '../../../components/hook-form';
+import { RHFTextField, RHFSelect, RHFRadioGroup } from '../../../../components/hook-form';
 import QrCodeScannerOutlinedIcon from '@mui/icons-material/QrCodeScannerOutlined';
 import {
     countries
-} from "../../../data/_countries"
+} from "../../../../data/_countries"
 // import DetailsSelect from '../DetailsSelect';
 import { useFormContext, Controller, UseFormGetValues, UseFormSetValue } from 'react-hook-form';
 import DatePicker from '@mui/lab/DatePicker';
 import RHFDatePicker from 'src/components/hook-form/RHFDatePicker';
-import { FormValidInputs } from '../CompanyRegitsrationForm';
+import { FormValidInputs } from '../../CompanyRegitsrationForm';
 
-import TableComponent from "../TableComponent"
+import TableComponent from "../../TableComponent"
 
 // Types
 // LabelStyle
 
 const LabelStyle = styled(Typography)(({ theme }) => ({
     ...theme.typography.subtitle2,
-    color: theme.palette.text.secondary,
+    color: "#000",
+    fontSize: "1.2rem",
     marginBottom: theme.spacing(1),
 }));
 
@@ -42,7 +43,7 @@ export const OwnerPopup = () => {
     ];
 
     return (
-        <Card sx={{ p: 3 }}>
+        <Box sx={{ p: 3 }}>
             <LabelStyle sx={{ marginBottom: 3 }}>Owner/Partner Info</LabelStyle>
             <Grid container spacing={3} rowSpacing={2}>
                 <Grid item md={6} xs={12}>
@@ -53,36 +54,37 @@ export const OwnerPopup = () => {
                 </Grid>
                 <Grid item md={6} xs={12}>
                     <div>
-                        <LabelStyle>Gender</LabelStyle>
+                        <LabelStyle style={{ fontSize: "1rem", color: "#637381", fontWeight: "400", marginBottom: " 0px" }}>Position Type</LabelStyle>
                         <RHFRadioGroup
                             name="gender"
                             options={GENDER_OPTION}
                             sx={{
                                 '& .MuiFormControlLabel-root': { mr: 4 },
                             }}
+                            style={{marginLeft:"1rem"}}
                         />
                     </div>
                 </Grid>
                 <Grid item md={6} xs={12}>
-                    <RHFTextField name="companyActivity_ar" type="number" label="Unified Code" dir="rtl" />
+                    <RHFTextField name="companyActivity_ar" type="number" label="Unified Code" />
                 </Grid>
                 <Grid item md={6} xs={12}>
                     <RHFTextField name="companyCode" label="Place Of Work" />
                 </Grid>
                 <Grid item md={6} xs={12}>
-                    <RHFTextField name="companyCode_ar" label="Place Of Work (AR)" />
+                    <RHFTextField name="companyCode_ar" label="Place Of Work (AR)" dir="rtl" />
                 </Grid>
                 <Grid item md={12} xs={12}>
                     <RHFTextField name="Notes" label="Notes" multiline rows={3} />
                 </Grid>
             </Grid>
-        </Card>
+        </Box>
     )
 }
 export const AuthorisedSignaturePopup = () => {
 
     return (
-        <Card sx={{ p: 3 }}>
+        <Box sx={{ p: 3 }}>
             <LabelStyle sx={{ marginBottom: 3 }}>Authorised Signature Info</LabelStyle>
             <Grid container spacing={3} rowSpacing={2}>
                 <Grid item md={6} xs={12}>
@@ -121,25 +123,25 @@ export const AuthorisedSignaturePopup = () => {
                     />
                 </Grid>
                 <Grid item md={6} xs={12}>
-                    <RHFTextField name="companyActivity_ar" type="number" label="Unified Code" dir="rtl" />
+                    <RHFTextField name="companyActivity_ar" type="number" label="Unified Code" />
                 </Grid>
                 <Grid item md={6} xs={12}>
                     <RHFTextField name="companyCode" label="Place Of Work" />
                 </Grid>
                 <Grid item md={6} xs={12}>
-                    <RHFTextField name="companyCode_ar" label="Place Of Work (AR)" />
+                    <RHFTextField name="companyCode_ar" label="Place Of Work (AR)" dir="rtl" />
                 </Grid>
                 <Grid item md={12} xs={12}>
                     <RHFTextField name="Notes" label="Notes" multiline rows={3} />
                 </Grid>
             </Grid>
-        </Card>
+        </Box>
     )
 }
 export const StaffListPopup = () => {
 
     return (
-        <Card sx={{ p: 3 }}>
+        <Box sx={{ p: 3 }}>
             <LabelStyle sx={{ marginBottom: 3 }}>Staff List - Administration Info</LabelStyle>
             <Grid container spacing={3} rowSpacing={2}>
                 <Grid item md={6} xs={12}>
@@ -178,25 +180,25 @@ export const StaffListPopup = () => {
                     />
                 </Grid>
                 <Grid item md={6} xs={12}>
-                    <RHFTextField name="companyActivity_ar" type="number" label="Unified Code" dir="rtl" />
+                    <RHFTextField name="companyActivity_ar" type="number" label="Unified Code" />
                 </Grid>
                 <Grid item md={6} xs={12}>
                     <RHFTextField name="job" label="Job" />
                 </Grid>
                 <Grid item md={6} xs={12}>
-                    <RHFTextField name="job_ar" label="Job (AR)" />
+                    <RHFTextField name="job_ar" label="Job (AR)" dir="rtl" />
                 </Grid>
                 <Grid item md={12} xs={12}>
                     <RHFTextField name="Notes" label="Notes" multiline rows={3} />
                 </Grid>
             </Grid>
-        </Card>
+        </Box>
     )
 }
 export const NationalitiesWorkingPopup = () => {
 
     return (
-        <Card sx={{ p: 3 }}>
+        <Box sx={{ p: 3 }}>
             <LabelStyle sx={{ marginBottom: 3 }}>Nationalities Working</LabelStyle>
             <Grid container spacing={3} rowSpacing={2}>
                 <Grid item md={6} xs={12}>
@@ -235,7 +237,7 @@ export const NationalitiesWorkingPopup = () => {
                     <RHFTextField name="Notes" label="Notes" multiline rows={3} />
                 </Grid>
             </Grid>
-        </Card>
+        </Box>
     )
 }
 

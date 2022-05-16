@@ -34,14 +34,15 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useSnackbar } from 'notistack';
 import { FormProvider } from 'src/components/hook-form';
 import { CompanyRegistrationSchema } from '../common/CompanyRegistrationSchema';
-import {  AuthorisedSignaturePopup, OwnerPopup } from './TablePopupComponents';
+import { AuthorisedSignaturePopup, OwnerPopup } from './common/TablePopupComponents';
+import TablePopup from './common/TablePopup';
 // ----------------------------------------------------------------------
 
 type RowProps = {
     ownerName: string,
     place_of_work: string,
     unified_no: number,
-    country:string
+    country: string
     notes: string,
     // status: string,
 };
@@ -122,23 +123,15 @@ export default function AuthorisedSignatureTable({
                 onClose={handleClose}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
+                sx={{
+                    '& .css-y4brsv-MuiPaper-root-MuiDialog-paper': { maxWidth: "700px" },
+                }}
             >
                 <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-
-                    {/* <DialogTitle id="alert-dialog-title">
-            {"Add new Contract"}
-          </DialogTitle> */}
-                    {/* <Divider /> */}
-
-                    <DialogContent>
+                    <TablePopup handleClose={handleClose}>
                         <AuthorisedSignaturePopup />
-                    </DialogContent>
-                    <DialogActions style={{ paddingTop: "0" }}>
-                        <Button onClick={handleClose}>cancel</Button>
-                        <Button type="submit">
-                            Save
-                        </Button>
-                    </DialogActions>
+                    </TablePopup>
+
                 </FormProvider>
             </Dialog>
             {/* ---- */}
@@ -185,7 +178,7 @@ function AppNewInvoiceRow({ row }: AppNewInvoiceRowProps) {
 
 
 
-   
+
 
 
     return (

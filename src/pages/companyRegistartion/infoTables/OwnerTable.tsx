@@ -30,10 +30,11 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useSnackbar } from 'notistack';
 import { FormProvider } from 'src/components/hook-form';
 import { CompanyRegistrationSchema } from '../common/CompanyRegistrationSchema';
-import { OwnerPopup } from './TablePopupComponents';
+import { OwnerPopup } from './common/TablePopupComponents';
 import Box from '@mui/material/Box';
 import TablePagination from '@mui/material/TablePagination';
 import Paper from '@mui/material/Paper';
+import TablePopup from './common/TablePopup';
 // ----------------------------------------------------------------------
 
 type RowProps = {
@@ -131,23 +132,14 @@ export default function OwnerTable({
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
+        sx={{
+          '& .css-y4brsv-MuiPaper-root-MuiDialog-paper': { maxWidth: "700px" },
+        }}
       >
         <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-
-          {/* <DialogTitle id="alert-dialog-title">
-            {"Add new Contract"}
-          </DialogTitle> */}
-          {/* <Divider /> */}
-
-          <DialogContent>
+          <TablePopup handleClose={handleClose}>
             <OwnerPopup />
-          </DialogContent>
-          <DialogActions style={{ paddingTop: "0" }}>
-            <Button onClick={handleClose}>cancel</Button>
-            <Button type="submit">
-              Save
-            </Button>
-          </DialogActions>
+          </TablePopup>
         </FormProvider>
       </Dialog>
       {/* ---- */}

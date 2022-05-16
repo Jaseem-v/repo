@@ -116,8 +116,8 @@ export default function CompanyRegistrationForm() {
     const steps = [
         'Company Information',
         'Team Details',
-        'address',
-        'Related to miltary',
+        'Address',
+        'Related to Miltary',
         'Documents',
     ];
 
