@@ -2,27 +2,29 @@ import * as Yup from 'yup';
 
 
 export const CompanyRegistrationSchema = Yup.object().shape({
-    companyName: Yup.string().required('FirstName is required'),
-    companyName_ar: Yup.string().required('FirstName (AR) is required'),
-    companyActivity: Yup.string().required('Middle Name is required'),
-    companyActivity_ar: Yup.string().required('Middle Name (AR) is required'),
-    companyCode: Yup.string().required('Last Name is required'),
-    companyLicense: Yup.string().required('Last Name (AR) is required'),
-    passportNumber: Yup.string().required('PassportNumber is required'),
-    emiratesID: Yup.string().required('EmiratesID is required'),
-    EIDExpirydate: Yup.string().required('EIDExpirydate is required'),
-    occupation_en: Yup.string().required('Occupation is required'),
-    visaExpiryDate: Yup.string().required('Visa Expiry Date is required'),
-    passportExpiryDate: Yup.string().required('Passport Expiry Date is required'),
-    occupation_ar: Yup.string().required('Occupation (AR) is required'),
-    phonenumber: Yup.string().required('phonenumber is required'),
-    email: Yup.string().required('email is required'),
+    companyName: Yup.string().required('Company Name is required'),
+    companyName_ar: Yup.string().required('Company Name (AR) is required'),
+    companyActivity: Yup.string().required('Company Activity is required'),
+    companyActivity_ar: Yup.string().required('Company Activity (AR) is required'),
+    companyCode: Yup.string().required('Company Code is required'),
+    companyLicense: Yup.string().required('Company License (AR) is required'),
+    emirate: Yup.string().required('Emirate is required'),
+    fax: Yup.string().required('Fax is required'),
+    area: Yup.string().required('Area is required'),
+    area_ar: Yup.string().required('Area (AR) is required'),
+    p_o_box: Yup.string().required('P.O is required'),
+    email: Yup.string().required('Email is required'),
     nationality: Yup.object().shape({
         code: Yup.string().required('nationality is required'),
         label: Yup.string().required('nationality is required'),
         phone: Yup.string().required('nationality is required')
     }),
-    docImage: Yup.string().required('File is required')
+    docImage1: Yup.string().required('File is required'),
+    docImage2: Yup.string().required('File is required'),
+    docImage3: Yup.string().required('File is required'),
+    docImage4: Yup.string().required('File is required'),
+    docImage5: Yup.string().required('File is required'),
+   
 });
 export const StaffListPopupSchema = Yup.object().shape({
     staffName: Yup.string().required('FirstName is required'),

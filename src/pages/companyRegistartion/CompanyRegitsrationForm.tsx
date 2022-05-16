@@ -31,26 +31,23 @@ interface uploadedFileInterface {
 
 
 export interface FormValidInputs {
-    companyName: string;
-    companyName_ar: string;
-    companyActivity: string;
-    companyActivity_ar: string;
-    companyCode: string;
-    companyLicense: string;
-    passportNumber: string;
-    emiratesID: string;
-    EIDExpirydate: string;
-    docImage1: string;
-    docImage2: string;
-    docImage3: string;
-    docImage4: string;
-    docImage5: string;
-    occupation_en: string,
-    visaExpiryDate: string,
-    passportExpiryDate: string,
-    occupation_ar: string,
-    phonenumber: string,
+    companyName: string,
+    companyName_ar: string,
+    companyActivity: string,
+    companyActivity_ar: string,
+    companyCode: string,
+    companyLicense: string,
+    emirate: string,
+    fax: string,
+    area: string,
+    area_ar: string,
     email: string,
+    p_o_box: string,
+    docImage1: string,
+    docImage2: string,
+    docImage3: string,
+    docImage4: string,
+    docImage5: string,
     nationality?: { code: string, label: string, phone: string }
 }
 
@@ -70,15 +67,12 @@ export default function CompanyRegistrationForm() {
         companyActivity_ar: "",
         companyCode: "",
         companyLicense: "",
-        passportNumber: "",
-        emiratesID: "",
-        EIDExpirydate: "",
-        occupation_en: "",
-        visaExpiryDate: "",
-        passportExpiryDate: "",
-        occupation_ar: "",
-        phonenumber: "",
+        emirate: "",
+        fax: "",
+        area: "",
+        area_ar: "",
         email: "",
+        p_o_box: "",
         nationality: { code: "", label: "", phone: "" },
         docImage1: "",
         docImage2: "",
@@ -90,7 +84,7 @@ export default function CompanyRegistrationForm() {
 
 
     const methods = useForm({
-        // resolver: yupResolver(CompanyRegistrationSchema),
+        resolver: yupResolver(CompanyRegistrationSchema),
         defaultValues,
     })
 
@@ -144,13 +138,7 @@ export default function CompanyRegistrationForm() {
         return function () {
             if (!executed) {
                 executed = true;
-                clearErrors(["passportExpiryDate", "passportNumber",
-                    "emiratesID",
-                    "EIDExpirydate",
-                    "occupation_en",
-                    "visaExpiryDate",
-                    "passportExpiryDate",
-                    "occupation_ar"])
+                clearErrors(["emirate", "fax", "area", "area_ar", "email", "p_o_box"])
             }
         };
     })();
@@ -158,61 +146,58 @@ export default function CompanyRegistrationForm() {
         if (clear1) {
             setClear(false)
 
-            clearErrors(["email", "phonenumber",
-                "nationality"
-            ])
+            clearErrors(["docImage1", "docImage2", "docImage3", "docImage4", "docImage5"])
         }
     };
     useEffect(() => {
         watch()
     }, [])
-    // useEffect(() => {
-    //     let form1 = ["companyName", "companyName_ar", "companyCode", "companyLicense", "companyActivity_ar", "companyActivity"]
-    //     let form2 = ["passportExpiryDate", "passportNumber", "emiratesID", "EIDExpirydate", "visaExpiryDate", "passportExpiryDate"]
-    //     let form3 = ["email", "phonenumber", "nationality"]
-    //     form1.map((el1) => {
-    //         if (errors && errors.hasOwnProperty(el1)
-    //         ) {
-    //             setActiveStep(0)
-    //         }
-    //         if (errors && !(errors.hasOwnProperty(el1))) {
-    //             form2.map((el2) => {
-    //                 if (errors.hasOwnProperty(el2)) {
-    //                     setActiveStep(1)
-    //                 }
+    useEffect(() => {
+        let form1 = ["companyName", "companyName_ar", "companyCode", "companyLicense", "companyActivity_ar", "companyActivity"]
+        let form2 = ["emirate", "fax", "area", "area_ar", "email", "p_o_box"]
+        let form3 = ["docImage1", "docImage2", "docImage3", "docImage4", "docImage5"]
+        form1.map((el1) => {
+            if (errors && errors.hasOwnProperty(el1)
+            ) {
+                setActiveStep(0)
+            }
+            if (errors && activeStep == 2 && !(errors.hasOwnProperty(el1))) {
+                form2.map((el2) => {
+                    if (errors.hasOwnProperty(el2)) {
+                        setActiveStep(2)
+                    }
 
-    //             })
-    //         }
-    //         if (errors && activeStep == 1 && !errors.hasOwnProperty(el1)
-    //         ) {
-    //             // CleanErrorOneTime();
+                })
+            }
+            if (errors && activeStep == 2 && !errors.hasOwnProperty(el1)
+            ) {
+                CleanErrorOneTime();
 
+            }
 
-    //         }
+            if (errors && activeStep == 5 && !errors.hasOwnProperty(el1)
+            ) {
+                form2.map((el) => {
+                    if (!errors.hasOwnProperty(el)) {
+                        CleanErrorSecondTime()
+                    }
+                })
 
-    //         if (errors && activeStep == 2 && !errors.hasOwnProperty(el1)
-    //         ) {
-    //             form2.map((el) => {
-    //                 if (!errors.hasOwnProperty(el)) {
-    //                     // CleanErrorSecondTime()
-    //                 }
-    //             })
+            }
 
-    //         }
-
-    //         if (Object.keys(errors).length === 0 && activeStep === 2) {
-    //             setFormSubmit(true)
-    //         }
-
+            if (Object.keys(errors).length === 0 && activeStep === 5) {
+                setFormSubmit(true)
+            }
 
 
 
-    //     })
 
-    //     watch()
+        })
+
+        watch()
 
 
-    // }, [errors])
+    }, [errors])
 
 
 

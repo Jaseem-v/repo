@@ -203,8 +203,8 @@ export const Address = () => {
             <LabelStyle>Address</LabelStyle>
             <Grid container spacing={3} rowSpacing={2}>
                 <Grid item md={6} xs={12}>
-                    <RHFSelect name='address1' label='Licencing Authority' >
-                        <option value=''> </option>
+                    <RHFSelect name='emirate' label='Emirate' >
+                        <option value=''> Select Emirate</option>
                         <option value='1'> Abu Dhabi</option>
                         <option value='2'> Dubai </option>
                         <option value='2'> Sharjah </option>
@@ -214,24 +214,24 @@ export const Address = () => {
                     </RHFSelect>
                 </Grid>
                 <Grid item md={6} xs={12}>
-                    <RHFTextField name="address2" type="number" label="Fax" InputProps={{
+                    <RHFTextField name="fax" type="number" label="Fax" InputProps={{
                         startAdornment: <InputAdornment position="start">+971</InputAdornment>,
                     }} />
                 </Grid>
                 <Grid item md={6} xs={12}>
-                    <RHFTextField name="address3" label="Area" />
+                    <RHFTextField name="area" label="Area" />
 
                 </Grid>
                 <Grid item md={6} xs={12}>
-                    <RHFTextField name="address4" label="Area (AR)" dir="rtl" />
+                    <RHFTextField name="area_ar" label="Area (AR)" dir="rtl" />
 
                 </Grid>
                 <Grid item md={6} xs={12}>
-                    <RHFTextField name="address5" label="Email" />
+                    <RHFTextField name="email" label="Email" />
                 </Grid>
 
                 <Grid item md={6} xs={12}>
-                    <RHFTextField name="address6" label="P.O Box" />
+                    <RHFTextField name="p_o_box" label="P.O Box" />
                 </Grid>
             </Grid>
 
@@ -315,66 +315,5 @@ export const CompanyInfoTables = () => {
 
 
         </div>
-    )
-}
-
-export const OfficialDetails = ({ data, isEdit, setValue, getValue }: dropDownData) => {
-
-    return (
-        <Card sx={{ p: 3 }}>
-            <LabelStyle style={{ marginBottom: "1.5rem" }}>Official Details</LabelStyle>
-
-            <div>
-                <RHFTextField name="phonenumber" label="Phone Number" disabled={isEdit} />
-            </div>
-            <div style={{ marginTop: "1.5rem" }}>
-                <RHFTextField name="email" label="Email" disabled={isEdit} />
-            </div>
-
-            {/* <DetailsSelect data={data["Designation"]} isEdit={isEdit} />
-            <DetailsSelect data={data["Company"]} isEdit={isEdit} />
-            <DetailsSelect data={data["Department"]} isEdit={isEdit} /> */}
-
-            <div style={{ marginTop: "1.5rem" }}>
-                <Autocomplete
-                    id="nationality"
-                    fullWidth
-                    options={countries}
-                    autoHighlight
-                    autoSelect
-                    getOptionLabel={(option) => option.label}
-                    onChange={(_, newValue: inputValueProps | null) => {
-                        if (newValue) {
-                            setValue("nationality", newValue)
-                        }
-
-                    }}
-                    disableClearable={true}
-                    renderOption={(props, option) => (
-                        <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
-                            <img
-                                loading="lazy"
-                                width="20"
-                                src={`https://flagcdn.com/w20/${option.code.toLowerCase()}.png`}
-                                srcSet={`https://flagcdn.com/w40/${option.code.toLowerCase()}.png 2x`}
-                                alt=""
-                            />
-                            {option.label} ({option.code})
-                        </Box>
-                    )}
-                    disabled={isEdit}
-                    renderInput={(params) => (
-                        <RHFTextField name="nationality" {...params}
-                            label="Choose Nationality"
-                            disabled={isEdit}
-                            value={getValue("nationality.label") ? getValue("nationality.label") : ""}
-                        />
-                    )}
-                    defaultValue={getValue("nationality.label") ? getValue("nationality") : undefined}
-
-                />
-            </div>
-
-        </Card>
     )
 }
