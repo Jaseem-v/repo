@@ -194,6 +194,14 @@ export default function EmployeeList() {
         filterStatus
     });
 
+    const resetBtnDisable = () => {
+        if (filterRole !== "all" || filterStatus !== "all") {
+            return false
+        } else {
+            return true
+        }
+    }
+
     const resteFilter = () => {
         setFilterStatus("all")
         setFilterRole("all")
@@ -335,7 +343,7 @@ export default function EmployeeList() {
                         <Button
                             onClick={resteFilter}
                             variant="text"
-                            disabled={filterRole !== "all" ? false : true || filterStatus !== "all" ? false : true}
+                            disabled={resetBtnDisable()}
                             sx={{ px: 3, py: 1.5, top: 1, left: 2, mt: 1, position: { md: 'absolute' } }}>
                             Reset Filter
                         </Button>
