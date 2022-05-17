@@ -194,6 +194,11 @@ export default function EmployeeList() {
         filterStatus
     });
 
+    const resteFilter = () => {
+        setFilterStatus("all")
+        setFilterRole("all")
+    }
+
     const denseHeight = dense ? 60 : 80;
 
     const isNotFound = (!dataFiltered.length && !!filterName) || (!dataFiltered.length);
@@ -314,11 +319,23 @@ export default function EmployeeList() {
                             onRowsPerPageChange={onChangeRowsPerPage}
                         />
 
-                        <FormControlLabel
+                        {/* <FormControlLabel
                             control={<Switch checked={dense} onChange={onChangeDense} />}
                             label="Dense"
                             sx={{ px: 3, py: 1.5, top: 0, position: { md: 'absolute' } }}
-                        />
+                        /> */}
+
+                        <Button
+                            onClick={resteFilter}
+                            variant="text"
+                            disabled={filterRole !== "all" ? false : true || filterStatus !== "all" ? false : true}
+                            sx={{ px: 3, py: 1.5, top: 1, left: 2, mt: 1, position: { md: 'absolute' } }}>
+                            Reset Filter
+                        </Button>
+
+
+
+
                     </Box>
                 </Card>
             </Container>
