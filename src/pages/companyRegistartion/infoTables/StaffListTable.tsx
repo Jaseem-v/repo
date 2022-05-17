@@ -18,7 +18,11 @@ import {
     Dialog,
     DialogContent,
     DialogActions,
+    TablePagination,
+    Box,
 } from '@mui/material';
+import Paper from '@mui/material/Paper';
+
 // utils
 
 // components
@@ -115,6 +119,18 @@ export default function StaffListTable({
 
     }
 
+    const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(5);
+
+    const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setRowsPerPage(parseInt(event.target.value, 10));
+        setPage(0);
+    };
+
+    const handleChangePage = (event: unknown, newPage: number) => {
+        setPage(newPage);
+    };
+
     return (
         <Card {...other}>
 
@@ -171,7 +187,21 @@ export default function StaffListTable({
 
             <Divider />
 
+            <Box sx={{ width: '100%' }}>
+                <Paper sx={{ width: '100%', mb: 2 }}>
+                    {tableData.length > 5 &&
+                        <TablePagination
+                            component="div"
+                            count={tableData.length}
+                            rowsPerPage={5}
+                            page={page}
+                            onPageChange={handleChangePage}
+                            rowsPerPageOptions={[]}
+                            onRowsPerPageChange={handleChangeRowsPerPage}
+                        />}
+                </Paper>
 
+            </Box>
 
         </Card >
     );
