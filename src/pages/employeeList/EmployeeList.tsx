@@ -50,37 +50,26 @@ ProductTableToolbar
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
-    { id: 'name', label: 'Product', align: 'left' },
+    { id: 'name', label: 'Employee Name', align: 'left' },
+    { id: 'uid', label: 'Uid', align: 'center', },
+    { id: 'company', label: 'Company', align: 'center', },
+    { id: 'referance', label: 'Referance No', align: 'center', },
+    { id: 'pass_duration', label: 'Pass Duration', align: 'center', },
+    { id: 'status', label: 'Status', align: 'center', },
     { id: 'createdAt', label: 'Create at', align: 'left' },
-    { id: 'inventoryType', label: 'Status', align: 'center', width: 180 },
-    { id: 'price', label: 'Price', align: 'right' },
     { id: '' },
 ];
 
 const products = [
     {
-        id: "122",
-        name: "user",
-        cover: "https://minimal-assets-api-dev.vercel.app/assets/images/avatars/avatar_8.jpg",
-        createdAt: "28",
-        inventoryType: "asdasd",
-        price: "Rs 2555"
-    },
-    {
-        id: "12245",
-        name: "neymar",
-        cover: "https://minimal-assets-api-dev.vercel.app/assets/images/avatars/avatar_7.jpg",
-        createdAt: "38",
-        inventoryType: "football",
-        price: "Rs 2555"
-    },
-    {
-        id: "122555",
-        name: "sachin",
-        cover: "https://minimal-assets-api-dev.vercel.app/assets/images/avatars/avatar_6.jpg",
-        createdAt: "58",
-        inventoryType: "cricket",
-        price: "Rs 2555"
+        name: "Test 1",
+        uid: "5789",
+        // id: "122",
+        company: "Floges",
+        referance_no : "565656",
+        pass_duration: "1 Year ",
+        status: "MOPA Approval - Company Notified",
+        createdAt: "9/16/21, 10:12 AM",
     },
 
 ]
@@ -140,13 +129,13 @@ export default function EmployeeList() {
     };
 
     const handleDeleteRow = (id: string) => {
-        const deleteRow = tableData.filter((row) => row.id !== id);
+        const deleteRow = tableData.filter((row) => row.uid !== id);
         setSelected([]);
         setTableData(deleteRow);
     };
 
     const handleDeleteRows = (selected: string[]) => {
-        const deleteRows = tableData.filter((row) => !selected.includes(row.id));
+        const deleteRows = tableData.filter((row) => !selected.includes(row.uid));
         setSelected([]);
         setTableData(deleteRows);
     };
@@ -166,17 +155,17 @@ export default function EmployeeList() {
     const isNotFound = (!dataFiltered.length && !!filterName) || (!dataFiltered.length);
 
     return (
-        <Page title="Ecommerce: Product List">
+        <Page title="Employee List">
             <Container maxWidth={themeStretch ? false : 'xl'}>
                 <HeaderBreadcrumbs
-                    heading="Product List"
+                    heading="Employee List"
                     links={[
                         { name: 'Dashboard', href: PATH_DASHBOARD.root },
                         {
-                            name: 'E-Commerce',
+                            name: 'Employee',
                             href: PATH_DASHBOARD.eCommerce.root,
                         },
-                        { name: 'Product List' },
+                        { name: 'Employee List' },
                     ]}
                     action={
                         <Button
@@ -185,7 +174,7 @@ export default function EmployeeList() {
                             component={RouterLink}
                             to={PATH_DASHBOARD.eCommerce.new}
                         >
-                            New Product
+                            New Employee
                         </Button>
                     }
                 />
@@ -203,7 +192,7 @@ export default function EmployeeList() {
                                     onSelectAllRows={(checked) =>
                                         onSelectAllRows(
                                             checked,
-                                            tableData.map((row) => row.id)
+                                            tableData.map((row) => row.uid)
                                         )
                                     }
                                     actions={
@@ -227,7 +216,7 @@ export default function EmployeeList() {
                                     onSelectAllRows={(checked) =>
                                         onSelectAllRows(
                                             checked,
-                                            tableData.map((row) => row.id)
+                                            tableData.map((row) => row.uid)
                                         )
                                     }
                                 />
@@ -238,11 +227,11 @@ export default function EmployeeList() {
                                         .map((row, index) =>
                                             row ? (
                                                 <ProductTableRow
-                                                    key={row.id}
+                                                    key={row.uid}
                                                     row={row}
-                                                    selected={selected.includes(row.id)}
-                                                    onSelectRow={() => onSelectRow(row.id)}
-                                                    onDeleteRow={() => handleDeleteRow(row.id)}
+                                                    selected={selected.includes(row.uid)}
+                                                    onSelectRow={() => onSelectRow(row.uid)}
+                                                    onDeleteRow={() => handleDeleteRow(row.uid)}
                                                     onEditRow={() => handleEditRow(row.name)}
                                                 />
                                             ) : (

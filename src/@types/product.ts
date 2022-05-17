@@ -30,12 +30,15 @@ export type ProductReview = {
 };
 
 export type emList = {
-  id: string,
+  // id: string,
   name: string,
-  cover: string,
+  uid: string,
+  company: string,
+  pass_duration: string,
+  referance_no: string,
+  status: string,
   createdAt: string,
-  inventoryType: string,
-  price: string
+
 }
 
 export type Product = {

@@ -32,9 +32,6 @@ export default function ProductTableRow({
   onEditRow,
 }: Props) {
   const theme = useTheme();
-
-  const { name, cover, createdAt, inventoryType, price } = row;
-
   const [openMenu, setOpenMenuActions] = useState<HTMLElement | null>(null);
 
   const handleOpenMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -51,17 +48,11 @@ export default function ProductTableRow({
         <Checkbox checked={selected} onClick={onSelectRow} />
       </TableCell>
 
-      <TableCell sx={{ display: 'flex', alignItems: 'center' }}>
-        <Image
-          disabledEffect
-          alt={name}
-          src={cover}
-          sx={{ borderRadius: 1.5, width: 48, height: 48, mr: 2 }}
-        />
+      {/* <TableCell sx={{ display: 'flex', alignItems: 'center' }}>
         <Typography variant="subtitle2" noWrap>
           {name}
         </Typography>
-      </TableCell>
+      </TableCell> */}
 
       {/* <TableCell>{fDate(createdAt)}</TableCell> */}
 
@@ -79,9 +70,17 @@ export default function ProductTableRow({
         </Label>
       </TableCell> */}
 
-      <TableCell align="left">{inventoryType}</TableCell>
+      {
+        Object.values(row).map((el) => {
+          return (
+            <TableCell>{el}</TableCell>
+          )
+        })
+      }
+
+      {/* <TableCell align="left">{inventoryType}</TableCell>
       <TableCell align="center">{createdAt}</TableCell>
-      <TableCell align="right">{price}</TableCell>
+      <TableCell align="right">{price}</TableCell> */}
 
 
       <TableCell align="right">
