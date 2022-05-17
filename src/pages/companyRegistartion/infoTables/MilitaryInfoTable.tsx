@@ -31,8 +31,8 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useSnackbar } from 'notistack';
 import { FormProvider } from 'src/components/hook-form';
-import { CompanyRegistrationSchema } from '../common/CompanyRegistrationSchema';
-import { OwnerPopup } from './common/TablePopupComponents';
+import { CompanyRegistrationSchema, MilitaryPopupSchema } from '../common/CompanyRegistrationSchema';
+import { MilitaryPopup, OwnerPopup } from './common/TablePopupComponents';
 import Box from '@mui/material/Box';
 import TablePagination from '@mui/material/TablePagination';
 import Paper from '@mui/material/Paper';
@@ -78,14 +78,16 @@ export default function MilitaryInfoTable({
     };
 
     const defaultValues = useMemo(() => ({
-        contract_purpose: '',
-        contract_no: '',
-        employee_required: '',
-        reliever_count: '',
+        ownerName: "",
+        ownerName_ar: "",
+        position: "",
+        unit: "",
+        rank: "",
+        military_number: "",
     }), [])
 
     const methods = useForm({
-        resolver: yupResolver(CompanyRegistrationSchema),
+        resolver: yupResolver(MilitaryPopupSchema),
         defaultValues,
     })
 
@@ -142,7 +144,7 @@ export default function MilitaryInfoTable({
             >
                 <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
                     <TablePopup handleClose={handleClose}>
-                        <OwnerPopup />
+                        <MilitaryPopup />
                     </TablePopup>
                 </FormProvider>
             </Dialog>
@@ -153,7 +155,7 @@ export default function MilitaryInfoTable({
 
                         <TableHeadCustom headLabel={tableLabels} />
                         <TableBody>
-                            {tableData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row,i) => (
+                            {tableData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, i) => (
                                 <InfoTableRow key={i} row={row} />
                             ))}
                         </TableBody>

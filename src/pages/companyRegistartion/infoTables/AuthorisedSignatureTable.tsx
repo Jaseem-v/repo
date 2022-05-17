@@ -37,7 +37,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useSnackbar } from 'notistack';
 import { FormProvider } from 'src/components/hook-form';
-import { CompanyRegistrationSchema } from '../common/CompanyRegistrationSchema';
+import { AuthorisedSignatureSchema, CompanyRegistrationSchema } from '../common/CompanyRegistrationSchema';
 import { AuthorisedSignaturePopup, OwnerPopup } from './common/TablePopupComponents';
 import TablePopup from './common/TablePopup';
 // ----------------------------------------------------------------------
@@ -58,6 +58,15 @@ interface Props extends CardProps {
     tableLabels: any;
 
 
+}
+
+export interface AuthorisedSignatureFormValue {
+    ownerName: string,
+    ownerName_ar: string,
+    nationality: { code: string, label: string, phone: string },
+    unified_code: string,
+    work_place: string,
+    work_place_ar: string,
 }
 
 export default function AuthorisedSignatureTable({
@@ -82,21 +91,24 @@ export default function AuthorisedSignatureTable({
 
 
     const defaultValues = useMemo(() => ({
-        contract_purpose: '',
-        contract_no: '',
-        employee_required: '',
-        reliever_count: '',
+        ownerName: "",
+        ownerName_ar: "",
+        nationality: { code: "", label: "", phone: "" },
+        unified_code: "",
+        work_place: "",
+        work_place_ar: "",
     }), [])
 
     const methods = useForm({
-        resolver: yupResolver(CompanyRegistrationSchema),
+        resolver: yupResolver(AuthorisedSignatureSchema),
         defaultValues,
     })
 
     const {
         handleSubmit,
         formState: { isSubmitting, errors },
-        reset
+        reset, setValue, getValues
+
     } = methods;
 
     const onSubmit = (data: any) => {
@@ -145,7 +157,7 @@ export default function AuthorisedSignatureTable({
             >
                 <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
                     <TablePopup handleClose={handleClose}>
-                        <AuthorisedSignaturePopup />
+                        <AuthorisedSignaturePopup getValue={getValues} setValue={setValue} />
                     </TablePopup>
 
                 </FormProvider>

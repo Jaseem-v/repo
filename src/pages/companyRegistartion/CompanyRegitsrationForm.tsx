@@ -1,27 +1,18 @@
-import { useState, Fragment } from 'react';
-import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useMemo, useEffect } from 'react';
-import { useSnackbar } from 'notistack';
-import { CompanyRegistrationSchema } from './common/CompanyRegistrationSchema';
-import { useNavigate } from 'react-router-dom'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-
 import {
-    Container,
-    Stepper,
-    Step,
-    StepLabel,
-    Box,
-    Stack,
+    Box, Step,
+    StepLabel, Stepper
 } from '@mui/material';
-
-import { FormProvider } from '../../components/hook-form';
-import Page from 'src/components/Page';
-import HeaderBreadcrumbs from 'src/components/HeaderBreadcrumbs';
-import { Address, CommonDetails, CompanyInfoTables, DocUploads, Military } from './common/CompanyRegistrationFormComponents';
+import { useSnackbar } from 'notistack';
+import { Fragment, useEffect, useMemo, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import { SubmitBtn } from '../../components/ButtonSet';
-import OwnerTable from './infoTables/OwnerTable';
+import { FormProvider } from '../../components/hook-form';
+import { Address, CommonDetails, CompanyInfoTables, DocUploads, Military } from './common/CompanyRegistrationFormComponents';
+import { CompanyRegistrationSchema } from './common/CompanyRegistrationSchema';
+
 
 
 // types
@@ -120,10 +111,6 @@ export default function CompanyRegistrationForm() {
         return steps.length;
     };
 
-    const completedSteps = () => {
-        return Object.keys(completed).length;
-    };
-
     const isLastStep = () => {
         return activeStep === totalSteps() - 1;
     };
@@ -132,25 +119,21 @@ export default function CompanyRegistrationForm() {
     // clean function
 
     const [clear1, setClear] = useState(true)
+    const [clear2, setClear2] = useState(true)
 
-    let CleanSecondFormErrorOneTime = (function () {
-        let executed = false;
-        return function () {
-            if (!executed) {
-                executed = true;
-                clearErrors(["emirate", "fax", "area", "area_ar", "email", "p_o_box"])
-            }
-        };
-    })();
-    let CleanThirdFormErrorOneTime = function () {
+    const CleanSecondFormErrorOneTime = () => {
+        if (clear2) {
+            setClear2(false)
+            clearErrors(["emirate", "fax", "area", "area_ar", "email", "p_o_box"])
+        }
+    }
+    const CleanThirdFormErrorOneTime = () => {
         if (clear1) {
             setClear(false)
             clearErrors(["docImage1", "docImage2", "docImage3", "docImage4", "docImage5"])
         }
     };
-    useEffect(() => {
-        watch()
-    }, [])
+
     useEffect(() => {
         let form1 = ["companyName", "companyName_ar", "companyCode", "companyLicense", "companyActivity_ar", "companyActivity"]
         let form2 = ["emirate", "fax", "area", "area_ar", "email", "p_o_box"]
@@ -222,7 +205,7 @@ export default function CompanyRegistrationForm() {
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
 
-  
+
 
 
 

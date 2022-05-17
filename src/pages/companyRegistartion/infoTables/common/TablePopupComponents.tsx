@@ -25,9 +25,26 @@ import { FormValidInputs } from '../../CompanyRegitsrationForm';
 import TableComponent from "../../TableComponent"
 import { inputValueProps } from 'src/pages/emplyees/common/EmployeeFormComponents';
 import { stafflistFormValue } from '../StaffListTable';
+import { NationalityFormValue } from '../NationalitiesWorkingTable';
+import { AuthorisedSignatureFormValue } from '../AuthorisedSignatureTable';
 
 // Types
 // LabelStyle
+
+interface stafflistProps {
+    setValue: UseFormSetValue<stafflistFormValue>
+    getValue: UseFormGetValues<stafflistFormValue>
+}
+
+interface NationalityProps {
+    setValue: UseFormSetValue<NationalityFormValue>
+    getValue: UseFormGetValues<NationalityFormValue>
+}
+
+interface AuthorisedSignatureProps {
+    setValue: UseFormSetValue<AuthorisedSignatureFormValue>
+    getValue: UseFormGetValues<AuthorisedSignatureFormValue>
+}
 
 const LabelStyle = styled(Typography)(({ theme }) => ({
     ...theme.typography.subtitle2,
@@ -39,7 +56,7 @@ const LabelStyle = styled(Typography)(({ theme }) => ({
 
 
 export const OwnerPopup = () => {
-    const GENDER_OPTION = [
+    const POSITION_OPTION = [
         { label: 'Owner', value: 'Owner' },
         { label: 'Partner', value: 'Partner' },
     ];
@@ -59,7 +76,7 @@ export const OwnerPopup = () => {
                         <LabelStyle style={{ fontSize: "1rem", color: "#637381", fontWeight: "400", marginBottom: " 0px" }}>Position Type</LabelStyle>
                         <RHFRadioGroup
                             name="position"
-                            options={GENDER_OPTION}
+                            options={POSITION_OPTION}
                             sx={{
                                 '& .MuiFormControlLabel-root': { mr: 4 },
                             }}
@@ -83,7 +100,52 @@ export const OwnerPopup = () => {
         </Box>
     )
 }
-export const AuthorisedSignaturePopup = () => {
+export const MilitaryPopup = () => {
+    const POSITION_OPTION = [
+        { label: 'Owner', value: 'Owner' },
+        { label: 'Partner', value: 'Partner' },
+    ];
+
+    return (
+        <Box sx={{ p: 3 }}>
+            <LabelStyle sx={{ marginBottom: 3 }}>Military Info</LabelStyle>
+            <Grid container spacing={3} rowSpacing={2}>
+                <Grid item md={6} xs={12}>
+                    <RHFTextField name="ownerName" label="Owner Name (EN)" />
+                </Grid>
+                <Grid item md={6} xs={12}>
+                    <RHFTextField name="ownerName_ar" label="Owner Name  (AR)" dir="rtl" />
+                </Grid>
+                <Grid item md={6} xs={12}>
+                    <div>
+                        <LabelStyle style={{ fontSize: "1rem", color: "#637381", fontWeight: "400", marginBottom: " 0px" }}>Position Type</LabelStyle>
+                        <RHFRadioGroup
+                            name="position"
+                            options={POSITION_OPTION}
+                            sx={{
+                                '& .MuiFormControlLabel-root': { mr: 4 },
+                            }}
+                            style={{ marginLeft: "1rem" }}
+                        />
+                    </div>
+                </Grid>
+                <Grid item md={6} xs={12}>
+                    <RHFTextField name="unit" type="number" label="Unit" />
+                </Grid>
+                <Grid item md={6} xs={12}>
+                    <RHFTextField name="rank" label="rank" type={"number"} />
+                </Grid>
+                <Grid item md={6} xs={12}>
+                    <RHFTextField name="military_number" label="Military Number" type={"number"} />
+                </Grid>
+                <Grid item md={12} xs={12}>
+                    <RHFTextField name="Notes" label="Notes" multiline rows={3} />
+                </Grid>
+            </Grid>
+        </Box>
+    )
+}
+export const AuthorisedSignaturePopup = ({ setValue, getValue }: AuthorisedSignatureProps) => {
 
     return (
         <Box sx={{ p: 3 }}>
@@ -103,6 +165,12 @@ export const AuthorisedSignaturePopup = () => {
                         autoHighlight
                         autoSelect
                         getOptionLabel={(option) => option.label}
+                        onChange={(_, newValue: inputValueProps | null) => {
+                            if (newValue) {
+                                setValue("nationality", newValue)
+                            }
+
+                        }}
                         disableClearable={true}
                         renderOption={(props, option) => (
                             <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
@@ -116,22 +184,26 @@ export const AuthorisedSignaturePopup = () => {
                                 {option.label} ({option.code})
                             </Box>
                         )}
+
                         renderInput={(params) => (
                             <RHFTextField name="nationality" {...params}
                                 label="Choose Nationality"
+
+                                value={getValue("nationality.label") ? getValue("nationality.label") : ""}
                             />
                         )}
+                        defaultValue={getValue("nationality.label") ? getValue("nationality") : undefined}
 
                     />
                 </Grid>
                 <Grid item md={6} xs={12}>
-                    <RHFTextField name="companyActivity_ar" type="number" label="Unified Code" />
+                    <RHFTextField name="unified_code" type="number" label="Unified Code" />
                 </Grid>
                 <Grid item md={6} xs={12}>
-                    <RHFTextField name="companyCode" label="Place Of Work" />
+                    <RHFTextField name="work_place" label="Place Of Work" />
                 </Grid>
                 <Grid item md={6} xs={12}>
-                    <RHFTextField name="companyCode_ar" label="Place Of Work (AR)" dir="rtl" />
+                    <RHFTextField name="work_place_ar" label="Place Of Work (AR)" dir="rtl" />
                 </Grid>
                 <Grid item md={12} xs={12}>
                     <RHFTextField name="Notes" label="Notes" multiline rows={3} />
@@ -141,10 +213,7 @@ export const AuthorisedSignaturePopup = () => {
     )
 }
 
-interface stafflistProps {
-    setValue: UseFormSetValue<stafflistFormValue>
-    getValue: UseFormGetValues<stafflistFormValue>
-}
+
 export const StaffListPopup = ({ setValue, getValue }: stafflistProps) => {
 
     return (
@@ -212,14 +281,14 @@ export const StaffListPopup = ({ setValue, getValue }: stafflistProps) => {
         </Box>
     )
 }
-export const NationalitiesWorkingPopup = () => {
+export const NationalitiesWorkingPopup = ({ setValue, getValue }: NationalityProps) => {
 
     return (
         <Box sx={{ p: 3 }}>
             <LabelStyle sx={{ marginBottom: 3 }}>Nationalities Working</LabelStyle>
             <Grid container spacing={3} rowSpacing={2}>
                 <Grid item md={6} xs={12}>
-                    <RHFTextField name="numbers" label="Number" dir="rtl" />
+                    <RHFTextField name="number" type={"number"} label="Number" />
                 </Grid>
                 <Grid item md={6} xs={12}>
                     <Autocomplete
@@ -229,6 +298,12 @@ export const NationalitiesWorkingPopup = () => {
                         autoHighlight
                         autoSelect
                         getOptionLabel={(option) => option.label}
+                        onChange={(_, newValue: inputValueProps | null) => {
+                            if (newValue) {
+                                setValue("nationality", newValue)
+                            }
+
+                        }}
                         disableClearable={true}
                         renderOption={(props, option) => (
                             <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
@@ -242,11 +317,15 @@ export const NationalitiesWorkingPopup = () => {
                                 {option.label} ({option.code})
                             </Box>
                         )}
+
                         renderInput={(params) => (
                             <RHFTextField name="nationality" {...params}
                                 label="Choose Nationality"
+
+                                value={getValue("nationality.label") ? getValue("nationality.label") : ""}
                             />
                         )}
+                        defaultValue={getValue("nationality.label") ? getValue("nationality") : undefined}
 
                     />
                 </Grid>

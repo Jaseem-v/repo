@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { sentenceCase } from 'change-case';
 // @mui
 import { useTheme } from '@mui/material/styles';
@@ -37,7 +37,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useSnackbar } from 'notistack';
 import { FormProvider } from 'src/components/hook-form';
-import { CompanyRegistrationSchema } from '../common/CompanyRegistrationSchema';
+import { CompanyRegistrationSchema, NatinalityPopupSchema } from '../common/CompanyRegistrationSchema';
 import { AuthorisedSignaturePopup, NationalitiesWorkingPopup, OwnerPopup, StaffListPopup } from './common/TablePopupComponents';
 import TablePopup from './common/TablePopup';
 // ----------------------------------------------------------------------
@@ -57,6 +57,12 @@ interface Props extends CardProps {
 
 
 }
+
+export interface NationalityFormValue {
+    number: string,
+    nationality: { code: string, label: string, phone: string },
+}
+
 
 export default function NationalitiesWorkingTable({
     title,
@@ -80,22 +86,38 @@ export default function NationalitiesWorkingTable({
 
 
     const defaultValues = useMemo(() => ({
-        contract_purpose: '',
-        contract_no: '',
-        employee_required: '',
-        reliever_count: '',
+        number: '',
+        nationality: { code: "", label: "", phone: "" },
     }), [])
 
     const methods = useForm({
-        resolver: yupResolver(CompanyRegistrationSchema),
+        resolver: yupResolver(NatinalityPopupSchema),
         defaultValues,
     })
 
     const {
         handleSubmit,
         formState: { isSubmitting, errors },
-        reset
+        reset, setValue, getValues
     } = methods;
+
+    console.log("errors", errors);
+
+    useEffect(() => {
+        if (errors) {
+            console.log("hello");
+
+            if (errors.nationality) {
+                if (errors.nationality?.code) {
+                    // errors.nationality.message = "Please"
+                    console.log("hello");
+
+                }
+
+            }
+        }
+
+    }, [])
 
     const onSubmit = (data: any) => {
 
@@ -143,7 +165,7 @@ export default function NationalitiesWorkingTable({
                 <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
 
                     <TablePopup handleClose={handleClose}>
-                        <NationalitiesWorkingPopup />
+                        <NationalitiesWorkingPopup getValue={getValues} setValue={setValue} />
                     </TablePopup>
 
                 </FormProvider>

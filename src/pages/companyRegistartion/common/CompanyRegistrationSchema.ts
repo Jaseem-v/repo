@@ -33,6 +33,14 @@ export const StaffListPopupSchema = Yup.object().shape({
         phone: Yup.string().required('nationality is required')
     }),
 });
+export const NatinalityPopupSchema = Yup.object().shape({
+    number: Yup.string().required('Numbers is required'),
+    nationality: Yup.object().shape({
+        code: Yup.string().required('nationality is required'),
+        label: Yup.string().required('nationality is required'),
+        phone: Yup.string().required('nationality is required')
+    }),
+});
 export const OwnerPopupSchema = Yup.object().shape({
     ownerName: Yup.string().required('Owner Name is required'),
     ownerName_ar: Yup.string().required('Owner Name (AR) is required'),
@@ -40,5 +48,25 @@ export const OwnerPopupSchema = Yup.object().shape({
     unified_code: Yup.string().required('Unified Code is required'),
     work_place: Yup.string().required('Work Place is required'),
     work_place_ar: Yup.string().required('Work Place (AR) is required'),
+});
+export const MilitaryPopupSchema = Yup.object().shape({
+    ownerName: Yup.string().required('Owner Name is required'),
+    ownerName_ar: Yup.string().required('Owner Name (AR) is required'),
+    position: Yup.string().required('Position is required'),
+    unit: Yup.string().required('Unit is required'),
+    rank: Yup.string().required('Rank is required'),
+    military_number: Yup.string().required('Military Number is required'),
+});
+export const AuthorisedSignatureSchema = Yup.object().shape({
+    ownerName: Yup.string().required('Owner Name is required'),
+    ownerName_ar: Yup.string().required('Owner Name (AR) is required'),
+    unified_code: Yup.string().required('Unified Code is required'),
+    work_place: Yup.string().required('Work Place is required'),
+    work_place_ar: Yup.string().required('Work Place (AR) is required'),
+    nationality: Yup.object().shape({
+        code: Yup.string().required('nationality is required'),
+        label: Yup.string().required('nationality is required'),
+        phone: Yup.string().required('nationality is required')
+    }),
 });
 
