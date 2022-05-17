@@ -50,12 +50,12 @@ ProductTableToolbar
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
-    { id: 'name', label: 'Employee Name', align: 'left' },
-    { id: 'uid', label: 'Uid', align: 'center', },
-    { id: 'company', label: 'Company', align: 'center', },
-    { id: 'referance', label: 'Referance No', align: 'center', },
-    { id: 'pass_duration', label: 'Pass Duration', align: 'center', },
-    { id: 'status', label: 'Status', align: 'center', },
+    { id: 'name', label: 'Employee Name', align: 'left', },
+    { id: 'uid', label: 'Uid', align: 'left', },
+    { id: 'company', label: 'Company', align: 'left', },
+    { id: 'referance', label: 'Referance No', align: 'left', },
+    { id: 'pass_duration', label: 'Pass Duration', align: 'left', },
+    { id: 'status', label: 'Status', align: 'left',width:280 },
     { id: 'createdAt', label: 'Create at', align: 'left' },
     { id: '' },
 ];
@@ -63,6 +63,26 @@ const TABLE_HEAD = [
 const products = [
     {
         name: "Test 1",
+        uid: "5789",
+        // id: "122",
+        company: "Floges",
+        referance_no : "565656",
+        pass_duration: "1 Year ",
+        status: "MOPA Approval - Company Notified",
+        createdAt: "9/16/21, 10:12 AM",
+    },
+    {
+        name: "neymar",
+        uid: "5789",
+        // id: "122",
+        company: "Floges",
+        referance_no : "565656",
+        pass_duration: "1 Year ",
+        status: "MOPA Approval - Company Notified",
+        createdAt: "9/16/21, 10:12 AM",
+    },
+    {
+        name: "messi",
         uid: "5789",
         // id: "122",
         company: "Floges",
