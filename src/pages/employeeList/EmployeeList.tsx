@@ -55,7 +55,7 @@ const TABLE_HEAD = [
     { id: 'company', label: 'Company', align: 'left', },
     { id: 'referance', label: 'Referance No', align: 'left', },
     { id: 'pass_duration', label: 'Pass Duration', align: 'left', },
-    { id: 'status', label: 'Status', align: 'left',width:280 },
+    { id: 'status', label: 'Status', align: 'left', width: 280 },
     { id: 'createdAt', label: 'Create at', align: 'left' },
     { id: '' },
 ];
@@ -66,7 +66,7 @@ const products = [
         uid: "5789",
         // id: "122",
         company: "Floges",
-        referance_no : "565656",
+        referance_no: "565656",
         pass_duration: "1 Year ",
         status: "MOPA Approval - Company Notified",
         createdAt: "9/16/21, 10:12 AM",
@@ -76,7 +76,7 @@ const products = [
         uid: "5789456",
         // id: "122",
         company: "Floges",
-        referance_no : "565656",
+        referance_no: "565656",
         pass_duration: "1 Year ",
         status: "MOPA Approval - Company Notified",
         createdAt: "9/16/21, 10:12 AM",
@@ -86,7 +86,7 @@ const products = [
         uid: "578967",
         // id: "122",
         company: "Floges",
-        referance_no : "565656",
+        referance_no: "565656",
         pass_duration: "1 Year ",
         status: "MOPA Approval - Company Notified",
         createdAt: "9/16/21, 10:12 AM",
@@ -192,7 +192,7 @@ export default function EmployeeList() {
                             variant="contained"
                             startIcon={<Iconify icon="eva:plus-fill" />}
                             component={RouterLink}
-                            to={PATH_DASHBOARD.eCommerce.new}
+                            to={"/dashboard/add-new-employee"}
                         >
                             New Employee
                         </Button>
