@@ -254,12 +254,19 @@ export default function EmployeeList() {
                                         )
                                     }
                                     actions={
-                                        <Tooltip title="Delete">
-                                            <IconButton color="primary" onClick={() => handleDeleteRows(selected)}>
-                                                <Iconify icon={'eva:trash-2-outline'} />
-                                            </IconButton>
-                                        </Tooltip>
+                                        <>
+                                            <Tooltip title="Delete">
+
+                                                <IconButton color="primary" onClick={() => handleDeleteRows(selected)} sx={{ color: 'error.main' }}>
+                                                    <Iconify icon={'eva:trash-2-outline'} />
+                                                </IconButton>
+                                            </Tooltip>
+                                            <Button style={{ marginLeft: "0.8rem" }}>
+                                                Submit to PRO
+                                            </Button>
+                                        </>
                                     }
+
                                 />
                             )}
 
