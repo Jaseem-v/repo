@@ -217,7 +217,6 @@ export default function EmployeeList() {
                 <HeaderBreadcrumbs
                     heading="Employee List"
                     links={[
-                        { name: 'Dashboard', href: PATH_DASHBOARD.root },
                         {
                             name: 'Employee',
                             href: PATH_DASHBOARD.eCommerce.root,
@@ -263,12 +262,15 @@ export default function EmployeeList() {
                                     }
                                     actions={
                                         <>
-                                            <Tooltip title="Delete">
+                                            {/* <Tooltip title="Delete">
 
                                                 <IconButton color="primary" onClick={() => handleDeleteRows(selected)} sx={{ color: 'error.main' }}>
                                                     <Iconify icon={'eva:trash-2-outline'} />
                                                 </IconButton>
-                                            </Tooltip>
+                                            </Tooltip> */}
+                                            <Button color="error" onClick={() => handleDeleteRows(selected)}>
+                                                Delete
+                                            </Button>
                                             <Button style={{ marginLeft: "0.8rem" }}>
                                                 Submit to PRO
                                             </Button>
