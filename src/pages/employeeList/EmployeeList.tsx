@@ -85,14 +85,26 @@ const products = [
         name: "messi",
         uid: "578967",
         // id: "122",
-        company: "Floges",
+        company: "IBM",
         referance_no: "565656",
         pass_duration: "1 Year ",
-        status: "MOPA Approval - Company Notified",
+        status: "MOPA Pending - Company Notified",
         createdAt: "9/16/21, 10:12 AM",
     },
 
 ]
+
+const STATUS_OPTIONS = [
+    "all",
+    "MOPA Approval - Company Notified",
+    "MOPA Pending - Company Notified"
+]
+
+const ROLE_OPTIONS = [
+    'all',
+    'Floges',
+    "IBM"
+];
 
 // ----------------------------------------------------------------------
 
@@ -128,7 +140,11 @@ export default function EmployeeList() {
 
     const [tableData, setTableData] = useState<emList[]>([]);
 
+
     const [filterName, setFilterName] = useState('');
+    const [filterRole, setFilterRole] = useState('all');
+    const [filterStatus, setFilterStatus] = useState('all');
+
 
     // useEffect(() => {
     //     // dispatch(getProducts());
@@ -146,6 +162,12 @@ export default function EmployeeList() {
     const handleFilterName = (filterName: string) => {
         setFilterName(filterName);
         setPage(0);
+    };
+    const handleFilterRole = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setFilterRole(event.target.value);
+    };
+    const handleFilterStatus = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setFilterStatus(event.target.value);
     };
 
     const handleDeleteRow = (id: string) => {
@@ -168,6 +190,8 @@ export default function EmployeeList() {
         tableData,
         comparator: getComparator(order, orderBy),
         filterName,
+        filterRole,
+        filterStatus
     });
 
     const denseHeight = dense ? 60 : 80;
@@ -200,7 +224,16 @@ export default function EmployeeList() {
                 />
 
                 <Card>
-                    <ProductTableToolbar filterName={filterName} onFilterName={handleFilterName} />
+                    <ProductTableToolbar filterName={filterName}
+                        filterRole={filterRole}
+                        onFilterName={handleFilterName}
+                        onFilterRole={handleFilterRole}
+                        optionsRole={ROLE_OPTIONS}
+                        onFilterStatus={handleFilterStatus}
+                        filterStatus={filterStatus}
+                        optionStatus={STATUS_OPTIONS}
+
+                    />
 
                     <Scrollbar>
                         <TableContainer sx={{ minWidth: 960, position: 'relative' }}>
@@ -275,7 +308,7 @@ export default function EmployeeList() {
                             rowsPerPageOptions={[]}
                             component="div"
                             count={dataFiltered.length}
-                            rowsPerPage={rowsPerPage}
+                            rowsPerPage={5}
                             page={page}
                             onPageChange={onChangePage}
                             onRowsPerPageChange={onChangeRowsPerPage}
@@ -299,10 +332,16 @@ function applySortFilter({
     tableData,
     comparator,
     filterName,
+    filterRole,
+    filterStatus
+
 }: {
     tableData: emList[];
     comparator: (a: any, b: any) => number;
     filterName: string;
+    filterRole: string;
+    filterStatus: string
+
 }) {
     const stabilizedThis = tableData.map((el, index) => [el, index] as const);
 
@@ -319,6 +358,14 @@ function applySortFilter({
             (item: Record<string, any>) =>
                 item.name.toLowerCase().indexOf(filterName.toLowerCase()) !== -1
         );
+    }
+
+    if (filterStatus !== 'all') {
+        tableData = tableData.filter((item: Record<string, any>) => item.status === filterStatus);
+    }
+
+    if (filterRole !== 'all') {
+        tableData = tableData.filter((item: Record<string, any>) => item.company === filterRole);
     }
 
     return tableData;
