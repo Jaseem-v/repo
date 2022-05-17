@@ -13,6 +13,7 @@ import Label from '../../../components/Label';
 import Image from '../../../components/Image';
 import Iconify from '../../../components/Iconify';
 import { TableMoreMenu } from '../../../components/table';
+import { useNavigate } from "react-router-dom";
 
 // ----------------------------------------------------------------------
 
@@ -41,6 +42,8 @@ export default function ProductTableRow({
   const handleCloseMenu = () => {
     setOpenMenuActions(null);
   };
+
+  let navigate = useNavigate();
 
   return (
     <TableRow hover selected={selected}>
@@ -92,6 +95,24 @@ export default function ProductTableRow({
             <>
               <MenuItem
                 onClick={() => {
+                  navigate("/dashboard/employee-details");
+                  handleCloseMenu();
+                }}
+              >
+                <Iconify icon={'flat-color-icons:view-details'} />
+                View Details
+              </MenuItem>
+              <MenuItem
+                onClick={() => {
+                  onEditRow();
+                  handleCloseMenu();
+                }}
+              >
+                <Iconify icon={'et:documents'} />
+                 Documents
+              </MenuItem>
+              <MenuItem
+                onClick={() => {
                   onDeleteRow();
                   handleCloseMenu();
                 }}
@@ -100,15 +121,7 @@ export default function ProductTableRow({
                 <Iconify icon={'eva:trash-2-outline'} />
                 Delete
               </MenuItem>
-              <MenuItem
-                onClick={() => {
-                  onEditRow();
-                  handleCloseMenu();
-                }}
-              >
-                <Iconify icon={'eva:edit-fill'} />
-                Edit
-              </MenuItem>
+
             </>
           }
         />
