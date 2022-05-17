@@ -29,6 +29,15 @@ export type ProductReview = {
   postedAt: Date | string | number;
 };
 
+export type emList = {
+  id: string,
+  name: string,
+  cover: string,
+  createdAt: string,
+  inventoryType: string,
+  price: string
+}
+
 export type Product = {
   id: string;
   cover: string;
@@ -78,7 +87,7 @@ export type BillingAddress = {
 export type ProductState = {
   isLoading: boolean;
   error: Error | string | null;
-  products: Product[];
+  products: emList[];
   product: Product | null;
   sortBy: string | null;
   filters: {

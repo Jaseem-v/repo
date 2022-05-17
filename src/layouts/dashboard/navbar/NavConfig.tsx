@@ -44,6 +44,7 @@ const navConfig = [
       { title: 'Employee Details', path: PATH_DASHBOARD.general.employeedetails, icon: ICONS.employee },
       { title: 'Add New Employee', path: PATH_DASHBOARD.general.addnewemployee, icon: ICONS.addEmployee },
       { title: 'Company Registration', path: PATH_DASHBOARD.general.companyRegistration, icon: ICONS.ecommerce },
+      { title: 'Employee List', path: PATH_DASHBOARD.general.employeeList, icon: ICONS.cart },
     ],
   },
 
