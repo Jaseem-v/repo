@@ -65,7 +65,7 @@ const products = [
         name: "Test 1",
         uid: "5789",
         // id: "122",
-        company: "Floges",
+        company: "Google",
         referance_no: "565656",
         pass_duration: "1 Year ",
         status: "MOPA Approval - Company Notified",
@@ -75,7 +75,7 @@ const products = [
         name: "neymar",
         uid: "5789456",
         // id: "122",
-        company: "Floges",
+        company: "Google",
         referance_no: "565656",
         pass_duration: "1 Year ",
         status: "MOPA Approval - Company Notified",
@@ -102,7 +102,7 @@ const STATUS_OPTIONS = [
 
 const ROLE_OPTIONS = [
     'all',
-    'Floges',
+    'Google',
     "IBM"
 ];
 
