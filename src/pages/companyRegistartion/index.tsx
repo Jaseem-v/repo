@@ -49,7 +49,7 @@ export default function CompanyRegistration() {
         <div>
 
             <Page title="Company Registration">
-                <Container maxWidth={"lg"}>
+                <Container maxWidth={"xl"}>
                     <Stack mb={5}>
 
                         <HeaderBreadcrumbs

@@ -231,7 +231,7 @@ export default function NewEmployee() {
         <div>
 
             <Page title="Add New Employee">
-                <Container maxWidth={"lg"}>
+                <Container maxWidth={"xl"}>
                     <Stack mb={5}>
 
                         <HeaderBreadcrumbs

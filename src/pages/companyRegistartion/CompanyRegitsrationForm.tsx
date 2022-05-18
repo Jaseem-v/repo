@@ -52,12 +52,12 @@ export default function CompanyRegistrationForm() {
     const { enqueueSnackbar } = useSnackbar();
 
     const defaultValues = useMemo((): FormValidInputs => ({
-        companyName: "a",
-        companyName_ar: "a",
-        companyActivity: "a",
-        companyActivity_ar: "a",
-        companyCode: "a",
-        companyLicense: "a",
+        companyName: "",
+        companyName_ar: "",
+        companyActivity: "",
+        companyActivity_ar: "",
+        companyCode: "",
+        companyLicense: "",
         emirate: "",
         fax: "",
         area: "",
